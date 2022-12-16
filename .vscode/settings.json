@@ -1,0 +1,12 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnSave": true,
+  // Auto-fix issues with ESLint when you save code changes
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#ef00b4",
+    "titleBar.inactiveBackground": "#ff8fff"
+  }
+}
