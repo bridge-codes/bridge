@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/bridge-codes/bridge/issues"
   },
-  "homepage": "https://github.com/bridge-codes/bridge#readme",
+  "homepage": "https://bridge.codes",
   "devDependencies": {
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.15",
