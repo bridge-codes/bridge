@@ -1,11 +1,13 @@
 {
-  "name": "minimal-http",
+  "name": "minimal-express",
   "version": "1.0.0",
   "dependencies": {
-    "bridge": "^2.0.17"
+    "bridge": "^2.0.15",
+    "express": "^4.18.2",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
-    "@types/node": "^18.11.16"
+    "@types/node": "^18.11.15"
   },
   "scripts": {
     "start": "ts-node ./index.ts"

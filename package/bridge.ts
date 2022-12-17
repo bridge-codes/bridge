@@ -11,7 +11,7 @@ class Bridge<Routes extends BridgeRoutes> {
   constructor(
     public routes: Routes,
     private config: { errorHandler?: ErrorHandler; formidable?: any },
-    private url: string,
+    public url: string,
   ) {}
 
   public expressMiddleware = (): express.Handler => createHttpHandler(this.routes, this.config);
