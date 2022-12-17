@@ -58,6 +58,8 @@ This builds and starts your Bridge "server" on port **8080**.
 
 ### Manual setup with Express
 
+
+Init your project and install all required dependencies.
 ```
 npm init
 npm i bridge express
@@ -71,11 +73,17 @@ import { handler, initBridge } from 'bridge';
 import express from 'express';
 
 const port = 8080;
-const routes = { hello: handler({ method: 'GET', resolve: () => 'hello' }) };
+
+const helloHandler = handler({ method: 'GET', resolve: () => 'hello' }) 
+
+
+const routes = {
+    hello: helloHandler
+};
 
 const app = express();
 
-app.use('', initBridge({ routes }).expressMiddleware());
+app.use('', initBridge({ routes: routes }).expressMiddleware());
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
@@ -87,7 +95,7 @@ First you will need to initialize bridge app. You can either use it with __expre
 
 **If you use express**
 ```ts
-mport { handler, initBridge } from 'bridge';
+import { handler, initBridge } from 'bridge';
 import express from 'express';
 
 const port = 8080;
@@ -95,12 +103,12 @@ const routes = {
     hello: handler({ 
         method: 'GET', 
         resolve: () => 'hello' 
-        }) 
-    };
+    }) 
+};
 
 const app = express();
 
-app.use('', initBridge({ routes }).expressMiddleware());
+app.use('', initBridge({ routes: routes }).expressMiddleware());
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
@@ -146,7 +154,7 @@ const byeHandler = handler({
     }
 })
 
-const router = {
+const routes = {
   // GET /hello
   hello: myFirstHandler,
   // POST /bye
@@ -154,7 +162,7 @@ const router = {
 }
 ```
 
-Don't forget to pass the router as a param to the `initBridge` function as seen in (#initBridge)[#initBridge].
+Don't forget to pass the router as a param to the `initBridge` function as seen in [initBridge](#init-bridge). 
 
 ### Nested routes
 
@@ -163,7 +171,7 @@ In addition to defining individual routes, you can also create nested routes by 
 Nested routes allow you to create more complex and organized APIs by grouping related routes together. 
 
 ```tsx
-const router = {
+const routes = {
   admin: {
     users: {
       // POST /admin/users/create
@@ -205,7 +213,7 @@ The validation is done using the [zod library](https://github.com/colinhacks/zod
 npm install zod
 ```
 
-You can validate the `body`, `headers` and `query` of each requet using zod. If the request doesn't meet the validation criteria, a __422__ error is automatically sent to the client. The message will notify the client where the validation failed.
+You can validate the `body`, `headers` and `query` of each requet using zod. If the request doesn't meet the validation criteria, a __422__ error is automatically sent to the client. The response sent will explain where the validation failed.
 
 
 **The validation takes this form**
@@ -228,17 +236,19 @@ const userHandler = handler({
         header2: z.string(),
         // the headers can only contain string validation
     }),
-    // ...
+    resolve: ({body, query, headers}) => {
+            //...
+        }
 })
 ```
 
 **Here is an example:**
 ```ts 
 // You can use either zod, yup or superstruct
-import z from 'zod'
-import {handler} from "bridge"
+import z from "zod"
+import { handleri} from "bridge"
 
-const hello: handler({
+const hello = handler({
   query: z.object({ name: z.string().optional() }),
   body: z.object({ age: z.number() }),
   headers: z.object({ token: z.string().min(6) }),
@@ -248,18 +258,16 @@ const hello: handler({
 
 ### Type inference
 
-The types of the validated query, body and headers as long as the return of the middlewares are automatically infered.  
+The types of the validated query, body and headers as long as the return of the middlewares are automatically infered. You can use these objects inside the __resolve__ function of the handler.  
 
 
 ## Middleware
 
-A middleware is handler function that is called before the resolve function of the main handler of the called endpoint.
+A middleware is handler function that is called before the resolve function of the main handler of the called endpoint. Creating a middleware is just as simple as creating a handler. In fact, it is a handler function which means that the middleware can perform the exact same tasks.
 
-Creating a middleware is just as simple as creating a handler. In fact, it is a handler function which means that the middleware can perform the exact same tasks.
+The return of the middleware is returned into the `mid` object of the resolve function of the main handler. Its type is infered.
 
-The return of the middleware is returned into the { mid } object of the resolve function of the main handler. Its type is infered.
-
-**Example:**
+**Example**
 ```ts
 import z from 'zod';
 import { apply, handler } from 'bridge';
