@@ -23,31 +23,101 @@ Bridge is a Typescript Node.js framework that provides an easy and scalable way 
 
 Our goal is to make Bridge a great framework for both frontend and backend teams, so if you're familiar with Node.js and Typescript, you'll feel right at home.
 
-**👉 See more informations on [bridge.codes](https://bridge.code) 👈**
+**👉 See more informations on [bridge.codes](https://bridge.codes) 👈**
+
+### Table of Contents
+
+[1. What is Bridge](#what-is-bridge)  
+[2. Quickstart](#quickstart)  
+[3. Init Bridge](#init-bridge)
+[4. Routing](#routing)
+[5. Handler](#handler)
+[6. Middleware](#middleware)
+[7. Error handling](#error-handling)
 
 ## Quickstart
 
-There are a few [examples](https://github.com/bridge-codes/bridge/tree/main/examples) that you can use for playing out with Bridge or bootstrapping your new project.
+There are a few [examples](https://github.com/bridge-codes/bridge/tree/main/examples) that you can use for playing out with Bridge or start your new project.
 
-**Quick start by creating a project with create-bridge-app:**
+### Using create-bridge-app
 
-```bash
-npx create-bridge-app@latest
-# or
-yarn create bridge-app
-# or
-pnpm create bridge-app
+The easiest way to start a Bridge project is by using `create-bridge-app`. It will initialize a project and install all required dependencies. Open your terminal, go into the directory you’d like to create the app in, and run the following command:
+
+```
+npx create-bridge-app
 ```
 
-**Or by creating a project by yourself with http:**
+When the installation is done, you can run the project using the default settings with the following command:
 
-```bash
+```
+npm run build && npm run start
+```
+
+This builds and starts your Bridge "server" on port **8080**.
+
+### Manual setup with Express
+
+Init your project and install all required dependencies.
+
+```
 npm init
-npm i bridge
-npm i typescript --save-dev
+npm i bridge express
+npm i typescript @types/express --save-dev
 ```
 
-```typescript
+Create an index.ts file.
+
+```ts
+import { handler, initBridge } from 'bridge';
+import express from 'express';
+
+const port = 8080;
+
+const helloHandler = handler({ method: 'GET', resolve: () => 'hello' });
+
+const routes = {
+  hello: helloHandler,
+};
+
+const app = express();
+
+app.use('', initBridge({ routes: routes }).expressMiddleware());
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+```
+
+## Init Bridge
+
+First you will need to initialize bridge app. You can either use it with **express** or with **HTTPServer**. This will make your Bridge endpoints available.
+
+**If you use express**
+
+```ts
+import { handler, initBridge } from 'bridge';
+import express from 'express';
+
+const port = 8080;
+const routes = {
+  hello: handler({
+    method: 'GET',
+    resolve: () => 'hello',
+  }),
+};
+
+const app = express();
+
+app.use('', initBridge({ routes: routes }).expressMiddleware());
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+```
+
+**With HTTPServer**
+
+```ts
 import { handler, initBridge } from 'bridge';
 
 const port = 8080;
@@ -60,68 +130,151 @@ initBridge({ routes })
   });
 ```
 
-**Or with express:**
+## Routing
 
-```bash
-npm init
-npm i bridge express
-npm i typescript @types/express --save-dev
+[Handlers](#handler) themselves cannot be be directly called. They have to be addded to an object that we call `router` and this object has to be passed to the `initBridge function`.
+
+The keys in your `router` object are the different endpoints of your API while the values associated with those keys and the values are the `handlers` that will be executed when a request is made to the corresponding endpoint.
+
+**Example**
+
+```ts
+import { handler } from 'bridge';
+
+const helloHandler = handler({
+  method: 'GET',
+  resolve: () => {
+    return 'Hello';
+  },
+});
+
+const byeHandler = handler({
+  // default method is POST
+  resolve: () => {
+    return 'Bye';
+  },
+});
+
+const routes = {
+  // GET /hello
+  hello: myFirstHandler,
+  // POST /bye
+  bye: byeHandler,
+};
 ```
 
-```typescript
-import { handler, initBridge } from 'bridge';
-import express from 'express';
+Don't forget to pass the router as a param to the `initBridge` function as seen in [initBridge](#init-bridge).
 
-const port = 8080;
-const routes = { hello: handler({ method: 'GET', resolve: () => 'hello' }) };
+### Nested routes
 
-const app = express();
+In addition to defining individual routes, you can also create nested routes by adding new objects to your router.
 
-app.use('', initBridge({ routes }).expressMiddleware());
+Nested routes allow you to create more complex and organized APIs by grouping related routes together.
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+```tsx
+const routes = {
+  admin: {
+    users: {
+      // POST /admin/users/create
+      create: createUserHandler,
+      // POST /admin/users/get
+      get: getUserHandler,
+      // POST /admin/users/update
+      update: updateUserHandler,
+    },
+  },
+};
+```
+
+## Handler
+
+Bridge provides the **handler**. It it a function responsible for several things:
+
+- Validate data coming from the client
+- If an errors occurs or the request is invalid, notify the client
+- Return a response to the client
+
+**Basic example**
+
+```ts twoslash
+import { handler } from 'bridge';
+
+const myFirstHandler = handler({
+  method: 'GET',
+  resolve: () => {
+    const response = { response: 'Hello World' };
+    return response;
+  },
 });
 ```
 
-## Documentation
+### Data validation
 
-**Create a handler that validates data**
+The validation is done using the [zod library](https://github.com/colinhacks/zod). Other libraries like superstruct or yup are also supported. Make sure you have zod installed:
 
-```typescript
+```
+npm install zod
+```
+
+You can validate the `body`, `headers` and `query` of each requet using zod. If the request doesn't meet the validation criteria, a **422** error is automatically sent to the client. The response sent will explain where the validation failed.
+
+**The validation takes this form**
+
+```ts
+const userHandler = handler({
+  // ...
+  body: z.object({
+    name: z.string(),
+    age: z.number(),
+    // the body can contain objects, dates, strings, numbers, arrays, ...
+  }),
+  query: z.object({
+    // the query can only contain string validation as value
+    param1: z.string(),
+    param2: z.string(),
+    // ...
+  }),
+  headers: z.object({
+    haeder1: z.string(),
+    header2: z.string(),
+    // the headers can only contain string validation
+  }),
+  resolve: ({ body, query, headers }) => {
+    //...
+  },
+});
+```
+
+**Here is an example:**
+
+```ts
 // You can use either zod, yup or superstruct
-import z from 'zod'
+import z from 'zod';
+import { handleri } from 'bridge';
 
-const hello: handler({
+const hello = handler({
   query: z.object({ name: z.string().optional() }),
   body: z.object({ age: z.number() }),
   headers: z.object({ token: z.string().min(6) }),
   resolve: ({ query, body, headers }) => `Hello ${query.name}`,
-}),
+});
 ```
 
-**Send error to client**
+### Type inference
 
-```typescript
-import { httpError, StatusCode } from "bridge";
+The types of the validated query, body and headers as long as the return of the middlewares are automatically infered. You can use these objects inside the **resolve** function of the handler.
 
-const getMe: handler({
-  headers: z.object({ token: z.string().min(6) }),
-  resolve: ({ headers }) => {
-    if (headers.token !== "private_token") return httpError(StatusCode.UNAUTHORIZED, 'Wrong token');
-    else return {
-      firstName: 'John',
-      lastName: 'Doe',
-    }
-  },
-}),
-```
+## Middleware
 
-**Creating and using a middleware**
+A middleware is handler function that is called before the resolve function of the main handler of the called endpoint. Creating a middleware is just as simple as creating a handler. In fact, it is a handler function which means that the middleware can perform the exact same tasks.
 
-```typescript
+The return of the middleware is returned into the `mid` object of the resolve function of the main handler. Its type is infered.
+
+**Example**
+
+```ts
 import z from 'zod';
-import { apply } from 'bridge';
+import { apply, handler } from 'bridge';
 
 const authMiddleware = handler({
   headers: z.object({ token: z.string().min(5) }),
@@ -142,11 +295,36 @@ const updateUser = handler({
 });
 ```
 
-**Handle errors**
+## Error handling
 
-```typescript
+Bridge has 2 ways of sending errors:
+
+- Data validation errors
+- Manual triggered errors
+
+The first method is managed by **zod**, superstruct or yup while the second one has to be written manually.
+
+### Send an HTTP error
+
+```ts
+import { httpError, StatusCode } from "bridge";
+
+const getMe: handler({
+  headers: z.object({ token: z.string().min(6) }),
+  resolve: ({ headers }) => {
+    if (headers.token !== "private_token") return httpError(StatusCode.UNAUTHORIZED, 'Wrong token');
+    else return {
+      firstName: 'John',
+      lastName: 'Doe',
+    }
+  },
+}),
+```
+
+### Monitor errors
+
+```ts
 import { initBridge, onError } from 'bridge';
-
 const errorHandler = onError(({ error, path }) => {
   if (error.name === 'Internal server error') console.log(path, error); // Send to bug reporting
   else console.log(path, error.status, error.name);
@@ -154,5 +332,3 @@ const errorHandler = onError(({ error, path }) => {
 
 const bridge = initBridge({ routes, errorHandler });
 ```
-
-**👉 See full documentation on [bridge.codes](https://bridge.codes/documentation). 👈**
