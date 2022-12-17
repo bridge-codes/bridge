@@ -25,6 +25,7 @@ Bridge is a Typescript Node.js framework that provides an easy and scalable way 
 Our goal is to make Bridge a great framework for both frontend and backend teams, so if you're familiar with Node.js and Typescript, you'll feel right at home.
 
 [Try it live](https://stackblitz.com/edit/github-vuwsnn?file=index.ts&view=editor)
+
 **👉 See more informations on [bridge.codes](https://bridge.codes) 👈**
 
 ### Table of Contents
