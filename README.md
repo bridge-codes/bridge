@@ -39,7 +39,7 @@ Our goal is to make Bridge a great framework for both frontend and backend teams
   - [Data validation](#data-validation)
   - [Type inference](#type-inference)
 - [6. Middleware](#middleware) 
-  - [Multiple middleware](#multiple-middleware)
+  - [Multiple middlewares](#multiple-middlewares)
 - [7. Error handling](#error-handling) 
   - [Send an HTTP error](#send-an-http-error)
   - [Monitor errors](#monitor-errors)
