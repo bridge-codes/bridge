@@ -46,6 +46,7 @@ Our goal is to make Bridge a great framework for both frontend and backend teams
   - [Send an HTTP error](#send-an-http-error)
   - [Monitor errors](#monitor-errors)
 - [8. Files](#files)
+- [9. Client generation](#client-generation)
 
 ## Quickstart 
 
@@ -394,3 +395,7 @@ const bridge = initBridge({ routes, errorHandler });
 
 ## Files
 To do.
+
+## Client generation
+To do.
+
