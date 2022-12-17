@@ -1,13 +1,13 @@
 {
   "name": "create-bridge-app",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Create Bridge-powered Express app with one command",
   "author": "Bridge Team <support@bridge.codes>",
   "license": "MIT",
-  "main": "dist/bin/index.js",
-  "types": "dist/bin/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
-    "create-bridge-app": "dist/bin/index.js"
+    "create-bridge-app": "dist/index.js"
   },
   "bugs": "https://github.com/bridge-codes/bridge/issues",
   "homepage": "https://bridge.codes",
