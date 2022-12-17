@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { runCommand } from './utils';
 import fs from 'fs';
 import prettier from 'prettier';
