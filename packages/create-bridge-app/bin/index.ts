@@ -18,7 +18,7 @@ readline.question(`What's your project name? `, (name) => {
   console.log(`Hey there ${name}!`);
 
   runCommand({
-    command: `mkdir ${name} && cd ${name} && npx tsc --init`,
+    command: `mkdir ${name} && cd ${name} && npx tsc --init --outDir dist`,
     onSuccess: () => {
       fs.writeFile(
         `${name}/package.json`,
