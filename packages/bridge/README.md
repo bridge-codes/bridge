@@ -1,7 +1,10 @@
 <div align="center">
   <a href="https://bridge.codes">
-    <img src="https://pbs.twimg.com/profile_images/1603953549037080576/pXOaHTde_400x400.png" height="120" />
+      <img src="https://pbs.twimg.com/profile_images/1603953549037080576/pXOaHTde_400x400.png" height="120" />
   </a>
+</div>
+  
+<div align="center">
 
  <a href="https://twitter.com/bridge_codes">
     <img alt="Twitter" src="https://img.shields.io/twitter/url.svg?label=%40bridge_codes&style=social&url=https%3A%2F%2Ftwitter.com%2Falexdotjs" />
@@ -24,7 +27,7 @@ Our goal is to make Bridge a great framework for both frontend and backend teams
 
 ## Quickstart
 
-There are a few [examples](https://github.com/bridge-codes/bridge/tree/main/examples) that you can use for playing out with Bridge or bootstrapping your new project. 
+There are a few [examples](https://github.com/bridge-codes/bridge/tree/main/examples) that you can use for playing out with Bridge or bootstrapping your new project.
 
 **Quick start by creating a project with create-bridge-app:**
 
@@ -41,7 +44,7 @@ pnpm create bridge-app
 ```bash
 npm init
 npm i bridge
-npm i typescript --save-dev 
+npm i typescript --save-dev
 ```
 
 ```typescript
@@ -62,7 +65,7 @@ initBridge({ routes })
 ```bash
 npm init
 npm i bridge express
-npm i typescript @types/express --save-dev 
+npm i typescript @types/express --save-dev
 ```
 
 ```typescript
@@ -117,8 +120,8 @@ const getMe: handler({
 **Creating and using a middleware**
 
 ```typescript
-import z from 'zod'
-import { apply } from 'bridge'
+import z from 'zod';
+import { apply } from 'bridge';
 
 const authMiddleware = handler({
   headers: z.object({ token: z.string().min(5) }),
@@ -142,17 +145,14 @@ const updateUser = handler({
 **Handle errors**
 
 ```typescript
-import { initBridge, onError } from 'bridge'
+import { initBridge, onError } from 'bridge';
 
 const errorHandler = onError(({ error, path }) => {
   if (error.name === 'Internal server error') console.log(path, error); // Send to bug reporting
   else console.log(path, error.status, error.name);
 });
 
-const bridge = initBridge({ routes, errorHandler })
+const bridge = initBridge({ routes, errorHandler });
 ```
 
 **👉 See full documentation on [bridge.codes](https://bridge.codes/documentation). 👈**
-
-
-
