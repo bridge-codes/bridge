@@ -1,11 +1,13 @@
 {
   "name": "bridge",
-  "version": "2.0.19",
+  "version": "2.0.20",
   "description": "Bridge is a Typescript Node.js framework that provides an easy and scalable way to create REST APIs while generating the client code.",
-  "author": "El Ouahabi Nabil",
+  "author": "Bridge Team <support@bridge.codes>",
   "license": "MIT",
-  "main": "dist/package/index.js",
-  "types": "dist/package/index.d.ts",
+  "main": "dist/source/index.js",
+  "types": "dist/source/index.d.ts",
+  "bugs": "https://github.com/bridge-codes/bridge/issues",
+  "homepage": "https://bridge.codes",
   "files": [
     "/dist"
   ],
@@ -16,7 +18,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bridge-codes/bridge.git"
+    "url": "git+https://github.com/bridge-codes/bridge.git",
+    "directory": "packages/bridge"
   },
   "keywords": [
     "express",
@@ -30,10 +33,6 @@
     "framework",
     "rest"
   ],
-  "bugs": {
-    "url": "https://github.com/bridge-codes/bridge/issues"
-  },
-  "homepage": "https://bridge.codes",
   "devDependencies": {
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.15",

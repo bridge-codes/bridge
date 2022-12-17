@@ -1,0 +1,24 @@
+{
+  "name": "create-bridge-app",
+  "version": "1.0.0",
+  "description": "Create Bridge-powered Express app with one command",
+  "author": "Bridge Team <support@bridge.codes>",
+  "license": "MIT",
+  "main": "dist/package/index.js",
+  "types": "dist/package/index.d.ts",
+  "bugs": "https://github.com/bridge-codes/bridge/issues",
+  "homepage": "https://bridge.codes",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "remove-dist": "if [ -d dist ]; then rm -rf dist; fi",
+    "publish-minor": "npm run remove-dist && tsc && npm version patch && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bridge-codes/bridge.git",
+    "directory": "packages/create-bridge-app"
+  }
+}
