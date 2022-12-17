@@ -28,13 +28,22 @@ Our goal is to make Bridge a great framework for both frontend and backend teams
 
 ### Table of Contents
 
-[1. What is Bridge](#what-is-bridge)  
-[2. Quickstart](#quickstart)  
-[3. Init Bridge](#init-bridge) 
-[4. Routing](#routing) 
-[5. Handler](#handler) 
-[6. Middleware](#middleware) 
-[7. Error handling](#error-handling) 
+- [1. What is Bridge](#what-is-bridge)  
+- [2. Quickstart](#quickstart)  
+  - [Using create-bridge-app](#using-create-bridge-app)
+  - [Manual setup with Express](#manual-setup-with-express)
+- [3. Init Bridge](#init-bridge) 
+- [4. Routing](#routing) 
+  - [Nested routes](#nested-routes)
+- [5. Handler](#handler) 
+  - [Data validation](#data-validation)
+  - [Type inference](#type-inference)
+- [6. Middleware](#middleware) 
+  - [Multiple middleware](#multiple-middleware)
+- [7. Error handling](#error-handling) 
+  - [Send an HTTP error](#send-an-http-error)
+  - [Monitor errors](#monitor-errors)
+- [8. Files](#files)
 
 ## Quickstart 
 
@@ -263,7 +272,7 @@ The types of the validated query, body and headers as long as the return of the 
 
 ## Middleware
 
-A middleware is handler function that is called before the resolve function of the main handler of the called endpoint. Creating a middleware is just as simple as creating a handler. In fact, it is a handler function which means that the middleware can perform the exact same tasks.
+A middleware is handler that is called before the resolve function of the main handler of the called endpoint. Creating a middleware is just as simple as creating a handler. In fact, it is a handler which means that the middleware can perform the exact same tasks.
 
 The return of the middleware is returned into the `mid` object of the resolve function of the main handler. Its type is infered. If a middleware returns an __httpError__, it sends an error the the client and the resolve function of the main handler is not executed anymore.
 
