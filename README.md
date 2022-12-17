@@ -265,7 +265,9 @@ The types of the validated query, body and headers as long as the return of the 
 
 A middleware is handler function that is called before the resolve function of the main handler of the called endpoint. Creating a middleware is just as simple as creating a handler. In fact, it is a handler function which means that the middleware can perform the exact same tasks.
 
-The return of the middleware is returned into the `mid` object of the resolve function of the main handler. Its type is infered.
+The return of the middleware is returned into the `mid` object of the resolve function of the main handler. Its type is infered. If a middleware returns an __httpError__, it sends an error the the client and the resolve function of the main handler is not executed anymore.
+
+Middlewares can also have __query__, __headers__ and __body__ validation.
 
 **Example**
 ```ts
@@ -289,6 +291,56 @@ const updateUser = handler({
     return user;
   },
 });
+```
+
+### Multiple middlewares
+
+Multiple middleware can be added to a handler.
+
+```ts
+import { handler, apply } from 'bridge'
+
+const exampleHandler = handler({
+    middlewares: apply(mid1, mid2, mid3),
+    resolve: ({mid}) => {
+        // ...
+    }
+})
+```
+
+Multiple middlewares are executed in parellel. All their returns are merged into the `mid` object of the main handler. For this reason, it is important that middleware return javascript objects. 
+
+If you want to have middlewares running sequencially, you have to add a middleware to you middleware.
+
+**Example**
+
+```ts
+const mid1 = handler({
+    resolve: () => {
+        console.log('1')
+    }
+})
+
+const mid2 = handler({
+    middlewares: apply(mid1),
+    resolve: () => {
+        console.log('2')
+    }
+})
+
+const mainHandler = handler({
+    middlewares: apply(mid2),
+    resolve: () => {
+        console.log('3')
+    }
+})
+```
+
+The console ouput will be:
+```
+1
+2
+3
 ```
 
 ## Error handling 
@@ -327,3 +379,7 @@ const errorHandler = onError(({ error, path }) => {
 
 const bridge = initBridge({ routes, errorHandler });
 ```
+
+
+## Files
+To do.
