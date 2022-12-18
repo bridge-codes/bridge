@@ -14,7 +14,7 @@ export interface BridgeHandlerDocumentation {
 export class BridgeHandler<
   Resolve extends (...args: any[]) => any = any,
   Middlewares extends ReadonlyArray<BridgeHandler> = any,
-  Method extends MethodType = 'POST',
+  Method extends MethodType = any,
 > extends AbstractHandler {
   private handler: Handler;
   public resolve: Resolve;
