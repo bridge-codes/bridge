@@ -81,4 +81,4 @@ export type CreateHandler = <
   Meth extends Method = 'POST',
 >(
   p: BridgeParams<Resolve, Mids, Meth, Body, Query, Headers, File>,
-) => BridgeHandler<Resolve, Mids>;
+) => BridgeHandler<Resolve, Mids, Meth>;
