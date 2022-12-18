@@ -23,17 +23,30 @@ Bridge is a Typescript Node.js framework that provides an easy and scalable way 
 
 Our goal is to make Bridge a great framework for both frontend and backend teams, so if you're familiar with Node.js and Typescript, you'll feel right at home.
 
+[Try it live](https://stackblitz.com/edit/github-vuwsnn?file=index.ts&view=editor)
+
 **👉 See more informations on [bridge.codes](https://bridge.codes) 👈**
 
 ### Table of Contents
 
-[1. What is Bridge](#what-is-bridge)  
-[2. Quickstart](#quickstart)  
-[3. Init Bridge](#init-bridge)
-[4. Routing](#routing)
-[5. Handler](#handler)
-[6. Middleware](#middleware)
-[7. Error handling](#error-handling)
+- [What is Bridge?](#what-is-bridge)
+  - [Table of Contents](#table-of-contents)
+- [Quickstart](#quickstart)
+  - [Using create-bridge-app](#using-create-bridge-app)
+  - [Manual setup with Express](#manual-setup-with-express)
+- [Init Bridge](#init-bridge)
+- [Routing](#routing)
+  - [Nested routes](#nested-routes)
+- [Handler](#handler)
+  - [Data validation](#data-validation)
+  - [Type inference](#type-inference)
+- [Middleware](#middleware)
+  - [Multiple middlewares](#multiple-middlewares)
+- [Error handling](#error-handling)
+  - [Send an HTTP error](#send-an-http-error)
+  - [Monitor errors](#monitor-errors)
+- [Files](#files)
+- [Client generation](#client-generation)
 
 ## Quickstart
 
@@ -266,9 +279,11 @@ The types of the validated query, body and headers as long as the return of the 
 
 ## Middleware
 
-A middleware is handler function that is called before the resolve function of the main handler of the called endpoint. Creating a middleware is just as simple as creating a handler. In fact, it is a handler function which means that the middleware can perform the exact same tasks.
+A middleware is handler that is called before the resolve function of the main handler of the called endpoint. Creating a middleware is just as simple as creating a handler. In fact, it is a handler which means that the middleware can perform the exact same tasks.
 
-The return of the middleware is returned into the `mid` object of the resolve function of the main handler. Its type is infered.
+The return of the middleware is returned into the `mid` object of the resolve function of the main handler. Its type is infered. If a middleware returns an **httpError**, it sends an error the the client and the resolve function of the main handler is not executed anymore.
+
+Middlewares can also have **query**, **headers** and **body** validation.
 
 **Example**
 
@@ -293,6 +308,57 @@ const updateUser = handler({
     return user;
   },
 });
+```
+
+### Multiple middlewares
+
+Multiple middleware can be added to a handler.
+
+```ts
+import { handler, apply } from 'bridge';
+
+const exampleHandler = handler({
+  middlewares: apply(mid1, mid2, mid3),
+  resolve: ({ mid }) => {
+    // ...
+  },
+});
+```
+
+Multiple middlewares are executed in parellel. All their returns are merged into the `mid` object of the main handler. For this reason, it is important that middleware return javascript objects.
+
+If you want to have middlewares running sequencially, you have to add a middleware to you middleware.
+
+**Example**
+
+```ts
+const mid1 = handler({
+  resolve: () => {
+    console.log('1');
+  },
+});
+
+const mid2 = handler({
+  middlewares: apply(mid1),
+  resolve: () => {
+    console.log('2');
+  },
+});
+
+const mainHandler = handler({
+  middlewares: apply(mid2),
+  resolve: () => {
+    console.log('3');
+  },
+});
+```
+
+The console ouput will be:
+
+```
+1
+2
+3
 ```
 
 ## Error handling
@@ -332,3 +398,11 @@ const errorHandler = onError(({ error, path }) => {
 
 const bridge = initBridge({ routes, errorHandler });
 ```
+
+## Files
+
+To do.
+
+## Client generation
+
+To do.
