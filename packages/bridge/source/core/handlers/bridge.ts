@@ -1,5 +1,5 @@
 import { AbstractHandler, Handler } from '../handler';
-import { Method } from '../../routes';
+import { Method as MethodType } from '../../routes';
 import { MiddelwaresHandler } from './middleware';
 import { Resolver } from './resolver';
 import { MethodValidator } from './methodValidator';
@@ -14,6 +14,7 @@ export interface BridgeHandlerDocumentation {
 export class BridgeHandler<
   Resolve extends (...args: any[]) => any = any,
   Middlewares extends ReadonlyArray<BridgeHandler> = any,
+  Method extends MethodType = 'POST',
 > extends AbstractHandler {
   private handler: Handler;
   public resolve: Resolve;

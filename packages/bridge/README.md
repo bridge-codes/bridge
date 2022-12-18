@@ -263,7 +263,7 @@ const userHandler = handler({
 ```ts
 // You can use either zod, yup or superstruct
 import z from 'zod';
-import { handleri } from 'bridge';
+import { handler } from 'bridge';
 
 const hello = handler({
   query: z.object({ name: z.string().optional() }),

@@ -24,6 +24,7 @@ type BridgeHandlerReturnType<H extends BridgeHandler> = H extends BridgeHandler<
       query: Parameters<ResolveFct>[0]['query'];
       headers: Parameters<ResolveFct>[0]['headers'];
       file: Parameters<ResolveFct>[0]['file'];
+      // method:
       return:
         | (ReturnType<ResolveFct> extends Promise<infer RetWithoutPromise>
             ? RetWithoutPromise

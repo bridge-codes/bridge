@@ -17,7 +17,6 @@
   </a>
 </div>
 
-
 ## What is Bridge?
 
 Bridge is a Typescript Node.js framework that provides an easy and scalable way to create REST APIs while generating the client code.
@@ -30,25 +29,26 @@ Our goal is to make Bridge a great framework for both frontend and backend teams
 
 ### Table of Contents
 
-- [1. What is Bridge](#what-is-bridge)  
-- [2. Quickstart](#quickstart)  
+- [What is Bridge?](#what-is-bridge)
+  - [Table of Contents](#table-of-contents)
+- [Quickstart](#quickstart)
   - [Using create-bridge-app](#using-create-bridge-app)
   - [Manual setup with Express](#manual-setup-with-express)
-- [3. Init Bridge](#init-bridge) 
-- [4. Routing](#routing) 
+- [Init Bridge](#init-bridge)
+- [Routing](#routing)
   - [Nested routes](#nested-routes)
-- [5. Handler](#handler) 
+- [Handler](#handler)
   - [Data validation](#data-validation)
   - [Type inference](#type-inference)
-- [6. Middleware](#middleware) 
+- [Middleware](#middleware)
   - [Multiple middlewares](#multiple-middlewares)
-- [7. Error handling](#error-handling) 
+- [Error handling](#error-handling)
   - [Send an HTTP error](#send-an-http-error)
   - [Monitor errors](#monitor-errors)
-- [8. Files](#files)
-- [9. Client generation](#client-generation)
+- [Files](#files)
+- [Client generation](#client-generation)
 
-## Quickstart 
+## Quickstart
 
 There are a few [examples](https://github.com/bridge-codes/bridge/tree/main/examples) that you can use for playing out with Bridge or start your new project.
 
@@ -60,7 +60,7 @@ The easiest way to start a Bridge project is by using `create-bridge-app`. It wi
 npx create-bridge-app
 ```
 
-When the installation is done, you can run the project using the default settings with the following command: 
+When the installation is done, you can run the project using the default settings with the following command:
 
 ```
 npm run build && npm run start
@@ -70,8 +70,8 @@ This builds and starts your Bridge "server" on port **8080**.
 
 ### Manual setup with Express
 
-
 Init your project and install all required dependencies.
+
 ```
 npm init
 npm i bridge express
@@ -86,11 +86,10 @@ import express from 'express';
 
 const port = 8080;
 
-const helloHandler = handler({ method: 'GET', resolve: () => 'hello' }) 
-
+const helloHandler = handler({ method: 'GET', resolve: () => 'hello' });
 
 const routes = {
-    hello: helloHandler
+  hello: helloHandler,
 };
 
 const app = express();
@@ -103,19 +102,21 @@ app.listen(port, () => {
 ```
 
 ## Init Bridge
-First you will need to initialize bridge app. You can either use it with __express__ or with __HTTPServer__. This will make your Bridge endpoints available. 
+
+First you will need to initialize bridge app. You can either use it with **express** or with **HTTPServer**. This will make your Bridge endpoints available.
 
 **If you use express**
+
 ```ts
 import { handler, initBridge } from 'bridge';
 import express from 'express';
 
 const port = 8080;
-const routes = { 
-    hello: handler({ 
-        method: 'GET', 
-        resolve: () => 'hello' 
-    }) 
+const routes = {
+  hello: handler({
+    method: 'GET',
+    resolve: () => 'hello',
+  }),
 };
 
 const app = express();
@@ -128,6 +129,7 @@ app.listen(port, () => {
 ```
 
 **With HTTPServer**
+
 ```ts
 import { handler, initBridge } from 'bridge';
 
@@ -145,42 +147,42 @@ initBridge({ routes })
 
 [Handlers](#handler) themselves cannot be be directly called. They have to be addded to an object that we call `router` and this object has to be passed to the `initBridge function`.
 
-The keys in your `router` object are the different endpoints of your API while the values associated with those keys and the values are the `handlers` that will be executed when a request is made to the corresponding endpoint. 
+The keys in your `router` object are the different endpoints of your API while the values associated with those keys and the values are the `handlers` that will be executed when a request is made to the corresponding endpoint.
 
 **Example**
 
 ```ts
-import { handler } from 'bridge'
+import { handler } from 'bridge';
 
 const helloHandler = handler({
-    method: 'GET',
-    resolve: () => {
-        return "Hello"
-    }
-})
+  method: 'GET',
+  resolve: () => {
+    return 'Hello';
+  },
+});
 
 const byeHandler = handler({
-    // default method is POST
-    resolve: () => {
-        return "Bye"
-    }
-})
+  // default method is POST
+  resolve: () => {
+    return 'Bye';
+  },
+});
 
 const routes = {
   // GET /hello
   hello: myFirstHandler,
   // POST /bye
-  bye: byeHandler
-}
+  bye: byeHandler,
+};
 ```
 
-Don't forget to pass the router as a param to the `initBridge` function as seen in [initBridge](#init-bridge). 
+Don't forget to pass the router as a param to the `initBridge` function as seen in [initBridge](#init-bridge).
 
 ### Nested routes
 
-In addition to defining individual routes, you can also create nested routes by adding new objects to your router. 
+In addition to defining individual routes, you can also create nested routes by adding new objects to your router.
 
-Nested routes allow you to create more complex and organized APIs by grouping related routes together. 
+Nested routes allow you to create more complex and organized APIs by grouping related routes together.
 
 ```tsx
 const routes = {
@@ -197,91 +199,94 @@ const routes = {
 };
 ```
 
-## Handler 
+## Handler
 
-Bridge provides the __handler__. It it a function responsible for several things: 
+Bridge provides the **handler**. It it a function responsible for several things:
+
 - Validate data coming from the client
 - If an errors occurs or the request is invalid, notify the client
 - Return a response to the client
 
 **Basic example**
+
 ```ts twoslash
-import { handler } from 'bridge'
+import { handler } from 'bridge';
 
 const myFirstHandler = handler({
-    method: 'GET',
-    resolve: () => {
-        const response = { response: 'Hello World' }
-        return response
-    } 
-})
+  method: 'GET',
+  resolve: () => {
+    const response = { response: 'Hello World' };
+    return response;
+  },
+});
 ```
 
 ### Data validation
 
-The validation is done using the [zod library](https://github.com/colinhacks/zod). Other libraries like superstruct or yup are also supported. Make sure you have zod installed: 
+The validation is done using the [zod library](https://github.com/colinhacks/zod). Other libraries like superstruct or yup are also supported. Make sure you have zod installed:
 
 ```
 npm install zod
 ```
 
-You can validate the `body`, `headers` and `query` of each requet using zod. If the request doesn't meet the validation criteria, a __422__ error is automatically sent to the client. The response sent will explain where the validation failed.
-
+You can validate the `body`, `headers` and `query` of each requet using zod. If the request doesn't meet the validation criteria, a **422** error is automatically sent to the client. The response sent will explain where the validation failed.
 
 **The validation takes this form**
+
 ```ts
 const userHandler = handler({
+  // ...
+  body: z.object({
+    name: z.string(),
+    age: z.number(),
+    // the body can contain objects, dates, strings, numbers, arrays, ...
+  }),
+  query: z.object({
+    // the query can only contain string validation as value
+    param1: z.string(),
+    param2: z.string(),
     // ...
-    body: z.object({
-        name: z.string(),
-        age: z.number(),
-        // the body can contain objects, dates, strings, numbers, arrays, ...
-    }),
-    query: z.object({
-        // the query can only contain string validation as value
-        param1: z.string(),
-        param2: z.string(),
-        // ...
-    }),
-    headers: z.object({
-        haeder1: z.string(),
-        header2: z.string(),
-        // the headers can only contain string validation
-    }),
-    resolve: ({body, query, headers}) => {
-            //...
-        }
-})
+  }),
+  headers: z.object({
+    haeder1: z.string(),
+    header2: z.string(),
+    // the headers can only contain string validation
+  }),
+  resolve: ({ body, query, headers }) => {
+    //...
+  },
+});
 ```
 
 **Here is an example:**
-```ts 
+
+```ts
 // You can use either zod, yup or superstruct
-import z from "zod"
-import { handleri} from "bridge"
+import z from 'zod';
+import { handler } from 'bridge';
 
 const hello = handler({
   query: z.object({ name: z.string().optional() }),
   body: z.object({ age: z.number() }),
   headers: z.object({ token: z.string().min(6) }),
   resolve: ({ query, body, headers }) => `Hello ${query.name}`,
-}),
+});
 ```
 
 ### Type inference
 
-The types of the validated query, body and headers as long as the return of the middlewares are automatically infered. You can use these objects inside the __resolve__ function of the handler.  
-
+The types of the validated query, body and headers as long as the return of the middlewares are automatically infered. You can use these objects inside the **resolve** function of the handler.
 
 ## Middleware
 
 A middleware is handler that is called before the resolve function of the main handler of the called endpoint. Creating a middleware is just as simple as creating a handler. In fact, it is a handler which means that the middleware can perform the exact same tasks.
 
-The return of the middleware is returned into the `mid` object of the resolve function of the main handler. Its type is infered. If a middleware returns an __httpError__, it sends an error the the client and the resolve function of the main handler is not executed anymore.
+The return of the middleware is returned into the `mid` object of the resolve function of the main handler. Its type is infered. If a middleware returns an **httpError**, it sends an error the the client and the resolve function of the main handler is not executed anymore.
 
-Middlewares can also have __query__, __headers__ and __body__ validation.
+Middlewares can also have **query**, **headers** and **body** validation.
 
 **Example**
+
 ```ts
 import z from 'zod';
 import { apply, handler } from 'bridge';
@@ -310,17 +315,17 @@ const updateUser = handler({
 Multiple middleware can be added to a handler.
 
 ```ts
-import { handler, apply } from 'bridge'
+import { handler, apply } from 'bridge';
 
 const exampleHandler = handler({
-    middlewares: apply(mid1, mid2, mid3),
-    resolve: ({mid}) => {
-        // ...
-    }
-})
+  middlewares: apply(mid1, mid2, mid3),
+  resolve: ({ mid }) => {
+    // ...
+  },
+});
 ```
 
-Multiple middlewares are executed in parellel. All their returns are merged into the `mid` object of the main handler. For this reason, it is important that middleware return javascript objects. 
+Multiple middlewares are executed in parellel. All their returns are merged into the `mid` object of the main handler. For this reason, it is important that middleware return javascript objects.
 
 If you want to have middlewares running sequencially, you have to add a middleware to you middleware.
 
@@ -328,40 +333,42 @@ If you want to have middlewares running sequencially, you have to add a middlewa
 
 ```ts
 const mid1 = handler({
-    resolve: () => {
-        console.log('1')
-    }
-})
+  resolve: () => {
+    console.log('1');
+  },
+});
 
 const mid2 = handler({
-    middlewares: apply(mid1),
-    resolve: () => {
-        console.log('2')
-    }
-})
+  middlewares: apply(mid1),
+  resolve: () => {
+    console.log('2');
+  },
+});
 
 const mainHandler = handler({
-    middlewares: apply(mid2),
-    resolve: () => {
-        console.log('3')
-    }
-})
+  middlewares: apply(mid2),
+  resolve: () => {
+    console.log('3');
+  },
+});
 ```
 
 The console ouput will be:
+
 ```
 1
 2
 3
 ```
 
-## Error handling 
+## Error handling
 
-Bridge has 2 ways of sending errors: 
+Bridge has 2 ways of sending errors:
+
 - Data validation errors
 - Manual triggered errors
 
-The first method is managed by __zod__, superstruct or yup while the second one has to be written manually.
+The first method is managed by **zod**, superstruct or yup while the second one has to be written manually.
 
 ### Send an HTTP error
 
@@ -392,10 +399,10 @@ const errorHandler = onError(({ error, path }) => {
 const bridge = initBridge({ routes, errorHandler });
 ```
 
-
 ## Files
+
 To do.
 
 ## Client generation
-To do.
 
+To do.
