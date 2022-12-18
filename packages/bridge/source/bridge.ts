@@ -5,13 +5,13 @@ import type * as express from 'express';
 import { createHttpHandler } from './server/adapters/node-http';
 import http from 'http';
 
-class Bridge<Routes extends BridgeRoutes> {
+class Bridge<Routes extends BridgeRoutes, URL extends string> {
   public bridgeType!: RoutesToBridgeType<Routes>;
 
   constructor(
     public routes: Routes,
     private config: { errorHandler?: ErrorHandler; formidable?: any },
-    public url: string,
+    public url: URL,
   ) {}
 
   public expressMiddleware = (): express.Handler => createHttpHandler(this.routes, this.config);
@@ -19,14 +19,14 @@ class Bridge<Routes extends BridgeRoutes> {
   public HTTPServer = () => http.createServer(createHttpHandler(this.routes, this.config));
 }
 
-export const initBridge = <Routes extends BridgeRoutes>({
+export const initBridge = <Routes extends BridgeRoutes, URL extends string>({
   routes,
   url,
   errorHandler,
   formidable,
 }: {
   routes: Routes;
-  url?: string;
+  url?: URL;
   formidable?: any;
   errorHandler?: ErrorHandler;
-}): Bridge<Routes> => new Bridge(routes, { formidable, errorHandler }, url || '');
+}): Bridge<Routes, URL> => new Bridge(routes, { formidable, errorHandler }, url as any);
