@@ -1,6 +1,6 @@
 {
   "name": "bridge",
-  "version": "2.0.22",
+  "version": "2.0.23",
   "description": "Bridge is a Typescript Node.js framework that provides an easy and scalable way to create REST APIs while generating the client code.",
   "author": "Bridge Team <support@bridge.codes>",
   "license": "MIT",

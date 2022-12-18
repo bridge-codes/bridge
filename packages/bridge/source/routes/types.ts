@@ -1,4 +1,4 @@
-import { BridgeHandler, handler } from '../core';
+import { BridgeHandler } from '../core';
 
 export type Method = 'POST' | 'PATCH' | 'GET' | 'DELETE' | 'PUT';
 
@@ -14,7 +14,7 @@ export interface ServerRoutes {
   };
 }
 
-// // We don't need to inject the files types because the compiler can understand by itself its typez
+// // We don't need to inject the files types because the compiler can understand by itself its types
 type BridgeHandlerReturnType<H extends BridgeHandler> = H extends BridgeHandler<
   infer ResolveFct,
   infer Middlewares
@@ -23,6 +23,7 @@ type BridgeHandlerReturnType<H extends BridgeHandler> = H extends BridgeHandler<
       body: Parameters<ResolveFct>[0]['body'];
       query: Parameters<ResolveFct>[0]['query'];
       headers: Parameters<ResolveFct>[0]['headers'];
+      file: Parameters<ResolveFct>[0]['file'];
       return:
         | (ReturnType<ResolveFct> extends Promise<infer RetWithoutPromise>
             ? RetWithoutPromise

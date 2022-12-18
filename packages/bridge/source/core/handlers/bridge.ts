@@ -34,11 +34,28 @@ export class BridgeHandler<
 
     this.resolve = config.resolve;
 
+    if (config.bodySchema && !config.resolve.length)
+      throw Error(
+        `You can't have no argument in your resolve function with a bodySchema specification`,
+      );
+    if (config.querySchema && !config.resolve.length)
+      throw Error(
+        `You can't have no argument in your resolve function with a querySchema specification`,
+      );
+    if (config.headersSchema && !config.resolve.length)
+      throw Error(
+        `You can't have no argument in your resolve function with a headersSchema specification`,
+      );
+    if (config.fileConfig && !config.resolve.length)
+      throw Error(
+        `You can't have no argument in your resolve function with a fileConfig specification`,
+      );
+
     if (config.bodySchema && config.method === 'GET')
-      throw new Error("You can't have a body with a GET endpoint.");
+      throw Error("You can't have a body with a GET endpoint.");
 
     if (config.bodySchema && config.fileConfig)
-      throw new Error("You can't get a JSON body and files in the same endpoint.");
+      throw Error("You can't get a JSON body and files in the same endpoint.");
 
     const firstHandler: Handler = new MethodValidator(config.method);
 
