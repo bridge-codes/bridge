@@ -6,7 +6,7 @@ const routes = { hello: handler({ method: 'GET', resolve: () => 'hello' }) };
 
 const app = express();
 
-app.use('', initBridge({ routes }).expressMiddleware());
+app.use('', initBridge({ routes, url: 'http://localhost:8080' }).expressMiddleware());
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

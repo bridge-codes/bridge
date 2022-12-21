@@ -1,0 +1,8 @@
+{
+  "label": "Handler",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "The handler is the most important concept in Bridge and is practically the only one. This function helps you create endpoints and middlewares for your bridge server."
+  }
+}

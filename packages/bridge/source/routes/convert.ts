@@ -5,7 +5,7 @@ import { httpError, StatusCode } from '../error';
 const defaultServerRoutes: ServerRoutes = {
   'not-found': {
     endpoint: handler({
-      resolve: () => httpError(StatusCode.NOT_FOUND, 'Root not found'),
+      resolve: () => httpError(StatusCode.NOT_FOUND, 'Route not found'),
     }),
   },
 };
