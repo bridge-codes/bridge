@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Bridge',
-  tagline: 'The new Node js framework',
+  tagline: 'The new API framework',
   url: 'https://bridge.codes',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -26,56 +26,99 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  clientModules: [
+    require.resolve('./docusaurus.preferredTheme.js'),
+  ],
 
   presets: [
     [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      '@docusaurus/preset-classic',
+      {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/bridge-codes/bridge/tree/main/www',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/bridge-codes/bridge/tree/main/www',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      }),
+      },
+    ],
+    [
+      'docusaurus-preset-shiki-twoslash',
+      {
+        // Not sure how reliable this path is (it's relative from the preset package)?
+        // None of the light themes had good support for `diff` mode, so had to patch my own theme
+        themes: ['../../../min-light-with-diff', 'nord'],
+      },
     ],
   ],
-
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
+  plugins: [
+    async function myPlugin() {
+      return {
+        name: 'docusaurus-tailwindcss',
+        configurePostCss(postcssOptions) {
+          // Appends TailwindCSS, AutoPrefixer & CSSNano.
+          /* eslint-disable @typescript-eslint/no-var-requires */
+          postcssOptions.plugins.push(require('tailwindcss'));
+          postcssOptions.plugins.push(require('autoprefixer'));
+          if (process.env.NODE_ENV === 'production') {
+            postcssOptions.plugins.push(require('cssnano'));
+          }
+          /* eslint-enable @typescript-eslint/no-var-requires */
+          return postcssOptions;
+        },
+      };
+    },
+  ],
+  themeConfig: {
+      prism: {
+        theme: require('prism-react-renderer/themes/vsDark'),
+      },
+      disableSwitch: false,
+      respectPrefersColorScheme: true,
       navbar: {
         title: 'Bridge',
         logo: {
           alt: 'Bridge Logo',
-          src: 'img/logo_carre_w.svg',
+          src: 'img/logoo.svg',
+          width: 25,
+          srcDark: 'img/logoo_w.svg',
         },
         items: [
           {
-            type: 'doc',
-            docId: 'quickstart',
-            position: 'left',
-            label: 'Docs',
+            to: 'docs/quickstart',
+            label: 'Documentation',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+         
           {
             href: 'https://github.com/bridge-codes/bridge',
-            label: 'GitHub',
             position: 'right',
+            className: 'header-social-link header-github-link',
+            'aria-label': 'GitHub',
           },
-          
+          {
+            href: 'https://twitter.com/bridge_codes',
+            position: 'right',
+            className: 'header-social-link header-twitter-link',
+            'aria-label': 'Twitter',
+          },
+          {
+            href: 'https://discord.gg/ZCw645JV',
+            position: 'right',
+            className: 'header-social-link header-discord-link',
+            'aria-label': 'Discord',
+          },
+
         ],
       },
       footer: {
@@ -85,7 +128,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Docs',
+                label: 'Tutorial',
                 to: '/docs/quickstart',
               },
             ],
@@ -94,16 +137,14 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
                 label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                href: 'https://discord.gg/ZCw645JV',
+                className: 'flex items-center',
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                href: 'https://twitter.com/bridge_codes',
+                className: 'flex items-center',
               },
             ],
           },
@@ -113,21 +154,21 @@ const config = {
               {
                 label: 'Blog',
                 to: '/blog',
+                className: 'flex items-center',
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/bridge-codes/bridge',
+                className: 'flex items-center',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Bridge`,
       },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-      },
-    }),
+     
+    },
+    
 };
 
 module.exports = config;

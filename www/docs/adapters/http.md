@@ -5,4 +5,20 @@ sidebar_position: 1
 
 # HTTP
 
-This is my **first Docusaurus document**!
+**Example**
+
+```ts twoslash title='index.ts'
+import { initBridge, handler } from 'bridge';
+
+const hello = handler({
+  resolve: () => 'hello',
+});
+
+const bridge = initBridge({ routes: { hello } });
+
+const port = 8080;
+
+bridge.HTTPServer().listen(port, () => {
+  `Listening on port ${port}`;
+});
+```

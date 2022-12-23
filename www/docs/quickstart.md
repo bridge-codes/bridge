@@ -39,21 +39,19 @@ yarn add bridge
 pnpm add bridge
 ```
 
-### Defining a handler
+### Defining an endpoint
 
-Let's walk through the steps of building a typesafe API with Bridge. To start, let's create our first `handler`:
+Let's walk through the steps of building a typesafe API with Bridge. To start, let's create an endpoint that returns "Hello World" to the client.
 
 ```ts twoslash title='index.ts'
 import { handler } from 'bridge';
 
-const helloHandler = handler({
-  resolve: () => 'Hello',
+const helloEndpoint = handler({
+  resolve: () => 'Hello World',
 });
 ```
 
-A handler can set an endpoint and validate user data such as the body, files, request parameters or headers sent. Check out how it works in detail
-
-<!-- [here](handler). -->
+A handler can set an endpoint and validate user data such as the body, files, request parameters or headers sent. Check out how it works in detail [here](handler/resolve).
 
 ### Defining the routes
 
@@ -62,12 +60,12 @@ To define the routes of our project, we simply have to create a routes object an
 ```ts twoslash title='index.ts'
 import { handler } from 'bridge';
 
-const helloHandler = handler({
-  resolve: () => 'Hello',
+const helloEndpoint = handler({
+  resolve: () => 'Hello World',
 });
 
 const routes = {
-  hello: helloHandler,
+  hello: helloEndpoint,
 };
 ```
 
@@ -75,54 +73,51 @@ const routes = {
 
 To launch our server code, we need to initiate our bridge project with `initBridge`.
 
-**With HTTP**
+**Complete Bridge App with HTTP**
 
-```ts twoslash title='index.ts'
+```ts twoslash title='index.ts' showLineNumbers
 import { handler, initBridge } from 'bridge';
 
-const helloHandler = handler({
-  resolve: () => 'Hello',
+const helloEndpoint = handler({
+  resolve: () => 'Hello World',
 });
 
 const routes = {
-  hello: helloHandler,
+  hello: helloEndpoint,
 };
 
 const port = 8080;
 
 initBridge({ routes })
-  .HTTPserver()
-  .listen((port) => {
+  .HTTPServer()
+  .listen(port, () => {
     console.log(`Listening on port ${port}`);
   });
 ```
 
-**With Express**
+**Complete Bridge App with Express**
 
-```ts twoslash title='index.ts'
+```ts twoslash title='index.ts' showLineNumbers
 import { handler, initBridge } from 'bridge';
 import express from 'express';
 
-const helloHandler = handler({
-  resolve: () => 'Hello',
-});
-
 const routes = {
-  hello: helloHandler,
+  hello: handler({
+    resolve: () => 'Hello World',
+  }),
 };
 
 const port = 8080;
-
-const bridge = initBridge({ routes });
-
 const app = express();
 
-app.use('', bridge.expressMiddleware());
+app.use('', initBridge({ routes }).expressMiddleware());
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 ```
+
+You can test your endpoint by making an http call to `http://localhost:8080/hello`.
 
 Congratulations, you just launched your first bridge server! 🥳
 

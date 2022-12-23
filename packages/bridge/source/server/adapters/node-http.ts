@@ -49,7 +49,7 @@ export const createHttpHandler = (
       });
 
       if (!result)
-        return res.writeHead(200, { 'Content-Type': 'application/json' }).end(JSON.stringify(`{}`));
+        return res.writeHead(200, { 'Content-Type': 'application/json' }).end(JSON.stringify({}));
 
       if (result?.error) {
         config?.errorHandler?.({ error: result.error, path: path });
