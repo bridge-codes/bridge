@@ -26,25 +26,30 @@ export const createHttpHandler = (
     try {
       [path, queryString] = (req.url || '/').split('?');
 
-      const route = serverRoutes[path] || serverRoutes['not-found'];
+      const route = serverRoutes[path];
+      const endpoint = route?.[req.method as Method];
 
-      if (route.endpoint.config.fileConfig && !config?.formidable)
+      if (!endpoint)
+        return res
+          .writeHead(404, { 'Content-Type': 'application/json' })
+          .end(JSON.stringify({ status: 404, name: 'Route not found' }));
+
+      if (endpoint.config.fileConfig && !config?.formidable)
         throw new Error(
           `You need to install formidable and to give it to Bridge in order to use files.`,
         );
 
-      if (route.endpoint.config.fileConfig)
+      if (endpoint.config.fileConfig)
         file = await formidableAsyncParseFiles(req, config?.formidable!);
       else body = await getJSONDataFromRequestStream(req);
 
       const mid = {};
 
-      const result = await route.endpoint.handle({
+      const result = await endpoint.handle({
         body,
         file,
         query,
         headers: req.headers,
-        method: req.method as Method,
         mid,
       });
 

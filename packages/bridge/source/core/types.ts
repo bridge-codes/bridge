@@ -12,7 +12,6 @@ import { FormidableFile } from '../utilities';
 export interface BridgeParams<
   Resolve = any,
   Mids extends ReadonlyArray<BridgeHandler> = never,
-  Meth extends Method = 'POST',
   Body extends DataParser<Record<any, any>> = never,
   Query extends DataParser<Record<any, any>> = never,
   Headers extends DataParser<Record<any, any>> = never,
@@ -20,7 +19,6 @@ export interface BridgeParams<
 > {
   resolve: Resolve;
   middlewares?: Mids;
-  method?: Meth;
   body?: Body /** Can't have a body with GET method or with files, an error is throw if ther developer tries to, but the type here doesnt block to keep a clean UI */;
   query?: Query;
   headers?: Headers;
@@ -78,7 +76,6 @@ export type CreateHandler = <
   Headers extends DataParser<Record<string, any>> = never,
   File extends FileConfig = ['BridgeFilesDoNotExists'],
   Mids extends ReadonlyArray<BridgeHandler> = never,
-  Meth extends Method = 'POST',
 >(
-  p: BridgeParams<Resolve, Mids, Meth, Body, Query, Headers, File>,
-) => BridgeHandler<Resolve, Mids, Meth>;
+  p: BridgeParams<Resolve, Mids, Body, Query, Headers, File>,
+) => BridgeHandler<Resolve, Mids>;

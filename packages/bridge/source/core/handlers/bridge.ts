@@ -1,8 +1,6 @@
-import { AbstractHandler, Handler } from '../handler';
-import { Method as MethodType } from '../../routes';
+import { AbstractHandler, Handler, FirstHandler } from '../handler';
 import { MiddelwaresHandler } from './middleware';
 import { Resolver } from './resolver';
-import { MethodValidator } from './methodValidator';
 import { DataParser, DataValidator } from './dataValidator';
 import { FileConfig, FileValidator } from './fileValidator';
 
@@ -14,7 +12,6 @@ export interface BridgeHandlerDocumentation {
 export class BridgeHandler<
   Resolve extends (...args: any[]) => any = any,
   Middlewares extends ReadonlyArray<BridgeHandler> = any,
-  Method extends MethodType = any,
 > extends AbstractHandler {
   private handler: Handler;
   public resolve: Resolve;
@@ -26,7 +23,6 @@ export class BridgeHandler<
       querySchema?: DataParser;
       headersSchema?: DataParser;
       fileConfig?: FileConfig;
-      method?: Method;
       middlewares?: Middlewares;
       documentation?: BridgeHandlerDocumentation; // NEED TO INFER FROM DATA TO DOCUMENTATE PARAMS
     },
@@ -52,13 +48,10 @@ export class BridgeHandler<
         `You can't have no argument in your resolve function with a fileConfig specification`,
       );
 
-    if (config.bodySchema && config.method === 'GET')
-      throw Error("You can't have a body with a GET endpoint.");
-
     if (config.bodySchema && config.fileConfig)
       throw Error("You can't get a JSON body and files in the same endpoint.");
 
-    const firstHandler: Handler = new MethodValidator(config.method);
+    const firstHandler: Handler = new FirstHandler();
 
     let handler = firstHandler;
 

@@ -10,22 +10,23 @@ export const isBridgeRoutes = (data: any): data is BridgeRoutes => typeof data =
 
 export interface ServerRoutes {
   [key: string]: {
-    endpoint: BridgeHandler;
+    GET?: BridgeHandler;
+    POST?: BridgeHandler;
+    PATCH?: BridgeHandler;
+    PUT?: BridgeHandler;
+    DELETE?: BridgeHandler;
   };
 }
 
-// // We don't need to inject the files types because the compiler can understand by itself its types
 type BridgeHandlerReturnType<H extends BridgeHandler> = H extends BridgeHandler<
   infer ResolveFct,
-  infer Middlewares,
-  infer Method
+  infer Middlewares
 >
   ? {
       body: Parameters<ResolveFct>[0]['body'];
       query: Parameters<ResolveFct>[0]['query'];
       headers: Parameters<ResolveFct>[0]['headers'];
       file: Parameters<ResolveFct>[0]['file'];
-      method: Method;
       return:
         | (ReturnType<ResolveFct> extends Promise<infer RetWithoutPromise>
             ? RetWithoutPromise

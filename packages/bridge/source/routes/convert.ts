@@ -1,14 +1,6 @@
 import { BridgeRoutes, ServerRoutes, isBridgeRoutes } from './types';
-import { handler, isBridgeHandler } from '../core';
-import { httpError, StatusCode } from '../error';
-
-const defaultServerRoutes: ServerRoutes = {
-  'not-found': {
-    endpoint: handler({
-      resolve: () => httpError(StatusCode.NOT_FOUND, 'Route not found'),
-    }),
-  },
-};
+import { isBridgeHandler } from '../core';
+import { isBridgeMethod } from './method';
 
 const serverRoutes: ServerRoutes = {};
 
@@ -18,9 +10,10 @@ export const convertBridgeRoutesToServerRoutes = (
 ): ServerRoutes => {
   for (const [key, value] of Object.entries(routes)) {
     if (!value) continue;
-    else if (isBridgeHandler(value)) serverRoutes[`${prefix}/${key}`] = { endpoint: value };
+    else if (isBridgeMethod(value)) serverRoutes[`${prefix}/${key}`] = value.methods;
+    else if (isBridgeHandler(value)) serverRoutes[`${prefix}/${key}`] = { POST: value };
     else if (isBridgeRoutes(value)) convertBridgeRoutesToServerRoutes(value, `${prefix}/${key}`);
   }
 
-  return { ...defaultServerRoutes, ...serverRoutes };
+  return serverRoutes;
 };

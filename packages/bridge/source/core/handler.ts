@@ -1,5 +1,3 @@
-import { Method } from '../routes';
-
 type AnyObject = Record<any, any>;
 
 /**
@@ -11,13 +9,14 @@ export interface HandlerParams {
   headers: AnyObject;
   file: AnyObject;
   mid: AnyObject;
-  method: Method;
 }
 
 export interface Handler {
   setNext(handler: Handler): Handler;
 
   handle: (p: HandlerParams) => any;
+
+  getNextHandler: () => Handler | undefined;
 }
 
 export abstract class AbstractHandler implements Handler {
@@ -33,4 +32,8 @@ export abstract class AbstractHandler implements Handler {
     if (this.nextHandler) return this.nextHandler.handle(data);
     return data;
   }
+
+  public getNextHandler = () => this.nextHandler;
 }
+
+export class FirstHandler extends AbstractHandler {}
