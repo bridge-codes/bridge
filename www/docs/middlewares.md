@@ -1,6 +1,5 @@
 ---
 sidebar_label: 'Middlewares'
-sidebar_position: 3
 ---
 
 # Middlewares

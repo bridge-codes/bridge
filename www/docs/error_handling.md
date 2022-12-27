@@ -1,6 +1,5 @@
 ---
 sidebar_label: 'Error Handling'
-sidebar_position: 4
 ---
 
 # Error Handling
@@ -37,6 +36,6 @@ The onError parameter is an object that contains all information about the error
 
 :::info
 
-To see how a handler can generate an error, refer to [this chapter](handler/error).
+To see how a handler can generate an error, refer to [this chapter](handler).
 
 :::

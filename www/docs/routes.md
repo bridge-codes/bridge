@@ -1,6 +1,5 @@
 ---
 sidebar_label: 'Routes'
-sidebar_position: 5
 ---
 
 # Routes

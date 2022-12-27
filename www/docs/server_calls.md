@@ -1,6 +1,5 @@
 ---
 sidebar_label: 'Server Side Calls'
-sidebar_position: 4
 ---
 
 # Server Side Calls

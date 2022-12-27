@@ -1,6 +1,5 @@
 ---
 sidebar_label: 'Launch your server'
-sidebar_position: 6
 ---
 
 # Launch your server
