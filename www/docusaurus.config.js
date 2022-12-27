@@ -12,7 +12,7 @@ const config = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/logo_carre_b.ico',
+  favicon: 'img/favicon.ico',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -36,10 +36,6 @@ const config = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/bridge-codes/bridge/tree/main/www',
         },
         blog: {
           showReadingTime: true,
@@ -90,14 +86,18 @@ const config = {
         title: 'Bridge',
         logo: {
           alt: 'Bridge Logo',
-          src: 'img/logoo.svg',
+          src: 'img/logo_b.svg',
           width: 25,
-          srcDark: 'img/logoo_w.svg',
+          srcDark: 'img/logo_w.svg',
         },
         items: [
           {
+            to: 'docs/introduction',
+            label: 'Docs',
+          },
+          {
             to: 'docs/quickstart',
-            label: 'Documentation',
+            label: 'Quickstart',
           },
          
           {
@@ -129,7 +129,7 @@ const config = {
             items: [
               {
                 label: 'Tutorial',
-                to: '/docs/quickstart',
+                to: '/docs/handler',
               },
             ],
           },

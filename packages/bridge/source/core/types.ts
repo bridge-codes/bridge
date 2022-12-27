@@ -1,4 +1,3 @@
-import { Method } from '../routes';
 import { KeysWithValNotEmptyObject, MidsReturnsIntersection, MidsParams } from '../utilities';
 import {
   DataParser,

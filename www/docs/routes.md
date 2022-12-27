@@ -9,30 +9,30 @@ sidebar_position: 5
 
 Defining the routes for your Bridge project is simple – it's a JSON object with your handlers at the leaf nodes of the JSON tree.
 
+In addition to defining individual routes, you can create nested routes by adding new objects to your router. Nested routes let you group related routes together for a more complex and organized API.
+
 **Example**
 
 ```ts twoslash title='index.ts'
 import { handler, initBridge } from 'bridge';
 
 const helloHandler = handler({
-  method: 'GET',
-  resolve: () => {
-    return 'Hello';
-  },
+  resolve: () => 'Hello',
 });
 
 const byeHandler = handler({
-  // default method is POST
-  resolve: () => {
-    return 'Bye';
-  },
+  resolve: () => 'Bye',
 });
 
 const routes = {
-  // GET /hello
-  hello: helloHandler,
-  // POST /bye
-  bye: byeHandler,
+  hello: helloHandler, // POST /hello
+  bye: byeHandler, // POST /bye
+  user: {
+    getMe: helloHandler, // POST /user/getMe
+    friends: {
+      byeHandler, // POST /user/friends/byeHandler
+    },
+  },
 };
 
 initBridge({ routes })
@@ -40,6 +40,29 @@ initBridge({ routes })
   .listen(8080, () => {});
 ```
 
+:::tip
+
+For the best experience with Bridge, we recommend sticking to POST methods for your endpoints. This aligns with our goal of treating the API like a client code library and removes the need for methods. However, if you need to change an endpoint method or have multiple endpoints for the same route, you can use the `method` function in Bridge.
+
+:::
+
+## Multiple endpoints for one route
+
+```ts
+import { method } from 'Bridge';
+
+const routes = {
+  user: method({
+    GET: handler1, // GET /user
+    POST: handler2, // POST /user
+    PATCH: handler3, // PATCH /user
+    PUT: handler4, // PUT /user
+    DELETE: handler5, // DELETE /user
+  }),
+};
+```
+
+<!--
 ## Nested Routes
 
 In addition to defining individual routes, you can create nested routes by adding new objects to your router. Nested routes let you group related routes together for a more complex and organized API.
@@ -61,7 +84,7 @@ const routes = {
     },
   },
 };
-```
+``` -->
 
 ## Route Not Found
 

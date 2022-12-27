@@ -7,10 +7,14 @@ sidebar_position: 4
 
 All errors that occur in a handler go through the onError method before being sent to the client. Here you can handle or change errors.
 
+## Example
+
 ```ts twoslash
 import { initBridge, onError } from 'bridge';
 
 const errorHandler = onError(({ error, path }) => {
+  // The error object can be modified here before it is sent to the client
+
   if (error.name === 'Internal server error') console.log(path, error); // Send to bug reporting
   else console.log(path, error.status, error.name, error.data);
 });

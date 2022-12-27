@@ -28,23 +28,23 @@ function HomepageHeader() {
 }
 
 export default function Home(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
+  // const { siteConfig } = useDocusaurusContext();
 
-  window.location.href = useBaseUrl('/docs/quickstart');
+  window.location.href = useBaseUrl('/docs/introduction');
   return null;
 
-  return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
-    >
-      <HomepageHeader />
+  // return (
+  //   <Layout
+  //     title={`Hello from ${siteConfig.title}`}
+  //     description="Description will go into a meta tag in <head />"
+  //   >
+  //     <HomepageHeader />
 
-      <main>
-        <div className="text--center">COMING SOON</div>
+  //     <main>
+  //       <div className="text--center">COMING SOON</div>
 
-        {/* <HomepageFeatures /> */}
-      </main>
-    </Layout>
-  );
+  //       {/* <HomepageFeatures /> */}
+  //     </main>
+  //   </Layout>
+  // );
 }
