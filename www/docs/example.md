@@ -7,6 +7,7 @@ sidebar_label: 'Example'
 ```ts twoslash title='index.ts' showLineNumbers
 import { initBridge, handler, onError, StatusCode, httpError, apply } from 'bridge';
 import express from 'express';
+// You can also use Yup or Superstruct for data validation
 import z from 'zod';
 
 const port = 8080;
@@ -35,13 +36,13 @@ const updateUser = handler({
 
 // You can have multiple endpoints with different methods with the method function
 const routes = {
-  hey: handler({ resolve: () => 'hey' }),
+  hey: handler({ resolve: () => 'hey' }), // POST /hey
   hello: handler({
-    query: z.object({ name: z.string() }),
+    query: z.object({ name: z.string().optional() }),
     resolve: ({ query }) => `Hello ${query.name}`,
-  }),
+  }), // POST /hello
   user: {
-    update: updateUser,
+    update: updateUser, // POST /user/update
   },
 };
 
@@ -54,13 +55,9 @@ const errorHandler = onError(({ error, path }) => {
 // It is also possible to use HTTP Server
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Welcome');
-});
-
 app.use('', initBridge({ routes, errorHandler }).expressMiddleware());
 
 app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+  console.log(`Listening on port \${port}`);
 });
 ```

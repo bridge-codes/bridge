@@ -113,7 +113,7 @@ const config = {
             'aria-label': 'Twitter',
           },
           {
-            href: 'https://discord.gg/ZCw645JV',
+            href: 'https://discord.gg/yxjrwm7Bfr',
             position: 'right',
             className: 'header-social-link header-discord-link',
             'aria-label': 'Discord',

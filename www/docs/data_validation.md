@@ -6,7 +6,7 @@ sidebar_label: 'Data Validation'
 
 You can validate and process the body, query parameters and headers sent by the client using either the Zod library, the Superstruct or the Yup library library. We strongly suggest to use Zod to have best developer experience.
 
-### With [Zod](https://github.com/colinhacks/zod)
+## With [Zod](https://github.com/colinhacks/zod)
 
 ```ts twoslash
 import { handler } from 'bridge';
@@ -29,7 +29,7 @@ const getMe = handler({
 });
 ```
 
-### With [Superstruct](https://github.com/ianstormtaylor/superstruct)
+## With [Superstruct](https://github.com/ianstormtaylor/superstruct)
 
 ```ts twoslash
 import { handler } from 'bridge';
@@ -49,7 +49,7 @@ const getMe = handler({
 });
 ```
 
-### With [Yup](https://github.com/jquense/yup)
+## With [Yup](https://github.com/jquense/yup)
 
 ```ts twoslash
 import { handler } from 'bridge';
@@ -69,9 +69,9 @@ const getMe = handler({
 });
 ```
 
-## Validation Error
+## Data Validation Error
 
-If the user's data is in the wrong format, Bridge will respond with an error. An example using Zod:
+If the user's data is in the wrong format, Bridge will respond with an error. Here is an example using **Zod**:
 
 ```json
 {

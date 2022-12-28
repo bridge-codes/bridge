@@ -21,7 +21,7 @@ After the installation is complete:
 - Run `npm run dev` or `yarn dev` or `pnpm dev` to start the development server on `http://localhost:8080`
 - Edit `index.ts` to start developing your server
 
-For more information on how to use create-next-app, you can review the create-bridge-app [documentation](https://www.npmjs.com/package/create-bridge-app).
+For more information on how to use create-bridge-app, you can review the create-bridge-app [documentation](https://www.npmjs.com/package/create-bridge-app).
 
 ## Manual Setup
 

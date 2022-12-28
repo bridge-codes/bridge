@@ -4,9 +4,9 @@ sidebar_label: 'Server Side Calls'
 
 # Server Side Calls
 
-You can directly call your handler(s) from the server by calling the resolve function of the handler.
+You can directly call your handler(s) from the server by calling the `resolve` function of the handler.
 
-**Example**
+## Example
 
 ```ts twoslash
 import { handler, httpError } from 'bridge';
@@ -40,7 +40,7 @@ const getProfileWithToken = handler({
 
 This example shows two handlers that can be used as endpoints and called separately. `getProfileWithToken` uses the resolve function of `getMyIdWithToken`.
 
-:::note
+:::caution
 The above example doesn't make much sense, it would be more logical to use getMyIdWithToken as a middleware for getProfileWithToken. This would make the code shorter and clearer. Here is the revised code:
 :::
 

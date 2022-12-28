@@ -1,10 +1,10 @@
 ---
-sidebar_label: 'Handlers'
+sidebar_label: 'Handler'
 ---
 
 # Handler
 
-The `handler` is the most important concept in Bridge and is practically the only one. This function helps you create endpoints and middlewares for your Bridge server.
+The `handler` is the core concept of Bridge. This function helps you create endpoints and middlewares for your Bridge server.
 
 ## Resolve Function
 
@@ -39,7 +39,7 @@ const handler3 = handler({
 <!-- See how to validate and handle data from the client [here](data).
 
 See how to send an error to the client [here](error). -->
-
+<!--
 ## Return an http error
 
 Bridge provides a method to return errors to the client called `httpError`.
@@ -279,4 +279,4 @@ const getProfileWithToken = handler({
 
 :::info
 To learn about using middlewares, see the [next chapter](middlewares) in the documentation.
-:::
+::: -->
