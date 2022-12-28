@@ -1,12 +1,11 @@
 #!/usr/bin/env node
-/* eslint-disable import/no-extraneous-dependencies */
-import { runCommand } from './utils';
-import fs from 'fs';
-import prettier from 'prettier';
-// import { indexFile, nodemonFile, gitIgnoreFile } from './code';
-// import minimist from 'minimist';
 
-// const argv = minimist(process.argv.slice(2));
+import { writeFileAsync } from './utils';
+import prettier from 'prettier';
+import { indexFile, nodemonFile, gitIgnoreFile } from './code';
+import { promisify } from 'util';
+
+const exec = promisify(require('child_process').exec);
 
 import readlineLib from 'readline';
 
@@ -15,18 +14,15 @@ const readline = readlineLib.createInterface({
   output: process.stdout,
 });
 
-readline.question(`What's your project name? `, (name) => {
-  readline.close();
+readline.question(`What's your project name? `, async (name) => {
   console.log(`Downloading dependencies...`);
 
-  runCommand({
-    command: `mkdir ${name} && echo ah && cd ${name} && npx tsc --init --outDir dist`,
-    onSuccess: () => {
-      console.log('wtf');
-      fs.writeFile(
-        `${name}/package.json`,
-        prettier.format(
-          `{
+  await exec(`mkdir ${name}`);
+
+  await writeFileAsync(
+    `${name}/package.json`,
+    prettier.format(
+      `{
         "name": "${name
           .toLowerCase()
           .normalize('NFD')
@@ -38,38 +34,27 @@ readline.question(`What's your project name? `, (name) => {
           "build": "tsc"
         }
       }`,
-          { parser: 'json' },
-        ),
-        () => {
-          runCommand({
-            command: `cd ${name} && npm i bridge express zod dotenv && npm i --save-dev @types/express @types/node typescript ts-node nodemon`,
-            onSuccess: () => {
-              console.log('success');
-              // Promise.all([
-              //   writeFileAsync(
-              //     `${name}/index.ts`,
-              //     prettier.format(indexFile, { parser: 'typescript' }),
-              //   ),
-              //   writeFileAsync(
-              //     `${name}/nodemon.json`,
-              //     prettier.format(nodemonFile, { parser: 'json' }),
-              //   ),
-              //   writeFileAsync(`${name}/.gitignore`, gitIgnoreFile),
-              //   writeFileAsync(
-              //     `${name}/.env`,
-              //     `PROJECT_NAME=${name}\nPORT=8080\nSERVER_URL=http://localhost:8080`,
-              //   ),
-              //   writeFileAsync(
-              //     `${name}/README.md`,
-              //     `#${name}\n\nWelcome on ${name}, this is a Bridge project, visit https://bridge.codes to learn how to automatically generate a complete online documentation and a fully typed client code in any language.`,
-              //   ),
-              // ]);
-            },
-          });
-        },
-      );
-    },
-  });
+      { parser: 'json' },
+    ),
+  );
+
+  await exec(
+    `cd ${name} && npm i bridge express zod dotenv && npm i --save-dev @types/express @types/node typescript ts-node nodemon && npx tsc --init --outDir dist`,
+  );
+
+  Promise.all([
+    writeFileAsync(`${name}/index.ts`, prettier.format(indexFile, { parser: 'typescript' })),
+    writeFileAsync(`${name}/nodemon.json`, prettier.format(nodemonFile, { parser: 'json' })),
+    writeFileAsync(`${name}/.gitignore`, gitIgnoreFile),
+    writeFileAsync(
+      `${name}/.env`,
+      `PROJECT_NAME=${name}\nPORT=8080\nSERVER_URL=http://localhost:8080`,
+    ),
+    writeFileAsync(
+      `${name}/README.md`,
+      `#${name}\n\nWelcome on ${name}, this is a Bridge project, visit https://bridge.codes to learn how to automatically generate a complete online documentation and a fully typed client code in any language.`,
+    ),
+  ]);
 
   readline.close();
 });

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import childProcess from 'child_process';
 
 export function runCommand({
