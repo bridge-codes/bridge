@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+/* eslint-disable import/no-extraneous-dependencies */
 import { runCommand } from './utils';
 import fs from 'fs';
 import prettier from 'prettier';
@@ -70,4 +70,6 @@ readline.question(`What's your project name? `, (name) => {
       );
     },
   });
+
+  readline.close();
 });

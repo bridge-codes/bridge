@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 export const indexFile = `import {
     initBridge,
     handler,
