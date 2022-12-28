@@ -58,6 +58,6 @@ const app = express();
 app.use('', initBridge({ routes, errorHandler }).expressMiddleware());
 
 app.listen(port, () => {
-  console.log(`Listening on port \${port}`);
+  console.log(`Listening on port ${port}`);
 });
 ```

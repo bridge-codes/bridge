@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://bridge.codes">
-      <img src="https://pbs.twimg.com/profile_images/1603953549037080576/pXOaHTde_400x400.png" height="120" />
+      <img src="https://bridge.codes/img/logo_b_round.svg" height="120" />
   </a>
 </div>
   
@@ -17,36 +17,95 @@
   </a>
 </div>
 
-## What is Bridge?
+# Bridge
 
-Bridge is a Typescript Node.js framework that provides an easy and scalable way to create REST APIs while generating the client code.
+Bridge is the most straightforward yet powerful framework for creating simple or complex APIs using the full power of TypeScript, even for developers with little experience. Give it a try and see how easy it is to build your dream API!
 
-Our goal is to make Bridge a great framework for both frontend and backend teams, so if you're familiar with Node.js and Typescript, you'll feel right at home.
+<!-- [Try it live](https://stackblitz.com/edit/github-vuwsnn?file=index.ts&view=editor) -->
 
-[Try it live](https://stackblitz.com/edit/github-vuwsnn?file=index.ts&view=editor)
+<!-- **👉 See more informations on [bridge.codes](https://bridge.codes) 👈** -->
 
-**👉 See more informations on [bridge.codes](https://bridge.codes) 👈**
+## Documentation
 
+Full documentation for `bridge` can be found [here](https://bridge.codes).
+
+## Installation
+
+```bash
+# npm
+npm install bridge
+# Yarn
+yarn add bridge
+# pnpm
+pnpm add bridge
+```
+
+## Quickstart
+
+```bash
+# npm
+npx create-bridge-app@latest
+# Yarn
+yarn create bridge-app
+# pnpm
+pnpm create bridge-app
+```
+
+## Basic Example
+
+```ts
+import { initBridge, handler } from 'bridge';
+import express from 'express';
+// You can also use Yup or Superstruct for data validation
+import z from 'zod';
+
+const port = 8080;
+
+// A handler can be used as an endpoint but also as a middleware
+const heyHandler = handler({
+  query: z.object({ name: z.string() }),
+  resolve: ({ query }) => `Hey ${query.name}`,
+});
+
+// You can also have multiple endpoints for the same route with different methods with the method function
+const routes = {
+  hey: heyHandler, // POST /hey
+};
+
+// It is also possible to use pure HTTP Server
+const app = express();
+
+app.use('', initBridge({ routes }).expressMiddleware());
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+```
+
+For more complex examples and a full understanding of the capabilities of Bridge, be sure to check out our [documentation](https://bridge.codes)!
+
+<!--
 ### Table of Contents
 
-- [What is Bridge?](#what-is-bridge)
-  - [Table of Contents](#table-of-contents)
-- [Quickstart](#quickstart)
-  - [Using create-bridge-app](#using-create-bridge-app)
-  - [Manual setup with Express](#manual-setup-with-express)
-- [Init Bridge](#init-bridge)
-- [Routing](#routing)
-  - [Nested routes](#nested-routes)
-- [Handler](#handler)
-  - [Data validation](#data-validation)
-  - [Type inference](#type-inference)
-- [Middleware](#middleware)
-  - [Multiple middlewares](#multiple-middlewares)
-- [Error handling](#error-handling)
-  - [Send an HTTP error](#send-an-http-error)
-  - [Monitor errors](#monitor-errors)
-- [Files](#files)
-- [Client generation](#client-generation)
+- [Bridge](#bridge)
+  - [Installations](#installations)
+    - [Table of Contents](#table-of-contents)
+  - [Quickstart](#quickstart)
+    - [Using create-bridge-app](#using-create-bridge-app)
+    - [Manual setup with Express](#manual-setup-with-express)
+  - [Init Bridge](#init-bridge)
+  - [Routing](#routing)
+    - [Nested routes](#nested-routes)
+  - [Handler](#handler)
+    - [Data validation](#data-validation)
+    - [Type inference](#type-inference)
+  - [Middleware](#middleware)
+    - [Multiple middlewares](#multiple-middlewares)
+  - [Error handling](#error-handling)
+    - [Send an HTTP error](#send-an-http-error)
+    - [Monitor errors](#monitor-errors)
+  - [Files](#files)
+  - [Client generation](#client-generation)
 
 ## Quickstart
 
@@ -405,4 +464,4 @@ To do.
 
 ## Client generation
 
-To do.
+To do. -->
