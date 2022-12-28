@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import childProcess from 'child_process';
 
 export function runCommand({
