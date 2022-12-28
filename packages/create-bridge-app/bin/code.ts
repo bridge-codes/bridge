@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 export const indexFile = `import {
     initBridge,
     handler,

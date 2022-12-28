@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { runCommand } from './utils';
+import { runCommand, writeFileAsync } from './utils';
 import fs from 'fs';
 import prettier from 'prettier';
 import { indexFile, nodemonFile, gitIgnoreFile } from './code';
@@ -16,11 +16,11 @@ const readline = readlineLib.createInterface({
 });
 
 readline.question(`What's your project name? `, (name) => {
-  console.log(name);
-  console.log(`Downloading dependencies... J`);
+  readline.close();
+  console.log(`Downloading dependencies...`);
 
   runCommand({
-    command: `mkdir ${name} && cd ${name} && npx tsc --init --outDir dist`,
+    command: `mkdir ${name} && echo ah && cd ${name} && npx tsc --init --outDir dist`,
     onSuccess: () => {
       console.log('wtf');
       fs.writeFile(
@@ -34,6 +34,7 @@ readline.question(`What's your project name? `, (name) => {
         "version": "1.0.0",
         "scripts": {
           "start": "node ./dist/index.js",
+          "dev": "nodemon --config nodemon.json ./index.ts",
           "build": "tsc"
         }
       }`,
@@ -41,39 +42,31 @@ readline.question(`What's your project name? `, (name) => {
         ),
         () => {
           runCommand({
-            command: `cd ${name} && npm i bridge express zod && npm i --save-dev @types/express @types/node typescript ts-node nodemon`,
+            command: `cd ${name} && npm i bridge express zod dotenv && npm i --save-dev @types/express @types/node typescript ts-node nodemon`,
             onSuccess: () => {
-              fs.writeFile(
-                `${name}/index.ts`,
-                prettier.format(indexFile, { parser: 'typescript' }),
-                () => {},
-              );
-
-              fs.writeFile(
-                `${name}/nodemon.json`,
-                prettier.format(nodemonFile, { parser: 'json' }),
-                () => {},
-              );
-
-              fs.writeFile(`${name}/.gitignore`, gitIgnoreFile, () => {});
-
-              fs.writeFile(
-                `${name}/.env`,
-                `PROJECT_NAME=${name}\nPORT=8080\nSERVER_URL=http://localhost:8080`,
-                () => {},
-              );
-
-              fs.writeFile(
-                `${name}/README.md`,
-                `#${name}\n\nWelcome on ${name}, this is a Bridge project, visit https://bridge.codes to learn how to automatically generate a complete online documentation and a fully typed client code in any language.`,
-                () => {},
-              );
+              Promise.all([
+                writeFileAsync(
+                  `${name}/index.ts`,
+                  prettier.format(indexFile, { parser: 'typescript' }),
+                ),
+                writeFileAsync(
+                  `${name}/nodemon.json`,
+                  prettier.format(nodemonFile, { parser: 'json' }),
+                ),
+                writeFileAsync(`${name}/.gitignore`, gitIgnoreFile),
+                writeFileAsync(
+                  `${name}/.env`,
+                  `PROJECT_NAME=${name}\nPORT=8080\nSERVER_URL=http://localhost:8080`,
+                ),
+                writeFileAsync(
+                  `${name}/README.md`,
+                  `#${name}\n\nWelcome on ${name}, this is a Bridge project, visit https://bridge.codes to learn how to automatically generate a complete online documentation and a fully typed client code in any language.`,
+                ),
+              ]);
             },
           });
         },
       );
     },
   });
-
-  readline.close();
 });
