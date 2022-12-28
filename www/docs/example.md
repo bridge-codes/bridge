@@ -34,7 +34,7 @@ const updateUser = handler({
   },
 });
 
-// You can have multiple endpoints with different methods with the method function
+// You can have multiple endpoints for the same route with different methods with the method function
 const routes = {
   hey: handler({ resolve: () => 'hey' }), // POST /hey
   hello: handler({

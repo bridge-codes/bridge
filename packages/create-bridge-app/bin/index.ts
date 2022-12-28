@@ -3,7 +3,7 @@
 import { runCommand } from './utils';
 import fs from 'fs';
 import prettier from 'prettier';
-import { indexFile } from './code';
+import { indexFile, nodemonFile, gitIgnoreFile } from './code';
 // import minimist from 'minimist';
 
 // const argv = minimist(process.argv.slice(2));
@@ -16,13 +16,13 @@ const readline = readlineLib.createInterface({
 });
 
 readline.question(`What's your project name? `, (name) => {
-  console.log(`Hey there ${name}!`);
+  console.log(`Downloading dependencies...`);
 
   runCommand({
-    command: `mkdir ${name} && cd ${name} && npx tsc --init --outDir dist`,
+    command: `mkdir ${name} && cd ${name} && mkdir source && npx tsc --init --outDir dist`,
     onSuccess: () => {
       fs.writeFile(
-        `${name}/package.json`,
+        `${name}/source/package.json`,
         prettier.format(
           `{
         "name": "${name
@@ -39,14 +39,34 @@ readline.question(`What's your project name? `, (name) => {
         ),
         () => {
           runCommand({
-            command: `cd ${name} && npm i bridge express zod && npm i --save-dev @types/express @types/node typescript`,
+            command: `cd ${name} && npm i bridge express zod && npm i --save-dev @types/express @types/node typescript ts-node nodemon`,
           });
         },
       );
 
       fs.writeFile(
-        `${name}/index.ts`,
+        `${name}/source/index.ts`,
         prettier.format(indexFile, { parser: 'typescript' }),
+        () => {},
+      );
+
+      fs.writeFile(
+        `${name}/nodemon.json`,
+        prettier.format(nodemonFile, { parser: 'json' }),
+        () => {},
+      );
+
+      fs.writeFile(`${name}/.gitignore`, prettier.format(gitIgnoreFile), () => {});
+
+      fs.writeFile(
+        `${name}/.env`,
+        `PROJECT_NAME=${name}\nPORT=8080\nSERVER_URL=http://localhost:8080`,
+        () => {},
+      );
+
+      fs.writeFile(
+        `${name}/README.md`,
+        `#${name}\n\nWelcome on ${name}, this is a Bridge project, visit https://bridge.codes to learn how to automatically generate a complete online documentation and a fully typed client code in any language.`,
         () => {},
       );
     },

@@ -9,8 +9,16 @@ export const indexFile = `import {
   import express from "express";
   // You can also use Yup or Superstruct for data validation
   import z from "zod";
-  
-  const port = 8080;
+  import dotenv from "dotenv";
+  import path from "path";
+
+  if (!process.env.PORT) dotenv.config({ path: path.join(".env") });
+
+  const api = {
+    port: process.env.PORT,
+    projectName: process.env.projectName,
+    serverUrl: process.env.SERVER_URL
+  }
   
   // A middleware is also a handler
   const authMiddleware = handler({
@@ -32,8 +40,13 @@ export const indexFile = `import {
       return user;
     },
   });
+
+  export const createUser = handler({
+    body: z.object({ firstName: z.string().min(3), lastName: z.string().min(3) }),
+    resolve: ({ body }) => body,
+  });
   
-  // You can have multiple endpoints with different methods with the method function
+  // You can have multiple endpoints for the same route with different methods with the method function
   const routes = {
     hey: handler({ resolve: () => "hey" }), // POST /hey
     hello: handler({
@@ -41,6 +54,7 @@ export const indexFile = `import {
       resolve: ({ query }) => \`Hello \${query.name}\`,
     }), // POST /hello
     user: {
+      create: createUser, // POST /user/create
       update: updateUser, // POST /user/update
     },
   };
@@ -54,10 +68,29 @@ export const indexFile = `import {
   
   // It is also possible to use HTTP Server
   const app = express();
+
+  app.get('/', (req, res) => res.send(\`Welcome on \${api.projectName}\`));
   
-  app.use("", initBridge({ routes, errorHandler }).expressMiddleware());
+  app.use("", initBridge({ routes, errorHandler, url: api.serverUrl }).expressMiddleware());
   
-  app.listen(port, () => {
-    console.log(\`Listening on port \${port}\`);
+  app.listen(api.port, () => {
+    console.log(\`Listening on port \${api.port}\`);
   });
   `;
+
+export const nodemonFile = `{
+    "restartable": "rs",
+    "ignore": [".git", "dist/"],
+    "watch": ["source"],
+    "execMap": {
+      "ts": "node -r ts-node/register"
+    },
+    "env": {
+      "NODE_ENV": "test"
+    },
+    "ext": "js,json,ts"
+  }
+  `;
+
+export const gitIgnoreFile = `/node_modules
+  /dist`;
