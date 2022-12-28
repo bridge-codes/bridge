@@ -16,13 +16,14 @@ const readline = readlineLib.createInterface({
 });
 
 readline.question(`What's your project name? `, (name) => {
+  console.log(name);
   console.log(`Downloading dependencies...`);
 
   runCommand({
-    command: `mkdir ${name} && cd ${name} && mkdir source && npx tsc --init --outDir dist`,
+    command: `mkdir ${name} && cd ${name} && npx tsc --init --outDir dist`,
     onSuccess: () => {
       fs.writeFile(
-        `${name}/source/package.json`,
+        `${name}/package.json`,
         prettier.format(
           `{
         "name": "${name
@@ -45,7 +46,7 @@ readline.question(`What's your project name? `, (name) => {
       );
 
       fs.writeFile(
-        `${name}/source/index.ts`,
+        `${name}/index.ts`,
         prettier.format(indexFile, { parser: 'typescript' }),
         () => {},
       );
@@ -56,7 +57,7 @@ readline.question(`What's your project name? `, (name) => {
         () => {},
       );
 
-      fs.writeFile(`${name}/.gitignore`, prettier.format(gitIgnoreFile), () => {});
+      fs.writeFile(`${name}/.gitignore`, gitIgnoreFile, () => {});
 
       fs.writeFile(
         `${name}/.env`,
