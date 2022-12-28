@@ -41,34 +41,35 @@ readline.question(`What's your project name? `, (name) => {
         () => {
           runCommand({
             command: `cd ${name} && npm i bridge express zod && npm i --save-dev @types/express @types/node typescript ts-node nodemon`,
+            onSuccess: () => {
+              fs.writeFile(
+                `${name}/index.ts`,
+                prettier.format(indexFile, { parser: 'typescript' }),
+                () => {},
+              );
+
+              fs.writeFile(
+                `${name}/nodemon.json`,
+                prettier.format(nodemonFile, { parser: 'json' }),
+                () => {},
+              );
+
+              fs.writeFile(`${name}/.gitignore`, gitIgnoreFile, () => {});
+
+              fs.writeFile(
+                `${name}/.env`,
+                `PROJECT_NAME=${name}\nPORT=8080\nSERVER_URL=http://localhost:8080`,
+                () => {},
+              );
+
+              fs.writeFile(
+                `${name}/README.md`,
+                `#${name}\n\nWelcome on ${name}, this is a Bridge project, visit https://bridge.codes to learn how to automatically generate a complete online documentation and a fully typed client code in any language.`,
+                () => {},
+              );
+            },
           });
         },
-      );
-
-      fs.writeFile(
-        `${name}/index.ts`,
-        prettier.format(indexFile, { parser: 'typescript' }),
-        () => {},
-      );
-
-      fs.writeFile(
-        `${name}/nodemon.json`,
-        prettier.format(nodemonFile, { parser: 'json' }),
-        () => {},
-      );
-
-      fs.writeFile(`${name}/.gitignore`, gitIgnoreFile, () => {});
-
-      fs.writeFile(
-        `${name}/.env`,
-        `PROJECT_NAME=${name}\nPORT=8080\nSERVER_URL=http://localhost:8080`,
-        () => {},
-      );
-
-      fs.writeFile(
-        `${name}/README.md`,
-        `#${name}\n\nWelcome on ${name}, this is a Bridge project, visit https://bridge.codes to learn how to automatically generate a complete online documentation and a fully typed client code in any language.`,
-        () => {},
       );
     },
   });
