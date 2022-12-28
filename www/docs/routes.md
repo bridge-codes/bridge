@@ -6,7 +6,7 @@ sidebar_label: 'Routes'
 
 ## Definition
 
-Defining the routes for your Bridge project is simple – it's a JSON object with your handlers at the leaf nodes of the JSON tree.
+Defining the routes for your Bridge project is simple – it's a object with your handlers at the leaf nodes of the object tree.
 
 In addition to defining individual routes, you can create nested routes by adding new objects to your router. Nested routes let you group related routes together for a more complex and organized API.
 
@@ -97,3 +97,9 @@ If the endpoint's route is not found, Bridge will respond to the client with a 4
   }
 }
 ```
+
+:::info
+
+If you prefer using OOP and want to define your handlers inside classes, it's easy to do so by adding an instance of the class to the routes object.
+
+:::

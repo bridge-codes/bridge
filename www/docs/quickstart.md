@@ -18,6 +18,7 @@ pnpm create bridge-app
 
 After the installation is complete:
 
+- Run `cd ./your_project_name`
 - Run `npm run dev` or `yarn dev` or `pnpm dev` to start the development server on `http://localhost:8080`
 - Edit `index.ts` to start developing your server
 

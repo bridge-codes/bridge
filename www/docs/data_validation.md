@@ -4,7 +4,7 @@ sidebar_label: 'Data Validation'
 
 # Data Validation
 
-You can validate and process the body, query parameters and headers sent by the client using either the Zod library, the Superstruct or the Yup library library. We strongly suggest to use Zod to have best developer experience.
+You have the option to validate and process the body, query parameters, and headers sent by the client using the Zod, Superstruct, or Yup libraries. While all three are effective options, we highly recommend using Zod for the best developer experience.
 
 ## With [Zod](https://github.com/colinhacks/zod)
 

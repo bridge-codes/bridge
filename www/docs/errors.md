@@ -57,7 +57,7 @@ Results to the following response with an error status 400:
 
 ## Throw an error
 
-If you throw an error within a handler, it will send a JSON response to the client with a status code of 500. Similarly, an unexpected error in the resolve function of a handler will also result in a 500 response to the client. The client will not receive information about the cause of the error, which can be handled in **[Bridge's `errorHandler` function](error_handling)**.
+If you throw an error within a handler, it will send a JSON response to the client with a status code of 500. Similarly, an unexpected error in the resolve function of a handler will also result in a 500 response to the client. The client will not receive information about the cause of the error, which can be handled in Bridge's `errorHandler` function.
 
 For example, this endpoint:
 
