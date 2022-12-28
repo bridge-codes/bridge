@@ -17,11 +17,12 @@ const readline = readlineLib.createInterface({
 
 readline.question(`What's your project name? `, (name) => {
   console.log(name);
-  console.log(`Downloading dependencies...`);
+  console.log(`Downloading dependencies... J`);
 
   runCommand({
     command: `mkdir ${name} && cd ${name} && npx tsc --init --outDir dist`,
     onSuccess: () => {
+      console.log('wtf');
       fs.writeFile(
         `${name}/package.json`,
         prettier.format(
