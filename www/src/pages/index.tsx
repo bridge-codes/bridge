@@ -69,6 +69,10 @@ const HeroSection = () => {
     <div className="bg-[#010101]">
       <div className="relative min-h-screen" style={{ backgroundImage: `url("/img/bg.png")` }}>
         <div className="relative z-20 py-20 md:py-48 layout">
+          {/* <div className="max-w-max mx-auto mt-2 mb-4">
+            <Breadcrumb text="Focus On Developer Experience" />
+          </div> */}
+
           <h1 className="text-4xl font-semibold text-center text-white md:text-6xl">
             The <span className="grad">Typescript</span> API framework that enhances developer{' '}
             <span className="grad">productivity</span>
@@ -148,7 +152,7 @@ bridge.HTTPServer().listen(8080, () => {
   const codeString5 = `})`;
 
   // data validation
-  const codeString2 = `   body: z.object({ age: z.number().min(0).max(200) }),`;
+  const bodyHandlerLine = `   body: z.object({ age: z.number().min(0).max(200) }),`;
   const codeString22 = `   query: z.object({ name: z.string() }),`;
 
   // experience typescript inference
@@ -255,7 +259,11 @@ bridge.HTTPServer().listen(8080, () => {
             marginTop={16}
             highlight={selected === 0}
           />
-          <CustomCode codeString={codeString2} display={selected >= 1} highlight={selected === 1} />
+          <CustomCode
+            codeString={bodyHandlerLine}
+            display={[1, 2].includes(selected)}
+            highlight={selected === 1}
+          />
           <CustomCode
             codeString={codeString22}
             delay={700}
