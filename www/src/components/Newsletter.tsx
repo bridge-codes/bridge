@@ -2,9 +2,10 @@ import React from 'react'
 
 export const NewsLetter = (): JSX.Element => {
   return (
-    <div className="grid gap-4 bg-[#010101] pb-32 layout sm:gap-32 sm:grid-cols-3 section">
-      <div className="sm:col-span-2">
-        <h2 className="text-3xl font-semibold">
+    <div className="bg-[#010101] pb-24">
+    <div className="layout grid grid-cols-3 sm:gap-32 items-center">
+      <div className="sm:col-span-2 layout">
+        <h2 className="text-3xl font-semibold text-white">
           Bridge is getting better every day — <br /> don’t miss out anything.
         </h2>
         <p className="mt-4 text-neutral-300">
@@ -27,6 +28,7 @@ export const NewsLetter = (): JSX.Element => {
           </div>
       </div>
           </a>
+          </div> 
     </div>
   );
 };
