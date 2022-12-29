@@ -7,7 +7,7 @@ import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
 export default function Home(): JSX.Element {
   return (
   <div>
-    <img src="/img/header.svg" className="w-full" />
+  <Layout>
       <HeroSection />
       <div className="bg-[#010101] pb-32">
         <div className="relative layout">
@@ -20,6 +20,7 @@ export default function Home(): JSX.Element {
           <FeaturesDemo />
         </div>
       </div>
+      </Layout>
     </div>
   );
   return <Redirect to="/docs/introduction" />;
