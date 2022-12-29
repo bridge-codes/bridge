@@ -37,7 +37,7 @@ pre .arrow {
  */
 
 /* You can override the default Infima variables here. */
-:root {
+/* :root {
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;
   --ifm-color-primary-darker: #277148;
@@ -57,7 +57,27 @@ pre .arrow {
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+} */
+
+:root {
+  --ifm-color-primary: #398ccb;
+  --ifm-color-primary-dark: #317eb9;
+  --ifm-color-primary-darker: #2e77af;
+  --ifm-color-primary-darkest: #266290;
+  --ifm-color-primary-light: #4e98d0;
+  --ifm-color-primary-lighter: #589ed3;
+  --ifm-color-primary-lightest: #77b0db;
+  --ifm-code-font-size: 95%;
+  --ifm-container-width: 1140px;
+  --ifm-container-width-xl: 1320px;
+  --ifm-navbar-shadow: none;
 }
+:root[data-theme='dark'] {
+  --ifm-footer-background-color: #171717;
+  --ifm-navbar-background-color: #111111;
+  --ifm-background-color: #111111;
+}
+
 
 html {
   @apply selection:text-white selection:bg-sky-500/75 scroll-smooth;

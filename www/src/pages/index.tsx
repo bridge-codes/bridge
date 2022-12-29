@@ -6,20 +6,20 @@ import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export default function Home(): JSX.Element {
   return (
-  <div>
-  <Layout>
-      <HeroSection />
-      <div className="bg-[#010101] pb-32">
-        <div className="relative layout">
-          <img src="img/bg-lines.png" className="absolute z-0" />
-          <Breadcrumb text="Simplicity" />
-          <h2 className="w-3/4 mt-4 md:text-5xl text-3xl font-semibold text-white">
-            <span className="grad">Bridge</span> offers an easy and scalable way to write your
-            backend code.
-          </h2>
-          <FeaturesDemo />
+    <div>
+      <Layout>
+        <HeroSection />
+        <div className="bg-[#010101] pb-32">
+          <div className="relative layout">
+            <img src="img/bg-lines.png" className="absolute z-0" />
+            <Breadcrumb text="Simplicity" />
+            <h2 className="w-3/4 mt-4 md:text-5xl text-3xl font-semibold text-white">
+              <span className="grad">Bridge</span> offers an easy and scalable way to write your
+              backend code.
+            </h2>
+            <FeaturesDemo />
+          </div>
         </div>
-      </div>
       </Layout>
     </div>
   );
@@ -140,7 +140,7 @@ bridge.HTTPServer().listen(8080, () => {
 }`;
 
   // middleware
-  const codeString3 = `   middlewares: apply(ageVerificationMid),`;
+  const addMiddlewareLine = `   middlewares: apply(ageVerificationMid),`;
   const codeMiddleware = `const ageVerficationMid = handler({
     body: z.object({
         age: z.number().min(0).max(200),
@@ -221,7 +221,7 @@ bridge.HTTPServer().listen(8080, () => {
           <CustomCode
             codeString={codeMiddleware}
             display={selected >= 3}
-            delay={1400}
+            delay={0}
             marginTop={16}
             maxHeight={300}
             highlight={selected === 3}
@@ -239,7 +239,12 @@ bridge.HTTPServer().listen(8080, () => {
             display={selected >= 1}
             highlight={selected === 1}
           />
-          <CustomCode codeString={codeString3} display={selected >= 3} highlight={selected === 3} />
+          <CustomCode
+            codeString={addMiddlewareLine}
+            display={selected >= 3}
+            delay={1000}
+            highlight={selected === 3}
+          />
           <CustomCode
             codeString={codeString4}
             display={selected >= 0 && selected < 2}
@@ -269,7 +274,7 @@ bridge.HTTPServer().listen(8080, () => {
             maxHeight={25}
             highlight={selected === 0}
           />
-          <CustomCode codeString={codeStringLast} display={true} marginTop={16} maxHeight={500}/>
+          <CustomCode codeString={codeStringLast} display={true} marginTop={16} maxHeight={500} />
         </div>
       </div>
     </div>
@@ -329,18 +334,20 @@ const CustomCode = ({
 }) => {
   return (
     <div
-      className={`md:px-5 px-3 overflow-hidden transition-all duration-700 ease-in-out ${display ? 'md:flex inline-flex' : 'block'}`}
+      className={`md:px-5 px-3 overflow-hidden transition-all duration-700 ease-in-out ${
+        display ? 'md:flex inline-flex' : 'block'
+      }`}
       style={{
         maxHeight: display ? (maxHeight ? maxHeight : 100) : 0,
-        opacity: display ? (highlight ? 1 : 0.75) : 0,
+        opacity: display ? (highlight ? 1 : 0.85) : 0,
         marginTop: display ? marginTop | 0 : 0,
         borderLeft: 2,
         borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
         borderStyle: 'solid',
-        background: highlight ? 'rgb(255,255,255,0.03)' : 'rgb(255,255,255,0)',
+        background: highlight ? 'rgb(255,255,255,0.04)' : 'rgb(255,255,255,0)',
         padding: highlight ? '0px 20px' : '0px 20px',
         transitionDelay: highlight ? (delay ? delay.toString() + 'ms' : '0ms') : '0ms',
-        willChange: 'max-height'
+        willChange: 'max-height',
       }}
     >
       <SyntaxHighlighter
@@ -369,16 +376,15 @@ const FeatureElement = ({
   index: number;
   setSelected: any;
 }) => {
-  const thisElement = useRef<HTMLDivElement>(null)
+  const thisElement = useRef<HTMLDivElement>(null);
   return (
     <div className="flex items-center" ref={thisElement}>
       <div
         onClick={() => {
-          setSelected(index)
-          const size = thisElement.current.getClientRects()
-          console.log(size)
-          }
-          }
+          setSelected(index);
+          const size = thisElement.current.getClientRects();
+          console.log(size);
+        }}
         className={`rounded-md flex w-max max-w-xs w-full transition-all border cursor-pointer bg-white md:p-5 p-2 ${
           selected
             ? 'border-t-main bg-opacity-5'
@@ -406,4 +412,4 @@ const FeatureElement = ({
       ></div>
     </div>
   );
-}
+};
