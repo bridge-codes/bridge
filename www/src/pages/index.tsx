@@ -5,6 +5,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Code } from '../components/Code';
 import { NewsLetter } from '../components/Newsletter';
+import Highlight, { defaultProps } from 'prism-react-renderer';
+import theme from 'prism-react-renderer/themes/nightOwl';
 
 export default function Home(): JSX.Element {
   return (
@@ -201,44 +203,45 @@ const FeaturesDemo = () => {
     },
 })`;
 
+  const features = [
+    {
+      title: "Create an endpoint",
+      text: "an intuitive way to write and to manage your endpoints.",
+      icon: "",
+    },
+    {
+      title: "Validate your data",
+      text: "Bridge supports query, body and headers validation using zod, yup or superstruct.",
+      icon: "",
+    },
+    {
+      title: "Add middlewares",
+      text: "Create powerful type-safe middlewares that can validate data, and pass data to next middlewares.",
+      icon: "",
+    },
+    {
+      title: "Experience the power of TS",
+      text: "Catch error ahead of time and improve your productivity using IDE’s autocompletion.",
+      icon: "",
+    },
+    ]
+
   return (
     <div className="relative grid mt-16 md:grid-cols-2">
       <div className="flex gap-4 mb-6 overflow-x-auto md:flex-col md:mb-0">
-        <FeatureElement
-          selected={selected === 0}
-          setSelected={setSelected}
-          index={0}
-          title="Create an endpoint"
-          text="An intuitive way to write and to manage your endpoints."
-          icon=""
-        />
-
-        <FeatureElement
-          selected={selected === 1}
-          setSelected={setSelected}
-          index={1}
-          title="Validate your data"
-          text="Bridge supports query, body and headers validation using zod, yup or superstruct."
-          icon=""
-        />
-
-        <FeatureElement
-          selected={selected === 2}
-          setSelected={setSelected}
-          index={2}
-          title="Add middlewares"
-          text="Create powerful type-safe middlewares that can validate data, and pass data to next middlewares."
-          icon=""
-        />
-
-        <FeatureElement
-          selected={selected === 3}
-          setSelected={setSelected}
-          index={3}
-          title="Experience the power of TS"
-          text="Catch error ahead of time and improve your productivity using IDE’s autocompletion."
-          icon=""
-        />
+       {features.map((el,index) => {
+           return(
+            <FeatureElement
+              selected={selected === index}
+              setSelected={setSelected}
+              index={index}
+              key={index}
+              title={el.title}
+              text={el.text}
+              icon={el.icon}
+            />
+           )
+         })} 
       </div>
       <div className="bg-[#0D0D11] overflow-x-auto bg-opacity-75 border border-[#14181D] rounded-md">
         <div className="w-full border-b border-[#14181D]">
@@ -262,7 +265,7 @@ const FeaturesDemo = () => {
           </div>
         </div>
         {/* CODE */}
-        <div className="pt-5 pb-10 overflow-y-hidden text-sm">
+        <div className="pt-5 pb-24 overflow-y-hidden text-sm overflow-x-auto custom-scrollbar" style={{height: `calc(100% - 35px)`}}>
           {/* <CustomCode codeString={codeImportsString} display={selected < 2} /> */}
           <CustomCode codeString={codeImportsWithApplyAndErrorString} display={true} />
           <div className={`relative ${selected === 2 ? 'block' : 'block'}`}>
@@ -370,7 +373,7 @@ const CustomInner = ({
 }) => {
   return (
     <div
-      className="flex items-center overflow-hidden text-xs transition-all duration-700 ease-in-out"
+      className="inline-flex items-center overflow-hidden text-xs transition-all duration-700 ease-in-out"
       style={{
         maxHeight: display ? (maxHeight ? maxHeight : 320) : 0,
         opacity: display ? 1 : 0,
@@ -389,6 +392,46 @@ const CustomInner = ({
   );
 };
 
+const NewCustomCode = ({}) => {
+    return(
+      <Highlight {...defaultProps} theme={theme} code={code} language={'typescript'}>
+        {({ className, style, tokens, getLineProps, getTokenProps }) => (
+          <pre
+            className={className}
+            style={{
+              padding: '8px 20px',
+              marginBottom: 8,
+              background: 'transparent',
+            }}
+          >
+            {tokens.map((line, i) => (
+              <div style={{ display: 'table-row' }} key={i} {...getLineProps({ line, key: i })}>
+                <div
+                  style={{
+                    fontSize: 14,
+                    display: 'table-cell',
+                    textAlign: 'right',
+                    userSelect: 'none',
+                    opacity: 0.5,
+                    paddingRight: '1em',
+                    paddingLeft: '0.5em',
+                  }}
+                >
+                  {i + 1}
+                </div>
+                <div style={{ display: 'table-cell', fontSize: '13px' }}>
+                  {line.map((token, key) => (
+                    <span key={key} {...getTokenProps({ token, key })} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </pre>
+        )}
+      </Highlight>
+    )
+}
+
 const CustomCode = ({
   display,
   codeString,
@@ -405,30 +448,34 @@ const CustomCode = ({
   highlight?: boolean;
 }) => {
   return (
-    <div
-      className={`md:px-5 px-3 overflow-hidden transition-all duration-700 ease-in-out ${
-        display ? 'md:flex inline-flex' : 'block'
-      }`}
-      style={{
-        maxHeight: display ? (maxHeight ? maxHeight : 100) : 0,
-        opacity: display ? (highlight ? 1 : 0.85) : 0,
-        marginTop: display ? marginTop | 0 : 0,
-        borderLeft: 2,
-        borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
-        borderStyle: 'solid',
-        background: highlight ? 'rgb(255,255,255,0.04)' : 'rgb(255,255,255,0)',
-        padding: highlight ? '0px 20px' : '0px 20px',
-        transitionDelay: highlight ? (delay ? delay.toString() + 'ms' : '0ms') : '0ms',
-        willChange: 'max-height',
-      }}
-    >
-      <SyntaxHighlighter
-        language="typescript"
-        style={nord}
-        customStyle={{ background: 'transparent', padding: 0, margin: 0 }}
+    <div className="w-full" style={{
+          marginTop: display ? marginTop | 0 : 0,
+          borderLeft: 2,
+          borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
+          borderStyle: 'solid',
+          background: highlight ? 'rgb(255,255,255,0.04)' : 'rgb(255,255,255,0)',
+      }}>
+      <div
+        className={`md:px-5 flex px-3 overflow-hidden transition-all duration-700 ease-in-out ${
+          display ? '' : ''
+        }`}
+        style={{
+          maxHeight: display ? (maxHeight ? maxHeight : 100) : 0,
+          opacity: display ? (highlight ? 1 : 0.85) : 0,
+          padding: highlight ? '0px 20px' : '0px 20px',
+          transitionDelay: highlight ? (delay ? delay.toString() + 'ms' : '0ms') : '0ms',
+          willChange: 'max-height',
+          display: 'table-caption'
+        }}
       >
-        {codeString}
-      </SyntaxHighlighter>
+        <SyntaxHighlighter
+          language="typescript"
+          style={nord}
+          customStyle={{ background: 'transparent', padding: 0, margin: 0 }}
+        >
+          {codeString}
+        </SyntaxHighlighter>
+      </div>
     </div>
   );
 };
