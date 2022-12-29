@@ -31,7 +31,9 @@ pre .arrow {
 
 .custom-scrollbar::-webkit-scrollbar {
   background: rgb(255,255,255,0.05);
+  height: 6px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgb(255,255,255,0.1);
 }

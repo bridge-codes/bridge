@@ -10,7 +10,7 @@ import theme from 'prism-react-renderer/themes/nightOwl';
 
 export default function Home(): JSX.Element {
   return (
-    <div>
+    <div className='overflow-x-hidden'>
       <Layout>
         <HeroSection />
         <div className="bg-[#010101] pb-32">
@@ -45,11 +45,11 @@ const Studio = () => {
           Bridge aims to provide the best developer experience ever by simplifying the process of
           developing and integrating APIs.
         </p>
-        <h2 className="text-4xl mt-3 font-semibold text-white md:mt-32 mt-12 text-center">
+        <h2 className="text-2xl mt-3 font-semibold text-white mt-8">
           {/* Your <span className="grad">API documentation</span> in one click */}
           Your <span className="grad">Client Code</span> in one click
         </h2>
-        <p className="w-3/4 mx-auto mt-6 text-lg text-center text-white text-opacity-50 md:text-xl">
+        <p className="w-3/4 mt-2 text-lg text-white text-opacity-50 md:text-lg">
           Bridge can generate a fully typed client code in any language in matter of seconds. Log
           with Github/Gitlab or use our CLI to sync your project with the platform.
         </p>
@@ -227,8 +227,8 @@ const FeaturesDemo = () => {
     ]
 
   return (
-    <div className="relative grid mt-16 md:grid-cols-2">
-      <div className="flex gap-4 mb-6 overflow-x-auto md:flex-col md:mb-0">
+    <div className="relative grid mt-16 md:grid-cols-12">
+      <div className="flex gap-4 mb-6 overflow-x-auto md:flex-col md:col-span-5 md:mb-0">
        {features.map((el,index) => {
            return(
             <FeatureElement
@@ -243,7 +243,7 @@ const FeaturesDemo = () => {
            )
          })} 
       </div>
-      <div className="bg-[#0D0D11] overflow-x-auto bg-opacity-75 border border-[#14181D] rounded-md">
+      <div className="bg-[#0D0D11] overflow-x-auto bg-opacity-75 border md:col-span-7 border-[#14181D] rounded-md">
         <div className="w-full border-b border-[#14181D]">
           <div className="px-6 items-center flex gap-2 py-1.5 text-sm text-opacity-75 border-b-2 bg-white bg-opacity-5 max-w-max border-[#8690EA] text-[#CCCDF0]">
             <svg
@@ -359,17 +359,13 @@ const FeaturesDemo = () => {
 const CustomInner = ({
   display,
   codeString,
-  marginTop,
   maxHeight,
   highlight,
-  animationDelay,
 }: {
-  marginTop?: number;
   display: boolean;
   codeString: string;
   maxHeight?: number;
   highlight?: boolean;
-  animationDelay?: number;
 }) => {
   return (
     <div
@@ -393,6 +389,9 @@ const CustomInner = ({
 };
 
 const NewCustomCode = ({}) => {
+  const code = `
+
+  `
     return(
       <Highlight {...defaultProps} theme={theme} code={code} language={'typescript'}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
