@@ -3,7 +3,7 @@ import React from 'react';
 export const NewsLetter = (): JSX.Element => {
   return (
     <div className="bg-[#010101] pb-24">
-      <div className="layout grid grid-cols-3 sm:gap-32 items-center">
+      <div className="layout grid md:grid-cols-3 sm:gap-32 items-center">
         <div className="sm:col-span-2 layout">
           <h2 className="text-3xl font-semibold text-white">
             Bridge is getting better every day — <br /> don’t miss out anything.
@@ -13,7 +13,7 @@ export const NewsLetter = (): JSX.Element => {
           </p>
         </div>
 
-        <a href="https://discord.gg/yxjrwm7Bfr" target="_blank" className="self-center">
+        <a href="https://discord.gg/yxjrwm7Bfr" target="_blank" className="self-center md:mt-0 mt-8">
           <div className="self-center">
             <div
               className="max-w-md p-0.5 relative mx-auto bg-left-bottom hover:bg-right-bottom overflow-hidden rounded-md cursor-pointer group bg-grad2 transition-all hover:positio"

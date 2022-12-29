@@ -29,6 +29,13 @@ pre .arrow {
   background-color: rgb(72, 77, 91, 0) !important;
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  background: rgb(255,255,255,0.05);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(255,255,255,0.1);
+}
+
 /* stylelint-disable docusaurus/copyright-header */
 /**
  * Any CSS included here will be global. The classic template
