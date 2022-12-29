@@ -43,7 +43,13 @@ const Studio = () => {
           developing and integrating APIs.
         </p>
         <Code />
-        <img src="/img/doc.png" className="rounded-md" />
+        <h2 className="text-4xl mt-3 font-semibold text-white mt-32 text-center">
+          Your <span className="grad">API documentation</span> in one click
+        </h2>
+        <p className="w-3/4 mx-auto mt-6 text-lg text-center text-white text-opacity-50 md:text-xl">
+          Bridge can generate a clear and concise API reference in a matter of seconds.
+        </p>
+        <img src="/img/dashboard.png" className="mt-12 rounded-md" />
       </div>
     </div>
   );

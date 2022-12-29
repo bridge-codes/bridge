@@ -14,7 +14,7 @@ export const NewsLetter = (): JSX.Element => {
       </div>
 
       <div className="self-center">
-        <form className="flex flex-col items-center">
+        <div className="flex flex-col items-center">
           <input
             type="email"
             className="w-full px-3 py-2 mb-2 border border-gray-400 rounded-lg"
@@ -23,7 +23,7 @@ export const NewsLetter = (): JSX.Element => {
           <button className="w-max-w py-3 text-sm font-semibold text-white rounded-lg bg-theme-main">
             Subscribe
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
