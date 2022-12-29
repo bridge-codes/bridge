@@ -1,13 +1,11 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, memo } from 'react';
 import { Redirect } from '@docusaurus/router';
 import Layout from '@theme/Layout';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Code } from '../components/Code';
 import { NewsLetter } from '../components/Newsletter';
-import Highlight, { defaultProps } from 'prism-react-renderer';
-import theme from 'prism-react-renderer/themes/nightOwl';
-import { boolean } from 'yup';
+import { NewCustomCode } from '../components/NewCode';
 
 export default function Home(): JSX.Element {
   return (
@@ -39,14 +37,14 @@ const Studio = () => {
     <div className="bg-[#010101]">
       <div className="py-32 layout">
         <Breadcrumb text="Coming soon" />
-        <h2 className="text-4xl mt-3 font-semibold text-white">
+        <h2 className="mt-3 text-4xl font-semibold text-white">
           Bridge <span className="grad">Studio</span>
         </h2>
-        <p className="w-3/4  mt-4 text-lg text-white text-opacity-50 md:text-xl">
+        <p className="w-3/4 mt-4 text-lg text-white text-opacity-50 md:text-xl">
           Bridge aims to provide the best developer experience ever by simplifying the process of
           developing and integrating APIs.
         </p>
-        <h3 className="text-2xl mt-3 font-semibold text-white mt-8">
+        <h3 className="mt-3 mt-8 text-2xl font-semibold text-white">
           {/* Your <span className="grad">API documentation</span> in one click */}
           Your <span className="grad">Client Code</span> in one click
         </h3>
@@ -55,7 +53,7 @@ const Studio = () => {
           with Github/Gitlab or use our CLI to sync your project with the platform.
         </p>
         <Code />
-        <h3 className="text-2xl mt-3 font-semibold text-white mt-8">
+        <h3 className="mt-3 mt-8 text-2xl font-semibold text-white">
           Your <span className="grad">API documentation</span> in one click
         </h3>
         <p className="w-3/4 mt-2 text-lg text-white text-opacity-50 md:text-lg">
@@ -88,11 +86,11 @@ const HeroSection = () => {
     <div className="bg-[#010101]">
       <div className="relative min-h-screen" style={{ backgroundImage: `url("/img/bg.png")` }}>
         <div className="relative z-20 py-20 md:py-48 layout">
-          {/* <div className="max-w-max mx-auto mt-4 mb-6">
+          {/* <div className="mx-auto mt-4 mb-6 max-w-max">
             <Breadcrumb text=" DX" />
           </div> */}
 
-          <h1 className="text-4xl font-semibold text-center text-white md:text-6xl mt-8">
+          <h1 className="mt-8 text-4xl font-semibold text-center text-white md:text-6xl">
             The <span className="grad">Typescript</span> API framework that enhances developer{' '}
             <span className="grad">productivity</span>
           </h1>
@@ -217,8 +215,7 @@ const FeaturesDemo = () => {
     },
     {
       title: 'Add middlewares',
-      text:
-        'Create powerful type-safe middlewares that can validate data, and pass data to next middlewares.',
+      text: 'Create powerful type-safe middlewares that can validate data, and pass data to next middlewares.',
       icon: '',
     },
     {
@@ -227,6 +224,32 @@ const FeaturesDemo = () => {
       icon: '',
     },
   ];
+
+  const fullCode = `import { initBridge, handler, apply, httpError } from 'bridge';
+import z from 'zod'
+
+const authMid = handler({
+   headers: z.object({ token: z.string() }),
+   resolve: (data) => {
+     if (data.headers.token !== 'private_token') 
+        return httpError(401, 'Wrong token');
+      else return { name: 'John Doe' };
+    },
+})
+
+const getMe = handler({
+   body: z.object({ pseudo: z.string().min(3) }),
+   middlewares: apply(authMid),
+   resolve: (data) => \`Hey \${data.body.pseudo}\`
+   resolve: () => 'Hello!'
+})
+
+const bridge = initBridge({ routes: { getMe } });
+
+bridge.HTTPServer().listen(8080, () => {
+    console.log("Listening on port 8080"); 
+});
+  `;
 
   return (
     <div className="relative grid mt-16 md:grid-cols-12">
@@ -257,10 +280,10 @@ const FeaturesDemo = () => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                clip-rule="evenodd"
+                clipRule="evenodd"
                 d="m.98608 0h24.32332c.5446 0 .9861.436522.9861.975v24.05c0 .5385-.4415.975-.9861.975h-24.32332c-.544597 0-.98608-.4365-.98608-.975v-24.05c0-.538478.441483-.975.98608-.975zm13.63142 13.8324v-2.1324h-9.35841v2.1324h3.34111v9.4946h2.6598v-9.4946zm1.0604 9.2439c.4289.2162.9362.3784 1.5218.4865.5857.1081 1.2029.1622 1.8518.1622.6324 0 1.2331-.0595 1.8023-.1784.5691-.1189 1.0681-.3149 1.497-.5879s.7685-.6297 1.0187-1.0703.3753-.9852.3753-1.6339c0-.4703-.0715-.8824-.2145-1.2365-.1429-.3541-.3491-.669-.6186-.9447-.2694-.2757-.5925-.523-.9692-.7419s-.8014-.4257-1.2743-.6203c-.3465-.1406-.6572-.2771-.9321-.4095-.275-.1324-.5087-.2676-.7011-.4054-.1925-.1379-.3409-.2838-.4454-.4379-.1045-.154-.1567-.3284-.1567-.523 0-.1784.0467-.3392.1402-.4824.0935-.1433.2254-.2663.3959-.369s.3794-.1824.6269-.2392c.2474-.0567.5224-.0851.8248-.0851.22 0 .4523.0162.697.0486.2447.0325.4908.0825.7382.15.2475.0676.4881.1527.7218.2555.2337.1027.4495.2216.6475.3567v-2.4244c-.4015-.1514-.84-.2636-1.3157-.3365-.4756-.073-1.0214-.1095-1.6373-.1095-.6268 0-1.2207.0662-1.7816.1987-.5609.1324-1.0544.3392-1.4806.6203s-.763.6392-1.0104 1.0743c-.2475.4352-.3712.9555-.3712 1.5609 0 .7731.2268 1.4326.6805 1.9785.4537.546 1.1424 1.0082 2.0662 1.3866.363.146.7011.2892 1.0146.4298.3134.1405.5842.2865.8124.4378.2282.1514.4083.3162.5403.4946s.198.3811.198.6082c0 .1676-.0413.323-.1238.4662-.0825.1433-.2076.2676-.3753.373s-.3766.1879-.6268.2473c-.2502.0595-.5431.0892-.8785.0892-.5719 0-1.1383-.0986-1.6992-.2959-.5608-.1973-1.0805-.4933-1.5589-.8879z"
                 fill="#3178C6"
-                fill-rule="evenodd"
+                fillRule="evenodd"
               ></path>
             </svg>
             index.ts
@@ -268,7 +291,7 @@ const FeaturesDemo = () => {
         </div>
         {/* CODE */}
         <div
-          className="pt-5 pb-24 overflow-y-hidden text-sm overflow-x-auto custom-scrollbar"
+          className="pt-5 pb-24 overflow-x-auto overflow-y-hidden text-sm custom-scrollbar"
           style={{ height: `calc(100% - 35px)` }}
         >
           {/* <CustomCode codeString={codeImportsString} display={selected < 2} /> */}
@@ -298,7 +321,7 @@ const FeaturesDemo = () => {
             highlight={selected === 2}
           />
 
-          <CustomCode
+        <CustomCode
             codeString={helloHandlerStart}
             display={selected >= 0}
             marginTop={16}
@@ -322,7 +345,7 @@ const FeaturesDemo = () => {
             highlight={selected === 0}
             maxHeight={22}
           />
-          <div className="group relative">
+          <div className="relative group">
             <CustomInner codeString={inner} display={selected === 3} />
             <CustomCode
               codeString={returnWithDataString}
@@ -344,6 +367,20 @@ const FeaturesDemo = () => {
             marginTop={16}
             maxHeight={500}
           />
+          {/*
+          <NewCustomCode code={fullCode} 
+             hiddenLines={
+              selected === 0 ? [3,4,5,6,7,8,9,10,11,14,15,16] : 
+              selected === 1 ? [3,4,5,6,7,8,9,10,11,15,17] :
+              selected === 2 ? [17] : [17]
+            } highlighedLines={
+               selected === 0 ? [13, 17, 18] :
+               selected === 1 ? [14,16] :
+               selected === 2 ? [4,5,6,7,8,9,10,11,15] :
+               selected === 3 ? []
+               : []
+              } />
+              */}
         </div>
       </div>
     </div>
@@ -370,107 +407,13 @@ const CustomInner = ({
       className={`absolute transition-all bg-black p-3 z-10 rounded-md border border-white border-opacity-10 shadow-2xl top-6 left-32 text-sm text-white 
            ${showOnHover ? 'group-hover:opacity-100 opacity-0' : ''}
             ${display ? 'opacity-100 duration-500' : 'opacity-0 delay-75 duration-150'}`}
-      style={{ maxHeight: display ? (maxHeight ? maxHeight : 320) : 0, top: top ? top : 24 }}
+      style={{ maxHeight: display ? (maxHeight ? maxHeight : 320) : 0, top: top ? top : 22 }}
     >
       <div
         className={`inline-flex items-center overflow-hidden text-xs transition-all duration-700 ease-in-out`}
         style={{
           borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
           borderStyle: 'solid',
-        }}
-      >
-        <SyntaxHighlighter
-          language="typescript"
-          style={nord}
-          customStyle={{ background: 'transparent', padding: 0, margin: 0 }}
-        >
-          {codeString}
-        </SyntaxHighlighter>
-      </div>
-    </div>
-  );
-};
-
-const NewCustomCode = ({}) => {
-  const code = `
-
-  `;
-  return (
-    <Highlight {...defaultProps} theme={theme} code={code} language={'typescript'}>
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre
-          className={className}
-          style={{
-            padding: '8px 20px',
-            marginBottom: 8,
-            background: 'transparent',
-          }}
-        >
-          {tokens.map((line, i) => (
-            <div style={{ display: 'table-row' }} key={i} {...getLineProps({ line, key: i })}>
-              <div
-                style={{
-                  fontSize: 14,
-                  display: 'table-cell',
-                  textAlign: 'right',
-                  userSelect: 'none',
-                  opacity: 0.5,
-                  paddingRight: '1em',
-                  paddingLeft: '0.5em',
-                }}
-              >
-                {i + 1}
-              </div>
-              <div style={{ display: 'table-cell', fontSize: '13px' }}>
-                {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token, key })} />
-                ))}
-              </div>
-            </div>
-          ))}
-        </pre>
-      )}
-    </Highlight>
-  );
-};
-
-const CustomCode = ({
-  display,
-  codeString,
-  marginTop,
-  maxHeight,
-  highlight,
-  delay,
-}: {
-  marginTop?: number;
-  display: boolean;
-  codeString: string;
-  maxHeight?: number;
-  delay?: number;
-  highlight?: boolean;
-}) => {
-  return (
-    <div
-      className="w-full"
-      style={{
-        marginTop: display ? marginTop | 0 : 0,
-        borderLeft: 2,
-        borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
-        borderStyle: 'solid',
-        background: highlight ? 'rgb(255,255,255,0.04)' : 'rgb(255,255,255,0)',
-      }}
-    >
-      <div
-        className={`md:px-5 flex px-3 overflow-hidden transition-all duration-700 ease-in-out ${
-          display ? '' : ''
-        }`}
-        style={{
-          maxHeight: display ? (maxHeight ? maxHeight : 100) : 0,
-          opacity: display ? (highlight ? 1 : 0.8) : 0,
-          padding: highlight ? '0px 20px' : '0px 20px',
-          transitionDelay: highlight ? (delay ? delay.toString() + 'ms' : '0ms') : '0ms',
-          willChange: 'max-height',
-          display: 'table-caption',
         }}
       >
         <SyntaxHighlighter
@@ -537,3 +480,57 @@ const FeatureElement = ({
     </div>
   );
 };
+
+// NewCode.tsx is easier to use / way more performant but the delays are tricky to implement, might do someting latter
+const CustomCodeNoMemo = ({
+  display,
+  codeString,
+  marginTop,
+  maxHeight,
+  highlight,
+  delay,
+}: {
+  marginTop?: number;
+  display: boolean;
+  codeString: string;
+  maxHeight?: number;
+  delay?: number;
+  highlight?: boolean;
+}) => {
+  return (
+    <div
+      className="w-full"
+      style={{
+        marginTop: display ? marginTop | 0 : 0,
+        borderLeft: 2,
+        borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
+        borderStyle: 'solid',
+        background: highlight ? 'rgb(255,255,255,0.04)' : 'rgb(255,255,255,0)',
+      }}
+    >
+      <div
+        className={`md:px-5 flex px-3 overflow-hidden transition-all duration-700 ease-in-out ${
+          display ? '' : ''
+        }`}
+        style={{
+          maxHeight: display ? (maxHeight ? maxHeight : 100) : 0,
+          opacity: display ? (highlight ? 1 : 0.8) : 0,
+          padding: highlight ? '0px 20px' : '0px 20px',
+          transitionDelay: highlight ? (delay ? delay.toString() + 'ms' : '0ms') : '0ms',
+          willChange: 'max-height',
+          display: 'table-caption',
+        }}
+      >
+        <SyntaxHighlighter
+          language="typescript"
+          style={nord}
+          customStyle={{ background: 'transparent', padding: 0, margin: 0 }}
+        >
+          {codeString}
+        </SyntaxHighlighter>
+      </div>
+    </div>
+  );
+};
+
+const CustomCode = memo(CustomCodeNoMemo)
