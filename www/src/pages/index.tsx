@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Redirect } from '@docusaurus/router';
 import Layout from '@theme/Layout';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -329,7 +329,7 @@ const CustomCode = ({
 }) => {
   return (
     <div
-      className="md:px-5 px-3 overflow-hidden transition-all duration-700 ease-in-out"
+      className={`md:px-5 px-3 overflow-hidden transition-all duration-700 ease-in-out ${display ? 'md:inline-flex flex' : 'block'}`}
       style={{
         maxHeight: display ? (maxHeight ? maxHeight : 100) : 0,
         opacity: display ? (highlight ? 1 : 0.6) : 0,
@@ -340,7 +340,7 @@ const CustomCode = ({
         background: highlight ? 'rgb(255,255,255,0.03)' : 'rgb(255,255,255,0)',
         padding: highlight ? '0px 20px' : '0px 20px',
         transitionDelay: highlight ? (delay ? delay.toString() + 'ms' : '0ms') : '0ms',
-        display: display ? 'inline-flex' : 'block'
+        willChange: 'max-height'
       }}
     >
       <SyntaxHighlighter
@@ -369,10 +369,16 @@ const FeatureElement = ({
   index: number;
   setSelected: any;
 }) => {
+  const thisElement = useRef<HTMLDivElement>(null)
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" ref={thisElement}>
       <div
-        onClick={() => setSelected(index)}
+        onClick={() => {
+          setSelected(index)
+          const size = thisElement.current.getClientRects()
+          console.log(size)
+          }
+          }
         className={`rounded-md flex w-max max-w-xs w-full transition-all border cursor-pointer bg-white md:p-5 p-2 ${
           selected
             ? 'border-t-main bg-opacity-5'
