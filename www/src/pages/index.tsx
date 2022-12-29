@@ -11,7 +11,7 @@ import { boolean } from 'yup';
 
 export default function Home(): JSX.Element {
   return (
-    <div className='overflow-x-hidden'>
+    <div className="overflow-x-hidden">
       <Layout>
         <HeroSection />
         <div className="bg-[#010101] pb-32">
@@ -46,19 +46,19 @@ const Studio = () => {
           Bridge aims to provide the best developer experience ever by simplifying the process of
           developing and integrating APIs.
         </p>
-        <h2 className="text-2xl mt-3 font-semibold text-white mt-8">
+        <h3 className="text-2xl mt-3 font-semibold text-white mt-8">
           {/* Your <span className="grad">API documentation</span> in one click */}
           Your <span className="grad">Client Code</span> in one click
-        </h2>
+        </h3>
         <p className="w-3/4 mt-2 text-lg text-white text-opacity-50 md:text-lg">
           Bridge can generate a fully typed client code in any language in matter of seconds. Log
           with Github/Gitlab or use our CLI to sync your project with the platform.
         </p>
         <Code />
-        <h2 className="text-4xl mt-3 font-semibold text-white md:mt-32 mt-12 text-center">
+        <h3 className="text-2xl mt-3 font-semibold text-white mt-8">
           Your <span className="grad">API documentation</span> in one click
-        </h2>
-        <p className="w-3/4 mx-auto mt-6 text-lg text-center text-white text-opacity-50 md:text-xl">
+        </h3>
+        <p className="w-3/4 mt-2 text-lg text-white text-opacity-50 md:text-lg">
           Bridge can generate a clear and concise API reference in a matter of seconds. Log with
           Github/Gitlab or use our CLI to sync your project with the platform.
         </p>
@@ -206,32 +206,33 @@ const FeaturesDemo = () => {
 
   const features = [
     {
-      title: "Create an endpoint",
-      text: "an intuitive way to write and to manage your endpoints.",
-      icon: "",
+      title: 'Create an endpoint',
+      text: 'an intuitive way to write and to manage your endpoints.',
+      icon: '',
     },
     {
-      title: "Validate your data",
-      text: "Bridge supports query, body and headers validation using zod, yup or superstruct.",
-      icon: "",
+      title: 'Validate your data',
+      text: 'Bridge supports query, body and headers validation using zod, yup or superstruct.',
+      icon: '',
     },
     {
-      title: "Add middlewares",
-      text: "Create powerful type-safe middlewares that can validate data, and pass data to next middlewares.",
-      icon: "",
+      title: 'Add middlewares',
+      text:
+        'Create powerful type-safe middlewares that can validate data, and pass data to next middlewares.',
+      icon: '',
     },
     {
-      title: "Experience the power of TS",
-      text: "Catch error ahead of time and improve your productivity using IDE’s autocompletion.",
-      icon: "",
+      title: 'Experience the power of TS',
+      text: 'Catch error ahead of time and improve your productivity using IDE’s autocompletion.',
+      icon: '',
     },
-    ]
+  ];
 
   return (
     <div className="relative grid mt-16 md:grid-cols-12">
       <div className="flex gap-4 mb-6 overflow-x-auto md:flex-col md:col-span-5 md:mb-0">
-       {features.map((el,index) => {
-           return(
+        {features.map((el, index) => {
+          return (
             <FeatureElement
               selected={selected === index}
               setSelected={setSelected}
@@ -241,8 +242,8 @@ const FeaturesDemo = () => {
               text={el.text}
               icon={el.icon}
             />
-           )
-         })} 
+          );
+        })}
       </div>
       <div className="bg-[#0D0D11] overflow-x-auto bg-opacity-75 border md:col-span-7 border-[#14181D] rounded-md">
         <div className="w-full border-b border-[#14181D]">
@@ -266,7 +267,10 @@ const FeaturesDemo = () => {
           </div>
         </div>
         {/* CODE */}
-        <div className="pt-5 pb-24 overflow-y-hidden text-sm overflow-x-auto custom-scrollbar" style={{height: `calc(100% - 35px)`}}>
+        <div
+          className="pt-5 pb-24 overflow-y-hidden text-sm overflow-x-auto custom-scrollbar"
+          style={{ height: `calc(100% - 35px)` }}
+        >
           {/* <CustomCode codeString={codeImportsString} display={selected < 2} /> */}
           <CustomCode codeString={codeImportsWithApplyAndErrorString} display={true} />
           <div className={`relative group`}>
@@ -278,16 +282,21 @@ const FeaturesDemo = () => {
               maxHeight={300}
               highlight={selected === 2}
             />
-              <CustomInner codeString={innerMiddleware} display={selected === 3} showOnHover={true} top={22*3 + 2}/>
-          </div>
-            <CustomCode
-              codeString={authMiddlewareEndString}
-              display={selected >= 2}
-              delay={500}
-              // marginTop={16}
-              maxHeight={300}
-              highlight={selected === 2}
+            <CustomInner
+              codeString={innerMiddleware}
+              display={selected === 3}
+              showOnHover={true}
+              top={22 * 3 + 2}
             />
+          </div>
+          <CustomCode
+            codeString={authMiddlewareEndString}
+            display={selected >= 2}
+            delay={500}
+            // marginTop={16}
+            maxHeight={300}
+            highlight={selected === 2}
+          />
 
           <CustomCode
             codeString={helloHandlerStart}
@@ -347,7 +356,7 @@ const CustomInner = ({
   maxHeight,
   showOnHover,
   highlight,
-  top
+  top,
 }: {
   display: boolean;
   codeString: string;
@@ -357,79 +366,73 @@ const CustomInner = ({
   top?: number;
 }) => {
   return (
-          <div
-            className={`absolute transition-all bg-black p-3 z-10 rounded-md border border-white border-opacity-10 shadow-2xl top-6 left-32 text-sm text-white 
-           ${showOnHover ? "group-hover:opacity-100 opacity-0" : ""}
-            ${
-              display
-                ? 'opacity-100 duration-500'
-                : 'opacity-0 delay-75 duration-150'
-            }`}
-            style={{maxHeight: display ? (maxHeight ? maxHeight : 320) : 0,
-              top: top ? top : 24
-            }}
-          >
     <div
-      className={`inline-flex items-center overflow-hidden text-xs transition-all duration-700 ease-in-out`} 
-      style={{ 
-        borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
-        borderStyle: 'solid',
-      }}
+      className={`absolute transition-all bg-black p-3 z-10 rounded-md border border-white border-opacity-10 shadow-2xl top-6 left-32 text-sm text-white 
+           ${showOnHover ? 'group-hover:opacity-100 opacity-0' : ''}
+            ${display ? 'opacity-100 duration-500' : 'opacity-0 delay-75 duration-150'}`}
+      style={{ maxHeight: display ? (maxHeight ? maxHeight : 320) : 0, top: top ? top : 24 }}
     >
-      <SyntaxHighlighter
-        language="typescript"
-        style={nord}
-        customStyle={{ background: 'transparent', padding: 0, margin: 0 }}
+      <div
+        className={`inline-flex items-center overflow-hidden text-xs transition-all duration-700 ease-in-out`}
+        style={{
+          borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
+          borderStyle: 'solid',
+        }}
       >
-        {codeString}
-      </SyntaxHighlighter>
+        <SyntaxHighlighter
+          language="typescript"
+          style={nord}
+          customStyle={{ background: 'transparent', padding: 0, margin: 0 }}
+        >
+          {codeString}
+        </SyntaxHighlighter>
+      </div>
     </div>
-    </div>  
   );
 };
 
 const NewCustomCode = ({}) => {
   const code = `
 
-  `
-    return(
-      <Highlight {...defaultProps} theme={theme} code={code} language={'typescript'}>
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre
-            className={className}
-            style={{
-              padding: '8px 20px',
-              marginBottom: 8,
-              background: 'transparent',
-            }}
-          >
-            {tokens.map((line, i) => (
-              <div style={{ display: 'table-row' }} key={i} {...getLineProps({ line, key: i })}>
-                <div
-                  style={{
-                    fontSize: 14,
-                    display: 'table-cell',
-                    textAlign: 'right',
-                    userSelect: 'none',
-                    opacity: 0.5,
-                    paddingRight: '1em',
-                    paddingLeft: '0.5em',
-                  }}
-                >
-                  {i + 1}
-                </div>
-                <div style={{ display: 'table-cell', fontSize: '13px' }}>
-                  {line.map((token, key) => (
-                    <span key={key} {...getTokenProps({ token, key })} />
-                  ))}
-                </div>
+  `;
+  return (
+    <Highlight {...defaultProps} theme={theme} code={code} language={'typescript'}>
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <pre
+          className={className}
+          style={{
+            padding: '8px 20px',
+            marginBottom: 8,
+            background: 'transparent',
+          }}
+        >
+          {tokens.map((line, i) => (
+            <div style={{ display: 'table-row' }} key={i} {...getLineProps({ line, key: i })}>
+              <div
+                style={{
+                  fontSize: 14,
+                  display: 'table-cell',
+                  textAlign: 'right',
+                  userSelect: 'none',
+                  opacity: 0.5,
+                  paddingRight: '1em',
+                  paddingLeft: '0.5em',
+                }}
+              >
+                {i + 1}
               </div>
-            ))}
-          </pre>
-        )}
-      </Highlight>
-    )
-}
+              <div style={{ display: 'table-cell', fontSize: '13px' }}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </pre>
+      )}
+    </Highlight>
+  );
+};
 
 const CustomCode = ({
   display,
@@ -447,13 +450,16 @@ const CustomCode = ({
   highlight?: boolean;
 }) => {
   return (
-    <div className="w-full" style={{
-          marginTop: display ? marginTop | 0 : 0,
-          borderLeft: 2,
-          borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
-          borderStyle: 'solid',
-          background: highlight ? 'rgb(255,255,255,0.04)' : 'rgb(255,255,255,0)',
-      }}>
+    <div
+      className="w-full"
+      style={{
+        marginTop: display ? marginTop | 0 : 0,
+        borderLeft: 2,
+        borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
+        borderStyle: 'solid',
+        background: highlight ? 'rgb(255,255,255,0.04)' : 'rgb(255,255,255,0)',
+      }}
+    >
       <div
         className={`md:px-5 flex px-3 overflow-hidden transition-all duration-700 ease-in-out ${
           display ? '' : ''
@@ -464,7 +470,7 @@ const CustomCode = ({
           padding: highlight ? '0px 20px' : '0px 20px',
           transitionDelay: highlight ? (delay ? delay.toString() + 'ms' : '0ms') : '0ms',
           willChange: 'max-height',
-          display: 'table-caption'
+          display: 'table-caption',
         }}
       >
         <SyntaxHighlighter
