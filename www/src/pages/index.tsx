@@ -216,7 +216,7 @@ bridge.HTTPServer().listen(8080, () => {
           </div>
         </div>
         {/* CODE */}
-        <div className="py-5 text-sm">
+        <div className="py-5 text-sm overflow-y-hidden">
           <CustomCode codeString={codeStringFirst} display={true} />
           <CustomCode
             codeString={codeMiddleware}
