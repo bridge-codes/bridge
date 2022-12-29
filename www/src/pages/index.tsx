@@ -27,6 +27,7 @@ export default function Home(): JSX.Element {
   return <Redirect to="/docs/introduction" />;
 }
 
+const Studio = () => {
   return (
     <div className="bg-[#010101]">
       <div className="py-32 layout">
@@ -34,7 +35,7 @@ export default function Home(): JSX.Element {
         <h2 className="text-4xl font-semibold text-white">
           Bridge <span>Studio</span>
         </h2>
-        <p className="w-3/4 mx-auto mt-8 text-lg text-center text-white text-opacity-50 md:text-xl">
+        <p className="w-3/4 mx-auto mt-8 text-lg text-white text-opacity-50 md:text-xl">
           Bridge aims to provide the best developer experience ever by simplifying the process of
           developing and integrating APIs.
         </p>
