@@ -43,7 +43,7 @@ const Studio = () => {
           developing and integrating APIs.
         </p>
         <Code />
-        <h2 className="text-4xl mt-3 font-semibold text-white mt-32 text-center">
+        <h2 className="text-4xl mt-3 font-semibold text-white md:mt-32 mt-12 text-center">
           Your <span className="grad">API documentation</span> in one click
         </h2>
         <p className="w-3/4 mx-auto mt-6 text-lg text-center text-white text-opacity-50 md:text-xl">
