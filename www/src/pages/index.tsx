@@ -244,7 +244,7 @@ bridge.HTTPServer().listen(8080, () => {
             codeString={codeString4}
             display={selected >= 0 && selected < 2}
             highlight={selected === 0}
-            maxHeight={21.22}
+            maxHeight={22}
           />
           <div className={`relative ${selected === 2 ? 'block' : 'block'}`}>
             <div
@@ -259,7 +259,7 @@ bridge.HTTPServer().listen(8080, () => {
             <CustomCode
               codeString={codeStringExperience}
               display={selected >= 2}
-              maxHeight={21.22}
+              maxHeight={22}
               highlight={selected === 2}
             />
           </div>
@@ -329,10 +329,10 @@ const CustomCode = ({
 }) => {
   return (
     <div
-      className={`md:px-5 px-3 overflow-hidden transition-all duration-700 ease-in-out ${display ? 'md:inline-flex flex' : 'block'}`}
+      className={`md:px-5 px-3 overflow-hidden transition-all duration-700 ease-in-out ${display ? 'md:flex inline-flex' : 'block'}`}
       style={{
         maxHeight: display ? (maxHeight ? maxHeight : 100) : 0,
-        opacity: display ? (highlight ? 1 : 0.6) : 0,
+        opacity: display ? (highlight ? 1 : 0.75) : 0,
         marginTop: display ? marginTop | 0 : 0,
         borderLeft: 2,
         borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
