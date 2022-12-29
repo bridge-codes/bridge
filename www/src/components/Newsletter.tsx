@@ -13,18 +13,20 @@ export const NewsLetter = (): JSX.Element => {
         </p>
       </div>
 
+          <a href="https://discord.gg/yxjrwm7Bfr" target="_blank" className="self-center">
       <div className="self-center">
-        <div className="flex flex-col items-center">
-          <input
-            type="email"
-            className="w-full px-3 py-2 mb-2 border border-gray-400 rounded-lg"
-            placeholder="Your email address"
-          />
-          <button className="w-max-w py-3 text-sm font-semibold text-white rounded-lg bg-theme-main">
-            Subscribe
-          </button>
-        </div>
+          <div
+            className="max-w-md p-0.5 relative mx-auto bg-left-bottom hover:bg-right-bottom overflow-hidden rounded-md cursor-pointer group bg-grad2 transition-all hover:positio"
+            style={{ backgroundSize: '300% 300%', transitionDuration: '2000ms' }}
+          >
+            <div
+              className="py-3 text-center text-white rounded-sm bg-[#0D0B0E]"
+            >
+            Join our Discord
+            </div>
+          </div>
       </div>
+          </a>
     </div>
   );
 };
