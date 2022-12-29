@@ -23,7 +23,7 @@ export default function Home(): JSX.Element {
           </div>
         </div>
         <Studio />
-        <NewsLetter />
+        {/* <NewsLetter /> */}
       </Layout>
     </div>
   );
