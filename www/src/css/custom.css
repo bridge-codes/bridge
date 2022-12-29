@@ -2,6 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .layout {
+    @apply max-w-6xl px-5 mx-auto;
+  }
+}
+
+.grad {
+  background: linear-gradient(0deg, #d7c5ff 0%, #885ce7 34.91%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+/* Fixing the siki arrow... */
+pre .arrow {
+  background-color: var(--ifm-color-emphasis-200);
+  position: relative;
+  top: 0px !important;
+  margin-left: 0.1rem;
+  border-left: 0px solid var(--ifm-color-emphasis-200) !important;
+  border-top: 0px solid var(--ifm-color-emphasis-200) !important;
+  transform: none !important;
+  height: 8px;
+  width: 8px;
+  background-color: rgb(72, 77, 91, 0) !important;
+}
+
 /* stylelint-disable docusaurus/copyright-header */
 /**
  * Any CSS included here will be global. The classic template
@@ -363,8 +390,6 @@ details p {
 .markdown .github-comment {
   margin-bottom: 2rem;
 }
-
-
 
 /**
  * Any CSS included here will be global. The classic template
