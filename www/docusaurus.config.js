@@ -137,7 +137,7 @@ const config = {
             items: [
               {
                 label: 'Discord',
-                href: 'https://discord.gg/ZCw645JV',
+                href: 'https://discord.gg/yxjrwm7Bfr',
                 className: 'flex items-center',
               },
               {

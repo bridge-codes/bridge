@@ -27,7 +27,8 @@ export default function Home(): JSX.Element {
       </Layout>
     </div>
   );
-  return <Redirect to="/docs/introduction" />;
+
+  // return <Redirect to="/docs/introduction" />;
 }
 
 const Studio = () => {
@@ -42,12 +43,21 @@ const Studio = () => {
           Bridge aims to provide the best developer experience ever by simplifying the process of
           developing and integrating APIs.
         </p>
+        <h2 className="text-4xl mt-3 font-semibold text-white md:mt-32 mt-12 text-center">
+          {/* Your <span className="grad">API documentation</span> in one click */}
+          Your <span className="grad">Client Code</span> in one click
+        </h2>
+        <p className="w-3/4 mx-auto mt-6 text-lg text-center text-white text-opacity-50 md:text-xl">
+          Bridge can generate a fully typed client code in any language in matter of seconds. Log
+          with Github/Gitlab or use our CLI to sync your project with the platform.
+        </p>
         <Code />
         <h2 className="text-4xl mt-3 font-semibold text-white md:mt-32 mt-12 text-center">
           Your <span className="grad">API documentation</span> in one click
         </h2>
         <p className="w-3/4 mx-auto mt-6 text-lg text-center text-white text-opacity-50 md:text-xl">
-          Bridge can generate a clear and concise API reference in a matter of seconds.
+          Bridge can generate a clear and concise API reference in a matter of seconds. Log with
+          Github/Gitlab or use our CLI to sync your project with the platform.
         </p>
         <img src="/img/dashboard.png" className="mt-12 rounded-md" />
       </div>
@@ -75,15 +85,16 @@ const HeroSection = () => {
     <div className="bg-[#010101]">
       <div className="relative min-h-screen" style={{ backgroundImage: `url("/img/bg.png")` }}>
         <div className="relative z-20 py-20 md:py-48 layout">
-          {/* <div className="max-w-max mx-auto mt-2 mb-4">
-            <Breadcrumb text="Focus On Developer Experience" />
+          {/* <div className="max-w-max mx-auto mt-4 mb-6">
+            <Breadcrumb text=" DX" />
           </div> */}
 
-          <h1 className="text-4xl font-semibold text-center text-white md:text-6xl">
+          <h1 className="text-4xl font-semibold text-center text-white md:text-6xl mt-8">
             The <span className="grad">Typescript</span> API framework that enhances developer{' '}
             <span className="grad">productivity</span>
           </h1>
           <p className="w-3/4 mx-auto mt-8 text-lg text-center text-white text-opacity-50 md:text-xl">
+            {/* Because you deserve the best developer experience */}
             Bridge aims to provide the best developer experience ever by simplifying the process of
             developing and integrating APIs.
           </p>
@@ -94,7 +105,7 @@ const HeroSection = () => {
           >
             <div
               className="py-3 text-center text-white rounded-sm bg-[#0D0B0E]"
-              style={{ fontFamily: 'Fira Code' }}
+              // style={{ fontFamily: 'Fira Code' }}
             >
               ~ npx create-bridge-app
             </div>
@@ -143,49 +154,51 @@ const Breadcrumb = ({ text }: { text: string }) => {
 
 const FeaturesDemo = () => {
   const [selected, setSelected] = useState(0);
-  const codeStringFirst = `import { initBridge, handler, apply } from 'bridge';
-import { z } from "zod"`;
+  const codeImportsString = `import { initBridge, handler } from 'bridge';\nimport z from 'zod'`;
+  const codeImportsWithApplyAndErrorString = `import { initBridge, handler, apply, httpError } from 'bridge';\nimport z from 'zod'`;
 
-  const codeStringLast = `const bridge = initBridge({ routes: { hello } });
-
-bridge.HTTPServer().listen(8080, () => {
-    "Listening on port 8080";
-});`;
+  const initBridgeAndServerString = `const bridge = initBridge({ routes: { getMe } });\n\nbridge.HTTPServer().listen(8080, () => {\n    console.log("Listening on port 8080"); \n});`;
 
   // base
-  const codeString1 = `const hello = handler({`;
-  const codeString4 = `   resolve: () => "Hello you !"`;
-  const codeString5 = `})`;
+  const helloHandlerStart = `const getMe = handler({`;
+  const handlerResolveWithoutData = `   resolve: () => 'Hello!'`;
+  const helloHandlerEnd = `})`;
 
   // data validation
-  const bodyHandlerLine = `   body: z.object({ age: z.number().min(0).max(200) }),`;
-  const codeString22 = `   query: z.object({ name: z.string() }),`;
+  const bodyHandlerLine = `   body: z.object({ pseudo: z.string().min(3) }),`;
 
   // experience typescript inference
-  const codeStringExperience = `   resolve: (data) => "Hello" + data.query.name`;
+  const returnWithDataString = `   resolve: (data) => \`Hey \${data.body.pseudo}\``;
+
   const inner = `(parameter) data: {
   body: {
-      age: number;
+    pseudo: string;
   };
-  query: {
-      name: string;
+  mid: {
+    name: string;
+  };
+  headers: {
+    token: string;
+  };
+}`;
+
+  const innerMiddleware = `(parameter) data: {
+  headers: {
+    token: string;
   };
 }`;
 
   // middleware
-  const addMiddlewareLine = `   middlewares: apply(ageVerificationMid),`;
-  const codeMiddleware = `const ageVerficationMid = handler({
-    body: z.object({
-        age: z.number().min(0).max(200),
-    }),
-    resolve: ({ body }) => {
-        if (body.age < 18) return {
-            type: "minor"
-        } as const
-        else return {
-            type: "major"
-        } as const
-    }
+  const addMiddlewareLine = `   middlewares: apply(authMid),`;
+
+  const authMiddlewareBeginString = `const authMid = handler({
+   headers: z.object({ token: z.string() }),
+   resolve: (data) => {`;
+
+  const authMiddlewareEndString = `     if (data.headers.token !== 'private_token') 
+        return httpError(401, 'Wrong token');
+      else return { name: 'John Doe' };
+    },
 })`;
 
   return (
@@ -213,8 +226,8 @@ bridge.HTTPServer().listen(8080, () => {
           selected={selected === 2}
           setSelected={setSelected}
           index={2}
-          title="Experience the power of Typescript"
-          text="Catch error ahead of time and improve your productivity using IDE’s autocompletion."
+          title="Add middlewares"
+          text="Create powerful type-safe middlewares that can validate data, and pass data to next middlewares."
           icon=""
         />
 
@@ -222,8 +235,8 @@ bridge.HTTPServer().listen(8080, () => {
           selected={selected === 3}
           setSelected={setSelected}
           index={3}
-          title="Add middlewares"
-          text="Create powerful type-safe middlewares that can validate data, and pass data to next middlewares."
+          title="Experience the power of TS"
+          text="Catch error ahead of time and improve your productivity using IDE’s autocompletion."
           icon=""
         />
       </div>
@@ -250,48 +263,64 @@ bridge.HTTPServer().listen(8080, () => {
         </div>
         {/* CODE */}
         <div className="pt-5 pb-10 overflow-y-hidden text-sm">
-          <CustomCode codeString={codeStringFirst} display={true} />
+          {/* <CustomCode codeString={codeImportsString} display={selected < 2} /> */}
+          <CustomCode codeString={codeImportsWithApplyAndErrorString} display={true} />
+          <div className={`relative ${selected === 2 ? 'block' : 'block'}`}>
+            <CustomCode
+              codeString={authMiddlewareBeginString}
+              display={selected >= 2}
+              delay={500}
+              marginTop={16}
+              maxHeight={300}
+              highlight={selected === 2}
+            />
+            <div
+              className={`absolute transition-all bg-black p-3 z-10 rounded-md border border-white border-opacity-10 shadow-2xl top-18 left-32 text-sm text-white ${
+                selected === 3
+                  ? 'opacity-100 delay-500 duration-500'
+                  : 'opacity-0 delay-75 duration-150'
+              }`}
+            >
+              <CustomInner codeString={innerMiddleware} display={true} />
+            </div>
+            <CustomCode
+              codeString={authMiddlewareEndString}
+              display={selected >= 2}
+              delay={500}
+              // marginTop={16}
+              maxHeight={300}
+              highlight={selected === 2}
+            />
+          </div>
+
           <CustomCode
-            codeString={codeMiddleware}
-            display={selected >= 3}
-            delay={0}
-            marginTop={16}
-            maxHeight={300}
-            highlight={selected === 3}
-          />
-          <CustomCode
-            codeString={codeString1}
+            codeString={helloHandlerStart}
             display={selected >= 0}
             marginTop={16}
             highlight={selected === 0}
           />
           <CustomCode
             codeString={bodyHandlerLine}
-            display={[1, 2].includes(selected)}
+            display={[1, 2, 3].includes(selected)}
             highlight={selected === 1}
-          />
-          <CustomCode
-            codeString={codeString22}
-            delay={700}
-            display={selected >= 1}
-            highlight={selected === 1}
+            delay={500}
           />
           <CustomCode
             codeString={addMiddlewareLine}
-            display={selected >= 3}
-            delay={1000}
-            highlight={selected === 3}
+            display={selected >= 2}
+            delay={1500}
+            highlight={selected === 2}
           />
           <CustomCode
-            codeString={codeString4}
-            display={selected >= 0 && selected < 2}
+            codeString={handlerResolveWithoutData}
+            display={selected === 0}
             highlight={selected === 0}
             maxHeight={22}
           />
           <div className={`relative ${selected === 2 ? 'block' : 'block'}`}>
             <div
               className={`absolute transition-all bg-black p-3 z-10 rounded-md border border-white border-opacity-10 shadow-2xl top-6 left-32 text-sm text-white ${
-                selected === 2
+                selected === 3
                   ? 'opacity-100 delay-500 duration-500'
                   : 'opacity-0 delay-75 duration-150'
               }`}
@@ -299,19 +328,25 @@ bridge.HTTPServer().listen(8080, () => {
               <CustomInner codeString={inner} display={true} />
             </div>
             <CustomCode
-              codeString={codeStringExperience}
-              display={selected >= 2}
+              codeString={returnWithDataString}
+              display={selected >= 1}
               maxHeight={22}
-              highlight={selected === 2}
+              highlight={selected === 1}
+              delay={1000}
             />
           </div>
           <CustomCode
-            codeString={codeString5}
+            codeString={helloHandlerEnd}
             display={selected >= 0}
             maxHeight={25}
             highlight={selected === 0}
           />
-          <CustomCode codeString={codeStringLast} display={true} marginTop={16} maxHeight={500} />
+          <CustomCode
+            codeString={initBridgeAndServerString}
+            display={true}
+            marginTop={16}
+            maxHeight={500}
+          />
         </div>
       </div>
     </div>

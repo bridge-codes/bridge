@@ -6,9 +6,7 @@ export const Code = () => {
   const [codeState, setCodeState] = useState('');
 
   return (
-    <div
-      className="mt-12 border-white md:mt-32erborder-opacity-5 rounded-xl"
-    >
+    <div className="mt-12 border-white md:mt-32erborder-opacity-5 rounded-xl">
       <div>
         <div className="flex gap-2 px-3 py-2 border-b border-white border-opacity-5">
           <div className="w-2 h-2 rounded-full bg-neutral-800" />
@@ -42,50 +40,43 @@ export const Code = () => {
 
 const Server = () => {
   const code = `
-    import { Controller } from 'bridgets';
-    import { string, z } from "zod"
-      
-    class User extends Controller {
-         getName = this.createEndpoint({
-             query: z.object({ name: z.string() }),
-             handler: ({ query }) => {
-                 return {
-                    name: query.name
-                   age: Math.random(0,10),
-                   date: new Date(),
-                 };
-             },
-        })
-    }
-      `.trim();
+import { handler, initBridge } from "bridge";
+import z from "zod";
+
+const getName = handler({
+  query: z.object({ name: z.string() }),
+  resolve: ({ query }) => ({
+    name: query.name,
+    age: 21,
+    date: new Date(),
+  }),
+});
+
+const port = 8080;
+
+initBridge({ routes: { getName } })
+  .HTTPServer()
+  .listen(port, () => {
+    console.log(\`Listening on port \${port}\`);
+  });
+`.trim();
   return (
     <div className="border-white md:border-r border-opacity-5">
-      <div
-        className="px-3 py-1.5 mt-3 ml-5 text-xs mb-3 text-white text-opacity-50 rounded-md max-w-max"
-      >
+      <div className="px-3 py-1.5 mt-3 ml-5 text-xs mb-3 text-white text-opacity-50 rounded-md max-w-max">
         Server
       </div>
-      <Highlight
-        {...defaultProps}
-        theme={theme}
-        code={code}
-        language={'typescript'}
-      >
+      <Highlight {...defaultProps} theme={theme} code={code} language={'typescript'}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre
             className={className}
             style={{
               padding: '8px 20px',
               marginBottom: 8,
-              background: 'transparent'
+              background: 'transparent',
             }}
           >
             {tokens.map((line, i) => (
-              <div
-                style={{ display: 'table-row' }}
-                key={i}
-                {...getLineProps({ line, key: i })}
-              >
+              <div style={{ display: 'table-row' }} key={i} {...getLineProps({ line, key: i })}>
                 <div
                   style={{
                     fontSize: 14,
@@ -115,12 +106,11 @@ const Server = () => {
 
 const Client = () => {
   const originalCode = `
-import { API } from ./sdk 
+import { API } from './sdk' 
 
-const user = await API.user.getName({name: "David"})
+const user = API.getName({ query: { name: "David" } })
 
-user
-        `.trim();
+user`.trim();
   const totalLength = originalCode.length;
 
   const [code, setCode] = useState('');
@@ -139,17 +129,10 @@ user
 
   return (
     <div className="border-t border-white md:border-opacity-0 border-opacity-5">
-      <div
-        className="px-3 py-1.5 mt-3 ml-5 text-xs mb-3 text-white text-opacity-50 rounded-md max-w-max"
-      >
+      <div className="px-3 py-1.5 mt-3 ml-5 text-xs mb-3 text-white text-opacity-50 rounded-md max-w-max">
         Client
       </div>
-      <Highlight
-        {...defaultProps}
-        theme={theme}
-        code={code}
-        language={'typescript'}
-      >
+      <Highlight {...defaultProps} theme={theme} code={code} language={'typescript'}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre
             className={className}
@@ -160,11 +143,7 @@ user
             }}
           >
             {tokens.map((line, i) => (
-              <div
-                style={{ display: 'table-row' }}
-                key={i}
-                {...getLineProps({ line, key: i })}
-              >
+              <div style={{ display: 'table-row' }} key={i} {...getLineProps({ line, key: i })}>
                 <div
                   style={{
                     fontSize: 12,
@@ -194,9 +173,7 @@ user
                             //     });
                             //   }}
                           ></span>
-                          <Suggestions
-                            show={code.length === originalCode.length}
-                          />
+                          <Suggestions show={code.length === originalCode.length} />
                         </>
                       );
                     } else if (token.content.includes('user')) {
@@ -207,8 +184,7 @@ user
                           onMouseEnter={(e) => {
                             const top =
                               //@ts-ignore
-                              e.target.getBoundingClientRect().top +
-                              window.scrollY;
+                              e.target.getBoundingClientRect().top + window.scrollY;
                             //@ts-ignore
                             const left = e.target.getBoundingClientRect().left;
                             setPosition({
@@ -226,10 +202,7 @@ user
                           }}
                         />
                       );
-                    } else
-                      return (
-                        <span key={key} {...getTokenProps({ token, key })} />
-                      );
+                    } else return <span key={key} {...getTokenProps({ token, key })} />;
                   })}
                 </div>
               </div>
@@ -266,25 +239,14 @@ const user: {
           top: position.top,
         }}
       >
-        <Highlight
-          {...defaultProps}
-          theme={theme}
-          code={code}
-          language={'typescript'}
-        >
+        <Highlight {...defaultProps} theme={theme} code={code} language={'typescript'}>
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
             <pre className={className}>
               {tokens.map((line, i) => (
-                <div
-                  style={{ display: 'table-row' }}
-                  key={i}
-                  {...getLineProps({ line, key: i })}
-                >
+                <div style={{ display: 'table-row' }} key={i} {...getLineProps({ line, key: i })}>
                   <div style={{ display: 'table-cell', fontSize: '12px' }}>
                     {line.map((token, key) => {
-                      return (
-                        <span key={key} {...getTokenProps({ token, key })} />
-                      );
+                      return <span key={key} {...getTokenProps({ token, key })} />;
                     })}
                   </div>
                 </div>
@@ -301,25 +263,19 @@ const Suggestions = ({ show }: { show: boolean }) => {
   const [showDelayed, setShowDelayed] = useState(false);
   useEffect(() => {
     if (show) {
-      setTimeout(() => setShowDelayed(true), 250);
+      setTimeout(() => setShowDelayed(true), 0);
     }
   }, [show]);
   return (
     <div className={`z-50 ml-9 -translate-y-5 -translate-x-0.5 `}>
-      <p
-        className={`${
-          showDelayed ? 'opacity-100 delay-100 transition-all' : ''
-        }`}
-      >
+      <p className={`${showDelayed ? 'opacity-100 delay-100 transition-all' : ''}`}>
         .<span className="animate-pulse">|</span>
       </p>
       <div
         style={{
           background: '#14131B',
         }}
-        className={`-mt-2 ${
-          showDelayed ? 'opacity-100 delay-500 transition-all' : 'opacity-0'
-        }`}
+        className={`-mt-2 ${showDelayed ? 'opacity-100 delay-500 transition-all' : 'opacity-0'}`}
       >
         <div className="flex px-2 py-1 text-xs text-white transition-all bg-white bg-opacity-0 border-b border-white border-opacity-5 hover:bg-opacity-10">
           <p className="mb-0 mr-auto opacity-50">name</p>
