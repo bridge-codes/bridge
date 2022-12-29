@@ -3,6 +3,8 @@ import { Redirect } from '@docusaurus/router';
 import Layout from '@theme/Layout';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Code } from '../components/Code';
+import { NewsLetter } from '../components/Newsletter';
 
 export default function Home(): JSX.Element {
   return (
@@ -21,24 +23,27 @@ export default function Home(): JSX.Element {
           </div>
         </div>
         <Studio />
+        <NewsLetter />
       </Layout>
     </div>
   );
   return <Redirect to="/docs/introduction" />;
 }
 
+
 const Studio = () => {
   return (
     <div className="bg-[#010101]">
       <div className="py-32 layout">
         <Breadcrumb text="Coming soon" />
-        <h2 className="text-4xl font-semibold text-white">
-          Bridge <span>Studio</span>
+        <h2 className="text-4xl mt-3 font-semibold text-white">
+          Bridge <span className="grad">Studio</span>
         </h2>
-        <p className="w-3/4 mx-auto mt-8 text-lg text-white text-opacity-50 md:text-xl">
+        <p className="w-3/4  mt-4 text-lg text-white text-opacity-50 md:text-xl">
           Bridge aims to provide the best developer experience ever by simplifying the process of
           developing and integrating APIs.
         </p>
+        <Code />
       </div>
     </div>
   );
