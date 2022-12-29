@@ -7,6 +7,7 @@ import { Code } from '../components/Code';
 import { NewsLetter } from '../components/Newsletter';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/nightOwl';
+import { boolean } from 'yup';
 
 export default function Home(): JSX.Element {
   return (
@@ -268,7 +269,7 @@ const FeaturesDemo = () => {
         <div className="pt-5 pb-24 overflow-y-hidden text-sm overflow-x-auto custom-scrollbar" style={{height: `calc(100% - 35px)`}}>
           {/* <CustomCode codeString={codeImportsString} display={selected < 2} /> */}
           <CustomCode codeString={codeImportsWithApplyAndErrorString} display={true} />
-          <div className={`relative ${selected === 2 ? 'block' : 'block'}`}>
+          <div className={`relative group`}>
             <CustomCode
               codeString={authMiddlewareBeginString}
               display={selected >= 2}
@@ -277,15 +278,8 @@ const FeaturesDemo = () => {
               maxHeight={300}
               highlight={selected === 2}
             />
-            <div
-              className={`absolute transition-all bg-black p-3 z-10 rounded-md border border-white border-opacity-10 shadow-2xl top-18 left-32 text-sm text-white ${
-                selected === 3
-                  ? 'opacity-100 delay-500 duration-500'
-                  : 'opacity-0 delay-75 duration-150'
-              }`}
-            >
-              <CustomInner codeString={innerMiddleware} display={true} />
-            </div>
+              <CustomInner codeString={innerMiddleware} display={selected === 3} showOnHover={true} top={22*3 + 2}/>
+          </div>
             <CustomCode
               codeString={authMiddlewareEndString}
               display={selected >= 2}
@@ -294,7 +288,6 @@ const FeaturesDemo = () => {
               maxHeight={300}
               highlight={selected === 2}
             />
-          </div>
 
           <CustomCode
             codeString={helloHandlerStart}
@@ -320,16 +313,8 @@ const FeaturesDemo = () => {
             highlight={selected === 0}
             maxHeight={22}
           />
-          <div className={`relative ${selected === 2 ? 'block' : 'block'}`}>
-            <div
-              className={`absolute transition-all bg-black p-3 z-10 rounded-md border border-white border-opacity-10 shadow-2xl top-6 left-32 text-sm text-white ${
-                selected === 3
-                  ? 'opacity-100 delay-500 duration-500'
-                  : 'opacity-0 delay-75 duration-150'
-              }`}
-            >
-              <CustomInner codeString={inner} display={true} />
-            </div>
+          <div className="group relative">
+            <CustomInner codeString={inner} display={selected === 3} />
             <CustomCode
               codeString={returnWithDataString}
               display={selected >= 1}
@@ -360,19 +345,33 @@ const CustomInner = ({
   display,
   codeString,
   maxHeight,
+  showOnHover,
   highlight,
+  top
 }: {
   display: boolean;
   codeString: string;
   maxHeight?: number;
   highlight?: boolean;
+  showOnHover?: boolean;
+  top?: number;
 }) => {
   return (
+          <div
+            className={`absolute transition-all bg-black p-3 z-10 rounded-md border border-white border-opacity-10 shadow-2xl top-6 left-32 text-sm text-white 
+           ${showOnHover ? "group-hover:opacity-100 opacity-0" : ""}
+            ${
+              display
+                ? 'opacity-100 duration-500'
+                : 'opacity-0 delay-75 duration-150'
+            }`}
+            style={{maxHeight: display ? (maxHeight ? maxHeight : 320) : 0,
+              top: top ? top : 24
+            }}
+          >
     <div
-      className="inline-flex items-center overflow-hidden text-xs transition-all duration-700 ease-in-out"
-      style={{
-        maxHeight: display ? (maxHeight ? maxHeight : 320) : 0,
-        opacity: display ? 1 : 0,
+      className={`inline-flex items-center overflow-hidden text-xs transition-all duration-700 ease-in-out`} 
+      style={{ 
         borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
         borderStyle: 'solid',
       }}
@@ -385,6 +384,7 @@ const CustomInner = ({
         {codeString}
       </SyntaxHighlighter>
     </div>
+    </div>  
   );
 };
 
@@ -460,7 +460,7 @@ const CustomCode = ({
         }`}
         style={{
           maxHeight: display ? (maxHeight ? maxHeight : 100) : 0,
-          opacity: display ? (highlight ? 1 : 0.85) : 0,
+          opacity: display ? (highlight ? 1 : 0.8) : 0,
           padding: highlight ? '0px 20px' : '0px 20px',
           transitionDelay: highlight ? (delay ? delay.toString() + 'ms' : '0ms') : '0ms',
           willChange: 'max-height',
