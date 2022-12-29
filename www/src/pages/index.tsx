@@ -30,7 +30,6 @@ export default function Home(): JSX.Element {
   return <Redirect to="/docs/introduction" />;
 }
 
-
 const Studio = () => {
   return (
     <div className="bg-[#010101]">
@@ -44,6 +43,7 @@ const Studio = () => {
           developing and integrating APIs.
         </p>
         <Code />
+        <img src="/img/doc.png" className="rounded-md" />
       </div>
     </div>
   );

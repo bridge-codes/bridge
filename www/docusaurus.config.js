@@ -99,7 +99,6 @@ const config = {
             to: 'docs/quickstart',
             label: 'Quickstart',
           },
-         
           {
             href: 'https://github.com/bridge-codes/bridge',
             position: 'right',
