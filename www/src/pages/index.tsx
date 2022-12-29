@@ -13,18 +13,35 @@ export default function Home(): JSX.Element {
           <div className="relative layout">
             <img src="img/bg-lines.png" className="absolute z-0" />
             <Breadcrumb text="Simplicity" />
-            <h2 className="w-3/4 mt-4 md:text-5xl text-3xl font-semibold text-white">
+            <h2 className="w-3/4 mt-4 text-3xl font-semibold text-white md:text-5xl">
               <span className="grad">Bridge</span> offers an easy and scalable way to write your
               backend code.
             </h2>
             <FeaturesDemo />
           </div>
         </div>
+        <Studio />
       </Layout>
     </div>
   );
   return <Redirect to="/docs/introduction" />;
 }
+
+  return (
+    <div className="bg-[#010101]">
+      <div className="py-32 layout">
+        <Breadcrumb text="Coming soon" />
+        <h2 className="text-4xl font-semibold text-white">
+          Bridge <span>Studio</span>
+        </h2>
+        <p className="w-3/4 mx-auto mt-8 text-lg text-center text-white text-opacity-50 md:text-xl">
+          Bridge aims to provide the best developer experience ever by simplifying the process of
+          developing and integrating APIs.
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const HeroSection = () => {
   const [copied, setCopied] = useState(false);
@@ -45,12 +62,12 @@ const HeroSection = () => {
   return (
     <div className="bg-[#010101]">
       <div className="relative min-h-screen" style={{ backgroundImage: `url("/img/bg.png")` }}>
-        <div className="relative z-20 md:py-48 py-20 layout">
-          <h1 className="text-4xl md:text-6xl font-semibold text-center text-white">
+        <div className="relative z-20 py-20 md:py-48 layout">
+          <h1 className="text-4xl font-semibold text-center text-white md:text-6xl">
             The <span className="grad">Typescript</span> API framework that enhances developer{' '}
             <span className="grad">productivity</span>
           </h1>
-          <p className="w-3/4 mx-auto mt-8 text-lg md:text-xl text-center text-white text-opacity-50">
+          <p className="w-3/4 mx-auto mt-8 text-lg text-center text-white text-opacity-50 md:text-xl">
             Bridge aims to provide the best developer experience ever by simplifying the process of
             developing and integrating APIs.
           </p>
@@ -156,8 +173,8 @@ bridge.HTTPServer().listen(8080, () => {
 })`;
 
   return (
-    <div className="relative grid md:grid-cols-2 mt-16">
-      <div className="flex md:flex-col gap-4 overflow-x-auto md:mb-0 mb-6">
+    <div className="relative grid mt-16 md:grid-cols-2">
+      <div className="flex gap-4 mb-6 overflow-x-auto md:flex-col md:mb-0">
         <FeatureElement
           selected={selected === 0}
           setSelected={setSelected}
@@ -216,7 +233,7 @@ bridge.HTTPServer().listen(8080, () => {
           </div>
         </div>
         {/* CODE */}
-        <div className="pt-5 pb-10 text-sm overflow-y-hidden">
+        <div className="pt-5 pb-10 overflow-y-hidden text-sm">
           <CustomCode codeString={codeStringFirst} display={true} />
           <CustomCode
             codeString={codeMiddleware}
@@ -395,12 +412,12 @@ const FeatureElement = ({
           <img src={icon} />{' '}
         </div>
         <div>
-          <h3 className="md:text-lg text-sm font-medium text-white">{title}</h3>
-          <p className="mt-2 text-sm text-white text-opacity-75 hidden md:block">{text}</p>
+          <h3 className="text-sm font-medium text-white md:text-lg">{title}</h3>
+          <p className="hidden mt-2 text-sm text-white text-opacity-75 md:block">{text}</p>
         </div>
       </div>
       <div
-        className="transition-all duration-1000 delay-300 md:block hidden"
+        className="hidden transition-all duration-1000 delay-300 md:block"
         style={{
           background: selected
             ? 'linear-gradient(90deg, #8690EA 0%, rgba(134, 144, 234, 0) 100%)'

@@ -60,22 +60,26 @@ pre .arrow {
 } */
 
 :root {
-  --ifm-color-primary: #398ccb;
-  --ifm-color-primary-dark: #317eb9;
-  --ifm-color-primary-darker: #2e77af;
-  --ifm-color-primary-darkest: #266290;
-  --ifm-color-primary-light: #4e98d0;
-  --ifm-color-primary-lighter: #589ed3;
-  --ifm-color-primary-lightest: #77b0db;
+  --ifm-color-primary: #8690EA;
+  --ifm-color-primary-dark: #8690EA;
+  --ifm-color-primary-darker: #8690EA;
+  --ifm-color-primary-darkest: #8690EA;
+  --ifm-color-primary-light: #8690EA;
+  --ifm-color-primary-lighter: #8690EA;
+  --ifm-color-primary-lightest: #8690EA;
   --ifm-code-font-size: 95%;
   --ifm-container-width: 1140px;
   --ifm-container-width-xl: 1320px;
   --ifm-navbar-shadow: none;
 }
 :root[data-theme='dark'] {
-  --ifm-footer-background-color: #171717;
-  --ifm-navbar-background-color: #111111;
-  --ifm-background-color: #111111;
+  --ifm-footer-background-color: #010101;
+  --ifm-navbar-background-color: #010101;
+  --ifm-background-color: #010101;
+}
+
+.footer--dark {
+--ifm-footer-background-color: #010101 !important;
 }
 
 
