@@ -13,7 +13,7 @@ export default function Home(): JSX.Element {
         <div className="relative layout">
           <img src="img/bg-lines.png" className="absolute z-0" />
           <Breadcrumb text="Simplicity" />
-          <h2 className="w-3/4 mt-4 text-5xl font-semibold text-white">
+          <h2 className="w-3/4 mt-4 md:text-5xl text-3xl font-semibold text-white">
             <span className="grad">Bridge</span> offers an easy and scalable way to write your
             backend code.
           </h2>
@@ -45,12 +45,12 @@ const HeroSection = () => {
   return (
     <div className="bg-[#010101]">
       <div className="relative min-h-screen" style={{ backgroundImage: `url("/img/bg.png")` }}>
-        <div className="relative z-20 py-48 layout">
-          <h1 className="text-6xl font-semibold text-center text-white">
+        <div className="relative z-20 md:py-48 py-20 layout">
+          <h1 className="text-4xl md:text-6xl font-semibold text-center text-white">
             The <span className="grad">Typescript</span> API framework that enhances developer{' '}
             <span className="grad">productivity</span>
           </h1>
-          <p className="w-3/4 mx-auto mt-8 text-xl text-center text-white text-opacity-50">
+          <p className="w-3/4 mx-auto mt-8 text-lg md:text-xl text-center text-white text-opacity-50">
             Bridge aims to provide the best developer experience ever by simplifying the process of
             developing and integrating APIs.
           </p>
@@ -156,8 +156,8 @@ bridge.HTTPServer().listen(8080, () => {
 })`;
 
   return (
-    <div className="relative grid grid-cols-2 mt-16">
-      <div className="flex flex-col gap-4">
+    <div className="relative grid md:grid-cols-2 mt-16">
+      <div className="flex md:flex-col gap-4 overflow-x-auto md:mb-0 mb-6">
         <FeatureElement
           selected={selected === 0}
           setSelected={setSelected}
@@ -194,7 +194,7 @@ bridge.HTTPServer().listen(8080, () => {
           icon=""
         />
       </div>
-      <div className="bg-[#0D0D11] bg-opacity-75 border border-[#14181D] rounded-md">
+      <div className="bg-[#0D0D11] overflow-x-auto bg-opacity-75 border border-[#14181D] rounded-md">
         <div className="w-full border-b border-[#14181D]">
           <div className="px-6 items-center flex gap-2 py-1.5 text-sm text-opacity-75 border-b-2 bg-white bg-opacity-5 max-w-max border-[#8690EA] text-[#CCCDF0]">
             <svg
@@ -269,7 +269,7 @@ bridge.HTTPServer().listen(8080, () => {
             maxHeight={25}
             highlight={selected === 0}
           />
-          <CustomCode codeString={codeStringLast} display={true} marginTop={16} />
+          <CustomCode codeString={codeStringLast} display={true} marginTop={16} maxHeight={500}/>
         </div>
       </div>
     </div>
@@ -295,7 +295,7 @@ const CustomInner = ({
     <div
       className="flex items-center overflow-hidden text-xs transition-all duration-700 ease-in-out"
       style={{
-        maxHeight: display ? (maxHeight ? maxHeight : 300) : 0,
+        maxHeight: display ? (maxHeight ? maxHeight : 320) : 0,
         opacity: display ? 1 : 0,
         borderLeftColor: highlight ? '#C792EA' : 'rgb(0,0,0,0)',
         borderStyle: 'solid',
@@ -329,7 +329,7 @@ const CustomCode = ({
 }) => {
   return (
     <div
-      className="flex items-center px-5 overflow-hidden transition-all duration-700 ease-in-out"
+      className="md:px-5 px-3 overflow-hidden transition-all duration-700 ease-in-out"
       style={{
         maxHeight: display ? (maxHeight ? maxHeight : 100) : 0,
         opacity: display ? (highlight ? 1 : 0.6) : 0,
@@ -340,6 +340,7 @@ const CustomCode = ({
         background: highlight ? 'rgb(255,255,255,0.03)' : 'rgb(255,255,255,0)',
         padding: highlight ? '0px 20px' : '0px 20px',
         transitionDelay: highlight ? (delay ? delay.toString() + 'ms' : '0ms') : '0ms',
+        display: display ? 'inline-flex' : 'block'
       }}
     >
       <SyntaxHighlighter
@@ -372,7 +373,7 @@ const FeatureElement = ({
     <div className="flex items-center">
       <div
         onClick={() => setSelected(index)}
-        className={`rounded-md flex max-w-xs w-full transition-all border cursor-pointer bg-white p-5 ${
+        className={`rounded-md flex w-max max-w-xs w-full transition-all border cursor-pointer bg-white md:p-5 p-2 ${
           selected
             ? 'border-t-main bg-opacity-5'
             : 'border-white border-opacity-10 hover:bg-opacity-5 bg-opacity-0'
@@ -382,12 +383,12 @@ const FeatureElement = ({
           <img src={icon} />{' '}
         </div>
         <div>
-          <h3 className="text-lg font-medium text-white">{title}</h3>
-          <p className="mt-2 text-sm text-white text-opacity-75">{text}</p>
+          <h3 className="md:text-lg text-sm font-medium text-white">{title}</h3>
+          <p className="mt-2 text-sm text-white text-opacity-75 hidden md:block">{text}</p>
         </div>
       </div>
       <div
-        className="transition-all duration-1000 delay-300"
+        className="transition-all duration-1000 delay-300 md:block hidden"
         style={{
           background: selected
             ? 'linear-gradient(90deg, #8690EA 0%, rgba(134, 144, 234, 0) 100%)'
