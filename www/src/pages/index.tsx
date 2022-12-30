@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState, memo } from 'react';
-import { Redirect } from '@docusaurus/router';
 import Layout from '@theme/Layout';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
