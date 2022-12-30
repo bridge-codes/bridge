@@ -72,7 +72,7 @@ bridge.HTTPServer().listen(8080, () => {
   `;
 
   return (
-    <div className="relative p-12 mx-auto max-w-3xl ">
+    <div className="relative md:p-12 p-4 mx-auto max-w-3xl ">
       <div className="flex gap-4 mb-6 overflow-x-auto max-w-max mx-auto mb-6 md:col-span-5 md:mb-6">
         {features.map((el, index) => {
           return (
@@ -81,9 +81,6 @@ bridge.HTTPServer().listen(8080, () => {
               setSelected={setSelected}
               index={index}
               key={index}
-              title={el.title}
-              text={el.text}
-              icon={el.icon}
             />
           );
         })}
