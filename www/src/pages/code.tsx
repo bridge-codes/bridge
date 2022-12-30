@@ -110,7 +110,7 @@ bridge.HTTPServer().listen(8080, () => {
         {/* CODE */}
         <div
           className="pt-5 pb-28 overflow-x-auto overflow-y-hidden text-sm custom-scrollbar"
-          style={{ height: `calc(100% - 35px)`, width: 'max-content' }}
+          style={{ height: `calc(100% - 35px)`, width: 'max(100%, max-content)' }}
         >
           <NewCustomCode code={fullCode} 
              hiddenLines={

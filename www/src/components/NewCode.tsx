@@ -14,6 +14,10 @@ export const NewCustomCode = ({
   hiddenLines?: Array<number>;
 }) => {
   return (
+        <div
+          className="pt-5 pb-28 overflow-x-auto overflow-y-hidden text-sm custom-scrollbar"
+          style={{ height: `calc(100% - 35px)`, width: 'max-content' }}
+        >
     <Highlight {...defaultProps} theme={theme} code={code} language={'typescript'}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
@@ -22,6 +26,7 @@ export const NewCustomCode = ({
             padding: '0px 0px',
             marginBottom: 8,
             background: 'transparent',
+            overflowX: 'auto',
           }}
         >
           {tokens.map((line, i) => (
@@ -30,6 +35,7 @@ export const NewCustomCode = ({
         </pre>
       )}
     </Highlight>
+    </div>
   );
 };
 
