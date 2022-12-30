@@ -8,7 +8,7 @@ if (ExecutionEnvironment.canUseDOM) {
   const htmlElement = document.querySelector('html');
 
   const setInitialTheme = () => {
-    const newTheme = mediaMatch.matches ?  darkTheme : lightTheme;
+    const newTheme = mediaMatch.matches ?  darkTheme : darkTheme;
     htmlElement?.setAttribute('data-theme', newTheme);
   };
   setInitialTheme();
