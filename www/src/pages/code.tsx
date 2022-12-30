@@ -110,7 +110,7 @@ bridge.HTTPServer().listen(8080, () => {
         {/* CODE */}
         <div
           className="pt-5 pb-28 overflow-x-auto overflow-y-hidden text-sm custom-scrollbar"
-          style={{ height: `calc(100% - 35px)` }}
+          style={{ height: `calc(100% - 35px)`, width: 'max-content' }}
         >
           <NewCustomCode code={fullCode} 
              hiddenLines={
@@ -140,22 +140,15 @@ const FeatureElement = ({
   index: number;
   setSelected: any;
 }) => {
-  const thisElement = useRef<HTMLDivElement>(null);
   return (
-    <div className="flex items-center" ref={thisElement}>
       <div
-        onClick={() => {
-          setSelected(index);
-        }}
+        onClick={() => { setSelected(index) }}
         className={`rounded-md flex w-max max-w-xs w-full transition-all border cursor-pointer bg-t-main md:p-3 p-2 ${
           selected
             ? 'border-t-main bg-opacity-100'
             : 'border-white border-opacity-10 hover:bg-opacity-5 bg-opacity-10'
         }`}
       >
-        <div>
-        </div>
-      </div>
     </div>
   );
 };

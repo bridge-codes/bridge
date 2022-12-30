@@ -47,7 +47,7 @@ const NewCustomCodeLine = ({line, showLineNumber, lineNumber, getLineProps, getT
 ) => {
 
   return(
-          <div className="transition-all duration-700" 
+          <div className="transition-all duration-700 overflow-hidden" 
           style={{ 
                 display: 'block', 
                 opacity: hide ? 0 : 1,
@@ -56,13 +56,11 @@ const NewCustomCodeLine = ({line, showLineNumber, lineNumber, getLineProps, getT
                 borderLeftStyle: "solid",
                 borderLeftWidth: 4,
                 borderLeftColor: highlight ? "#A175FF" : "rgb(255,255,255,0)",
-                overflowY: "hidden",
           }}>
           {showLineNumber &&
             <div
               style={{
                 fontSize: 14,
-                display: 'table-cell',
                 textAlign: 'right',
                 userSelect: 'none',
                 opacity: 0.5,
@@ -74,7 +72,6 @@ const NewCustomCodeLine = ({line, showLineNumber, lineNumber, getLineProps, getT
             </div>
           }
             <div style={{ 
-                display: 'inline-table', 
                 width: "100%", 
                 fontSize: '14px',
                 padding: "2px 20px"
