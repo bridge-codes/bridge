@@ -9,8 +9,7 @@ export default function Page(): JSX.Element {
     <div className="overflow-x-hidden">
     <Layout>
         <div className="bg-[#010101] py-12">
-          <div className="relative layout">
-            <img src="img/bg-lines.png" className="absolute z-0" />
+          <div className="layout">
             <FeaturesDemo />
           </div>
         </div>
@@ -20,7 +19,7 @@ export default function Page(): JSX.Element {
 }
 
 const FeaturesDemo = () => {
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(1);
 
   const features = [
     {
@@ -60,7 +59,9 @@ const authMid = handler({
 const getMe = handler({
    body: z.object({ pseudo: z.string().min(3) }),
    middlewares: apply(authMid),
-   resolve: (data) => \`Hey \${data.body.pseudo}\`
+   resolve: (data) => {
+     return \`Hey \${data.body.pseudo}\`
+   }
    resolve: () => 'Hello!'
 })
 
@@ -71,8 +72,27 @@ bridge.HTTPServer().listen(8080, () => {
 });
   `;
 
+
+  const innerF1 = `(parameter) data: {
+  body: {
+    pseudo: string;
+  };
+}`;
+
+  const innerF = `(parameter) data: {
+  body: {
+    pseudo: string;
+  };
+  mid: {
+    name: string;
+  };
+  headers: {
+    token: string;
+  };
+}`;
+
   return (
-    <div className="relative md:p-12 p-4 mx-auto max-w-3xl ">
+    <div className="md:p-12 p-4 mx-auto max-w-3xl">
       <div className="flex gap-4 mb-6 overflow-x-auto max-w-max mx-auto mb-6 md:col-span-5 md:mb-6">
         {features.map((el, index) => {
           return (
@@ -114,16 +134,33 @@ bridge.HTTPServer().listen(8080, () => {
         >
           <NewCustomCode code={fullCode} 
              hiddenLines={
-              selected === 0 ? [3,4,5,6,7,8,9,10,11,14,15,16] : 
-              selected === 1 ? [3,4,5,6,7,8,9,10,11,15,17] :
-              selected === 2 ? [17] : [17]
+              selected === 0 ? [3,4,5,6,7,8,9,10,11,14,15,16,17,18] : 
+              selected === 1 ? [3,4,5,6,7,8,9,10,11,15,19] :
+              selected === 2 ? [19] : [19]
             } highlighedLines={
-               selected === 0 ? [13, 17, 18] :
-               selected === 1 ? [14,16] :
-               selected === 2 ? [4,5,6,7,8,9,10,11,15] :
+               selected === 0 ? [13,19,20] :
+               selected === 1 ? [14] :
+               selected === 2 ? [15,16] :
                selected === 3 ? []
                : []
-              } />
+              } 
+              typesToDisplay={
+                selected === 1 ? [
+                {
+                  line: 15,
+                  code: innerF1,
+                  token: "data",
+                  display: true
+                }
+                ] : [
+                {
+                  line: 15,
+                  code: innerF,
+                  token: "data",
+                  display: true
+                }
+                ]}
+              />
         </div>
       </div>
       </div>
