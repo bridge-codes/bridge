@@ -187,7 +187,8 @@ const NewCustomCodeLine = ({line, typesToDisplay,showLineNumber, lineNumber, get
               padding: "2px 20px"
           }}>
             {line.map((token, key) => {
-              const toShow = typesToDisplay.find((el) => { return el.token === token.content && el.line + 1 === lineNumber })
+              const toShow = typesToDisplay.find((el) => { return el.token === token.content.trim() && el.line + 1 === lineNumber })
+              console.log(token)
               if(toShow) {
                   return (<span data-lsp={toShow.code} className="bg-white bg-opacity-5 transition-all hover:bg-opacity-10 border border-white border-opacity-25 hover:border-opacity-40 cursor-default rounded-md relative" style={{padding: "0px 0px"}}> <span key={key} {...getTokenProps({ token, key })} /> </span>)
                 }

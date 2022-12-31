@@ -145,18 +145,21 @@ bridge.HTTPServer().listen(8080, () => {
                : []
               } 
               typesToDisplay={
-                selected === 1 ? [
-                {
+                selected === 1 ? [{
                   line: 15,
                   code: innerF1,
                   token: "data",
                   display: true
-                }
-                ] : [
+                }] : [
                 {
                   line: 15,
                   code: innerF,
                   token: "data",
+                  display: true
+                },{
+                  line: 3,
+                  code: "This middleware injects data into the resolve! \nCheck it out yourself. ",
+                  token: "authMid",
                   display: true
                 }
                 ]}
