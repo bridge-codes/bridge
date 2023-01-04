@@ -34,6 +34,10 @@ const config = {
     [
       '@docusaurus/preset-classic',
       {
+        // googleAnalytics: {
+        //   trackingID: 'G-LXWJ61PFZF',
+        //   anonymizeIP: true,
+        // },
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
         },
@@ -47,9 +51,7 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-        googleAnalytics: {
-          trackingID: 'G-LXWJ61PFZF',
-        },
+       
       },
     ],
     [
@@ -62,6 +64,15 @@ const config = {
     ],
   ],
   plugins: [
+    [
+      '@docusaurus/plugin-google-analytics',
+      {
+        trackingID: 'UA-141789564-1',
+        anonymizeIP: true,
+      },
+    ],
+  
+    
     async function myPlugin() {
       return {
         name: 'docusaurus-tailwindcss',
