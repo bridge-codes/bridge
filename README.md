@@ -204,7 +204,7 @@ initBridge({ routes })
 
 ## Routing
 
-[Handlers](#handler) themselves cannot be be directly called. They have to be addded to an object that we call `router` and this object has to be passed to the `initBridge function`.
+[Handlers](#handler) themselves cannot be be directly called. They have to be added to an object that we call `router` and this object has to be passed to the `initBridge function`.
 
 The keys in your `router` object are the different endpoints of your API while the values associated with those keys and the values are the `handlers` that will be executed when a request is made to the corresponding endpoint.
 
