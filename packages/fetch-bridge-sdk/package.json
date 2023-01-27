@@ -1,6 +1,6 @@
 {
   "name": "fetch-bridge-sdk",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Fetch Bridge SDK with one command",
   "author": "Bridge Team <support@bridge.codes>",
   "bin": {
