@@ -1,0 +1,33 @@
+{
+  "name": "bridge-react-query",
+  "version": "1.0.5",
+  "description": "Bridge between react-query and bridge-sdk",
+  "author": "Bridge Team <support@bridge.codes>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bugs": "https://github.com/bridge-codes/bridge/issues",
+  "homepage": "https://bridge.codes",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "remove-dist": "if [ -d dist ]; then rm -rf dist; fi",
+    "publish-minor": "npm run remove-dist && tsc && npm version patch && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bridge-codes/bridge.git",
+    "directory": "packages/bridge-react-query"
+  },
+  "keywords": [
+    "bridge",
+    "sdk",
+    "react-query",
+    "typescript"
+  ],
+  "dependencies": {
+    "@tanstack/react-query": "^4.23.0"
+  }
+}

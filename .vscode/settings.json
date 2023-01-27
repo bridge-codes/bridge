@@ -6,7 +6,7 @@
     "source.fixAll.eslint": true
   },
   "workbench.colorCustomizations": {
-    "titleBar.activeBackground": "#ef00b4",
-    "titleBar.inactiveBackground": "#ff8fff"
+    "titleBar.activeBackground": "#291b25",
+    "titleBar.inactiveBackground": "#2a242a"
   }
 }

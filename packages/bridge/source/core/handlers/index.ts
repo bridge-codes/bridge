@@ -1,6 +1,6 @@
 export * from './bridge';
-export * from './dataValidator';
-export * from './fileValidator';
+export * from './data-validator';
+export * from './file-validator';
 // export * from './methodValidator';
 export * from './middleware';
 export * from './resolver';

@@ -1,0 +1,42 @@
+{
+  "name": "bridge-studio",
+  "version": "1.0.0",
+  "description": "Compile the sdk of your Bridge project with one command",
+  "author": "Bridge Team <support@bridge.codes>",
+  "bin": {
+    "bridge-studio": "./dist/index.js"
+  },
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "remove-dist": "if [ -d dist ]; then rm -rf dist; fi",
+    "publish-minor": "pnpm run remove-dist && tsc && pnpm version patch && pnpm publish"
+  },
+  "keywords": [
+    "sdk",
+    "compilation",
+    "bridge",
+    "typescript"
+  ],
+  "license": "MIT",
+  "bugs": "https://github.com/bridge-codes/bridge/issues",
+  "homepage": "https://bridge.codes",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bridge-codes/bridge.git",
+    "directory": "packages/fetch-bridge-sdk"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.10",
+    "axios": "^1.2.5",
+    "bridge": "^2.0.39",
+    "form-data": "^4.0.0",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.0",
+    "@types/prompts": "^2.4.2"
+  }
+}
