@@ -51,7 +51,7 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-       
+
       },
     ],
     [
@@ -71,8 +71,8 @@ const config = {
         anonymizeIP: true,
       },
     ],
-  
-    
+
+
     async function myPlugin() {
       return {
         name: 'docusaurus-tailwindcss',
@@ -109,10 +109,10 @@ const config = {
           to: 'docs/introduction',
           label: 'Docs',
         },
-        {
-          to: '/studio',
-          label: 'Bridge Studio',
-        },
+        // {
+        //   to: '/studio',
+        //   label: 'Bridge Studio',
+        // },
         {
           to: 'docs/quickstart',
           label: 'Quickstart',
