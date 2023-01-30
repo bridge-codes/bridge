@@ -91,97 +91,101 @@ const config = {
     },
   ],
   themeConfig: {
-      prism: {
-        theme: require('prism-react-renderer/themes/vsDark'),
-      },
-      disableSwitch: false,
-      respectPrefersColorScheme: true,
-      navbar: {
-        title: 'Bridge',
-        logo: {
-          alt: 'Bridge Logo',
-          src: 'img/logo_b.svg',
-          width: 25,
-          srcDark: 'img/logo_w.svg',
-        },
-        items: [
-          {
-            to: 'docs/introduction',
-            label: 'Docs',
-          },
-          {
-            to: 'docs/quickstart',
-            label: 'Quickstart',
-          },
-          {
-            href: 'https://github.com/bridge-codes/bridge',
-            position: 'right',
-            className: 'header-social-link header-github-link',
-            'aria-label': 'GitHub',
-          },
-          {
-            href: 'https://twitter.com/bridge_codes',
-            position: 'right',
-            className: 'header-social-link header-twitter-link',
-            'aria-label': 'Twitter',
-          },
-          {
-            href: 'https://discord.gg/yxjrwm7Bfr',
-            position: 'right',
-            className: 'header-social-link header-discord-link',
-            'aria-label': 'Discord',
-          },
-
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/handler',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Discord',
-                href: 'https://discord.gg/yxjrwm7Bfr',
-                className: 'flex items-center',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/bridge_codes',
-                className: 'flex items-center',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-                className: 'flex items-center',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/bridge-codes/bridge',
-                className: 'flex items-center',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} Bridge`,
-      },
-     
+    prism: {
+      theme: require('prism-react-renderer/themes/vsDark'),
     },
-    
+    disableSwitch: false,
+    respectPrefersColorScheme: true,
+    navbar: {
+      title: 'Bridge',
+      logo: {
+        alt: 'Bridge Logo',
+        src: 'img/logo_b.svg',
+        width: 25,
+        srcDark: 'img/logo_w.svg',
+      },
+      items: [
+        {
+          to: 'docs/introduction',
+          label: 'Docs',
+        },
+        {
+          to: '/studio',
+          label: 'Bridge Studio',
+        },
+        {
+          to: 'docs/quickstart',
+          label: 'Quickstart',
+        },
+        {
+          href: 'https://github.com/bridge-codes/bridge',
+          position: 'right',
+          className: 'header-social-link header-github-link',
+          'aria-label': 'GitHub',
+        },
+        {
+          href: 'https://twitter.com/bridge_codes',
+          position: 'right',
+          className: 'header-social-link header-twitter-link',
+          'aria-label': 'Twitter',
+        },
+        {
+          href: 'https://discord.gg/yxjrwm7Bfr',
+          position: 'right',
+          className: 'header-social-link header-discord-link',
+          'aria-label': 'Discord',
+        },
+
+      ],
+    },
+    footer: {
+      style: 'dark',
+      links: [
+        {
+          title: 'Docs',
+          items: [
+            {
+              label: 'Tutorial',
+              to: '/docs/handler',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'Discord',
+              href: 'https://discord.gg/yxjrwm7Bfr',
+              className: 'flex items-center',
+            },
+            {
+              label: 'Twitter',
+              href: 'https://twitter.com/bridge_codes',
+              className: 'flex items-center',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            {
+              label: 'Blog',
+              to: '/blog',
+              className: 'flex items-center',
+            },
+            {
+              label: 'GitHub',
+              href: 'https://github.com/bridge-codes/bridge',
+              className: 'flex items-center',
+            },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} Bridge`,
+    },
+
+  },
+
 };
 
 module.exports = config;
