@@ -27,7 +27,6 @@ export default function Home(): JSX.Element {
       </Layout>
     </div>
   );
-
   // return <Redirect to="/docs/introduction" />;
 }
 
@@ -105,7 +104,7 @@ const HeroSection = () => {
           >
             <div
               className="py-3 text-center text-white rounded-sm bg-[#0D0B0E]"
-              // style={{ fontFamily: 'Fira Code' }}
+            // style={{ fontFamily: 'Fira Code' }}
             >
               ~ npx create-bridge-app
             </div>
@@ -320,7 +319,7 @@ bridge.HTTPServer().listen(8080, () => {
             highlight={selected === 2}
           />
 
-        <CustomCode
+          <CustomCode
             codeString={helloHandlerStart}
             display={selected >= 0}
             marginTop={16}
@@ -451,11 +450,10 @@ const FeatureElement = ({
           const size = thisElement.current.getClientRects();
           console.log(size);
         }}
-        className={`rounded-md flex w-max max-w-xs w-full transition-all border cursor-pointer bg-white md:p-5 p-2 ${
-          selected
+        className={`rounded-md flex w-max max-w-xs w-full transition-all border cursor-pointer bg-white md:p-5 p-2 ${selected
             ? 'border-t-main bg-opacity-5'
             : 'border-white border-opacity-10 hover:bg-opacity-5 bg-opacity-0'
-        }`}
+          }`}
       >
         <div>
           <img src={icon} />{' '}
@@ -508,9 +506,8 @@ const CustomCodeNoMemo = ({
       }}
     >
       <div
-        className={`md:px-5 flex px-3 overflow-hidden transition-all duration-700 ease-in-out ${
-          display ? '' : ''
-        }`}
+        className={`md:px-5 flex px-3 overflow-hidden transition-all duration-700 ease-in-out ${display ? '' : ''
+          }`}
         style={{
           maxHeight: display ? (maxHeight ? maxHeight : 100) : 0,
           opacity: display ? (highlight ? 1 : 0.8) : 0,

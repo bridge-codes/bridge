@@ -7,7 +7,9 @@
     @apply max-w-6xl px-5 mx-auto;
   }
 }
-
+.docsWrapper_node_modules-\@docusaurus-theme-classic-lib-theme-DocPage-Layout-styles-module {
+  padding-top: 40px;
+}
 .grad {
   background: linear-gradient(0deg, #d7c5ff 0%, #885ce7 34.91%);
   -webkit-background-clip: text;
@@ -469,3 +471,13 @@ details p {
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 } */
+
+
+.navbar {
+    background-color: rgb(0,0,0,0);
+    border-bottom: none;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    margin-bottom: 12px;
+  }
