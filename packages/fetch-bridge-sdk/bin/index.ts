@@ -51,7 +51,14 @@ axios(config)
   });
 
 const packageJSON = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
-const pnpmLock = fs.readFileSync('./pnpm-lock.yaml', 'utf-8');
+
+let pnpmLock: boolean;
+try {
+  fs.readFileSync('./pnpm-lock.yaml', 'utf-8');
+  pnpmLock = true;
+} catch (e) {
+  pnpmLock = false;
+}
 
 const installCommand = pnpmLock ? 'pnpm i' : 'npm i';
 

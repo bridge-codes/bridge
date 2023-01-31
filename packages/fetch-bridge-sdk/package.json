@@ -1,6 +1,6 @@
 {
   "name": "fetch-bridge-sdk",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "Fetch Bridge SDK with one command",
   "author": "Bridge Team <support@bridge.codes>",
   "bin": {
@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc",
     "remove-dist": "if [ -d dist ]; then rm -rf dist; fi",
-    "publish-minor": "pnpm run remove-dist && tsc && pnpm version patch && pnpm publish"
+    "publish-minor": "pnpm run remove-dist && tsc && pnpm version patch && pnpm publish --no-git-checks"
   },
   "license": "MIT",
   "bugs": "https://github.com/bridge-codes/bridge/issues",
