@@ -8,17 +8,17 @@ export default function Page() {
     <div className="bg-[#010101] overflow-hidden">
       <div className="relative bg-[#010101]">
 
-        <img src="/studio/main.svg" className="w-screen" />
+        <img src="/studio/main.svg" className="w-screen md:scale-100 scale-[2] relative -z-0" />
         <img src="/studio/lights.svg" className="z-10 absolute top-0 w-screen animate-pulse" style={{ animationDuration: "4s" }} />
         <img src="/studio/lights.svg" className="translate-x-64 z-10 absolute top-0 w-screen " style={{ animationDuration: "4s" }} />
 
-        <div className="px-4 max-w-6xl mx-auto -mt-24">
-          <div className="w-3/4 mx-auto">
+        <div className="px-4 max-w-6xl mx-auto -mt-24 relative py-12">
+          <div className="md:w-3/4 mx-auto">
             <h1 className="text-center text-indigo-400">Bridge Studio</h1>
-            <p className="font-bold text-5xl text-white text-center px-12">A new way to enhance your team’s productivity</p>
-            <p className="text-center mt-6 text-[#808080] text-lg px-24">Bridge can generate a fully typed client code in any language in matter of seconds. Log with Github/Gitlab or use our CLI to sync your project with the platform.</p>
+            <p className="font-bold md:text-5xl text-4xl text-white text-center md:px-12 px-8">A new way to enhance your team’s productivity</p>
+            <p className="text-center mt-6 text-[#808080] text-lg md:px-24 px-8">Bridge can generate a fully typed client code in any language in matter of seconds. Log with Github/Gitlab or use our CLI to sync your project with the platform.</p>
           </div>
-          <img src="/studio/studio-header.svg" className="mt-16" />
+          <img src="/studio/studio-header.svg" className="mt-16 sm:scale-100 scale-[2]" />
           {/* <div className="mt-16 grid grid-cols-2 gap-32 mb-16"> */}
           {/*   <CustomCard icon={<CodeBracketIcon className="w-5 h-5 text-white" />} title="SDK generation" description="Improve your developer productivity by generating an SDK" /> */}
           {/*   <CustomCard icon={<BookOpenIcon className="w-5 h-5 text-white" />} title="Documentation generation" description="Improve your developer productivity by generating an SDK" /> */}
@@ -34,15 +34,19 @@ export default function Page() {
 }
 
 const Documentation = () => {
-  return (<div className="py-24">
+  return (<div className="md:py-24 py-12">
     <div className="flex flex-col justify-center items-center max-w-6xl px-4 mx-auto">
       <img src="/studio/documentation-logo.svg" className="mb-4 w-20" />
-      <h2 className="font-semibold text-4xl text-white text-center px-12">Have an auto-generated documentation without writing any extra metadata.</h2>
+      <h2 className="font-semibold text-3xl md:text-4xl text-white text-center md:px-12 px-8">Have an auto-generated documentation without writing any extra metadata.</h2>
       <img src="/studio/doc.svg" className="rounded-xl border border-white border-opacity-10 mt-16" />
+      <div className="grid grid-cols-12 md:gap-9 gap-4 md:mt-9 mt-6">
+        <GitHubIntegration />
+        <Team />
+      </div>
     </div>
-  </div>)
+  </div>
+  )
 }
-
 
 
 const SDK1 = () => {
@@ -67,11 +71,11 @@ const SDK1 = () => {
   ]
 
   return (
-    <div className="py-24">
+    <div className="pb-24">
       <div className="flex flex-col justify-center items-center max-w-6xl px-4 mx-auto">
         <img src="/studio/sdk-icon.svg" className="mb-4 w-64" />
-        <h2 className="font-semibold text-4xl text-white text-center mx-auto w-3/4">Enhance your team’s productivity with the generated SDK</h2>
-        <div className="grid grid-cols-2 gap-16 mt-24">
+        <h2 className="font-semibold text-3xl md:text-4xl text-white text-center mx-auto md:w-3/4">Enhance your team’s productivity with the generated SDK</h2>
+        <div className="grid md:grid-cols-2 md:gap-16 gap-6 md:mt-24 mt-12">
           <div className="bg-[#161616] bg-opacity-25 rounded-xl border border-white border-opacity-5">{features.map((el, index) => {
             return <div onClick={() => setSelected(index)} key={index} className={`p-6 border-b border-white border-opacity-5 last:border-none ${selected === index ? "bg-white bg-opacity-5" : ""}`}>
               <div className="flex gap-4">
@@ -151,7 +155,7 @@ const SDKPresentation = () => {
 
 const LanguageCard = () => {
   return (
-    <div className="border border-white border-opacity-10 bg-[#1B1A1C] bg-opacity-25 rounded-xl grid grid-cols-2 backdrop-blur-sm">
+    <div className="border border-white border-opacity-10 bg-[#1B1A1C] bg-opacity-25 rounded-xl grid md:grid-cols-2 backdrop-blur-sm">
       <div className="px-8 py-8">
         <h3 className="text-white font-medium text-2xl">Made for many different languages</h3>
         <p className="text-base text-neutral-500">
@@ -183,7 +187,7 @@ const MaintainCard = () => {
   }, [initialText]);
 
   return (
-    <div className="border border-white border-opacity-10 bg-[#1B1A1C] bg-opacity-25 rounded-xl col-span-7 flex flex-col justify-between">
+    <div className="border border-white border-opacity-10 bg-[#1B1A1C] bg-opacity-25 rounded-xl col-span-12 md:col-span-7 flex flex-col justify-between">
       <div className="py-8 px-8">
         <h3 className="text-white font-medium text-2xl text-center">Easily maintain and update your code</h3>
         <p className="text-base text-neutral-500 text-center px-8">
@@ -227,7 +231,7 @@ ${loading ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}
 
 const PostmanCard = () => {
   return (
-    <div className="border border-white border-opacity-10 bg-[#1B1A1C] bg-opacity-25 rounded-xl col-span-5">
+    <div className="border border-white border-opacity-10 bg-[#1B1A1C] bg-opacity-25 rounded-xl md:col-span-5 col-span-12">
       <div className="py-8 px-8">
         <h3 className="text-white font-medium text-2xl text-center">Goodbye Postman collections</h3>
         <p className="text-base text-neutral-500 text-center px-8">
@@ -235,6 +239,34 @@ const PostmanCard = () => {
         </p>
       </div>
       <img src="/studio/postman-img.svg" className="w-full border-top border-white border-opacity-10" />
+    </div>
+  )
+}
+
+const Team = () => {
+  return (
+    <div className="border border-white border-opacity-10 bg-[#1B1A1C] bg-opacity-25 rounded-xl md:col-span-7 col-span-12">
+      <div className="py-8 px-8">
+        <h3 className="text-white font-medium text-2xl">For your team and your users</h3>
+        <p className="text-base text-neutral-500">
+          You can have an easily maintainable documentation for both your users and your team.
+        </p>
+      </div>
+      <img src="/studio/github-integration.svg" className="" />
+    </div>
+  )
+}
+
+const GitHubIntegration = () => {
+  return (
+    <div className="border border-white border-opacity-10 bg-[#1B1A1C] bg-opacity-25 rounded-xl md:col-span-5 col-span-12">
+      <div className="py-8 px-8">
+        <h3 className="text-white font-medium text-2xl">GitHub integration</h3>
+        <p className="text-base text-neutral-500">
+          Keep your documentation up-to-date with your git repo.
+        </p>
+      </div>
+      <img src="/studio/github-integration.svg" className="" />
     </div>
   )
 }
