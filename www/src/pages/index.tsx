@@ -5,6 +5,7 @@ import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Code } from '../components/Code';
 import { NewsLetter } from '../components/Newsletter';
 import { NewCustomCode } from '../components/NewCode';
+import { ChevronRightIcon } from '@heroicons/react/20/solid';
 
 export default function Home(): JSX.Element {
   return (
@@ -88,6 +89,7 @@ const HeroSection = () => {
             <Breadcrumb text=" DX" />
           </div> */}
 
+          <BridgeStudioBeta />
           <h1 className="mt-8 text-4xl font-semibold text-center text-white md:text-6xl">
             The <span className="grad">Typescript</span> API framework that enhances developer{' '}
             <span className="grad">productivity</span>
@@ -99,7 +101,7 @@ const HeroSection = () => {
           </p>
           <div
             onClick={() => copyCommand()}
-            className="max-w-md p-0.5 relative mx-auto mt-20 bg-left-bottom hover:bg-right-bottom overflow-hidden rounded-md cursor-pointer group bg-grad2 transition-all hover:positio"
+            className="max-w-md p-0.5 relative mx-auto mt-24 bg-left-bottom hover:bg-right-bottom overflow-hidden rounded-md cursor-pointer group bg-grad2 transition-all hover:positio"
             style={{ backgroundSize: '300% 300%', transitionDuration: '2000ms' }}
           >
             <div
@@ -139,6 +141,19 @@ const HeroSection = () => {
     </div>
   );
 };
+
+const BridgeStudioBeta = () => {
+  return (
+    <a href="/studio" className='max-w-max mx-auto group block hover:no-underline'>
+      <div className='max-w-max mx-auto rounded-full' style={{ padding: 1, background: `linear-gradient(263.08deg, #75E0A2 0%, rgba(117, 224, 162, 0.25) 21.88%, rgba(117, 224, 162, 0.9) 42.71%, rgba(244, 248, 92, 0.3) 65.1%, rgba(244, 248, 92, 0.9) 84.38%, rgba(244, 248, 92, 0.25) 100%)` }}>
+        <div className='bg-[#010101] group-hover:bg-opacity-90 duration-500 text-opacity-80 items-center hover:text-opacity-100 transition-all flex gap-1 rounded-full pl-6 pr-4 py-2 text-xs uppercase font-medium text-white' style={{ letterSpacing: 1.2 }}>
+          Bridge Studio is on Beta
+          <ChevronRightIcon className='w-4 h-4 text-white group-hover:translate-x-0.5 transition-all' />
+        </div>
+      </div>
+    </a>
+  )
+}
 
 const Breadcrumb = ({ text }: { text: string }) => {
   return (
@@ -451,8 +466,8 @@ const FeatureElement = ({
           console.log(size);
         }}
         className={`rounded-md flex w-max max-w-xs w-full transition-all border cursor-pointer bg-white md:p-5 p-2 ${selected
-            ? 'border-t-main bg-opacity-5'
-            : 'border-white border-opacity-10 hover:bg-opacity-5 bg-opacity-0'
+          ? 'border-t-main bg-opacity-5'
+          : 'border-white border-opacity-10 hover:bg-opacity-5 bg-opacity-0'
           }`}
       >
         <div>
