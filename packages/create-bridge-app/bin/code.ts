@@ -81,7 +81,7 @@ export const indexFile = `import {
 export const nodemonFile = `{
     "restartable": "rs",
     "ignore": [".git", "dist/"],
-    "watch": ["source"],
+    "watch": ["index.ts"],
     "execMap": {
       "ts": "node -r ts-node/register"
     },

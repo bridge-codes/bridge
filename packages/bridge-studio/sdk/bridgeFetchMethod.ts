@@ -42,7 +42,13 @@ export default async ({ path, method, body, query, headers, file }: FETCH) => {
   return axios(config)
     .then((res) => res.data)
     .catch((err) => {
-      if (err.response && 'error' in err.response.data && 'status' in err.response.data.error)
+      console.error(err);
+      if (
+        err.response &&
+        err.response.data &&
+        err.response.data.error &&
+        err.response.data.error.status
+      )
         return err.response.data;
 
       return {

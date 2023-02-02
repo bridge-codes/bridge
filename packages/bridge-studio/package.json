@@ -1,18 +1,17 @@
 {
   "name": "bridge-studio",
-  "version": "1.0.2",
+  "version": "1.0.7",
   "description": "Compile the sdk of your Bridge project with one command",
   "author": "Bridge Team <support@bridge.codes>",
   "bin": {
-    "bridge-studio": "./dist/index.js"
+    "bridge-studio": "./dist/bin/index.js"
   },
   "files": [
     "/dist"
   ],
   "scripts": {
     "build": "tsc",
-    "remove-dist": "if [ -d dist ]; then rm -rf dist; fi",
-    "publish-minor": "pnpm run remove-dist && tsc && pnpm version patch && pnpm publish"
+    "publish-minor": "tsc && npm version patch && npm publish"
   },
   "keywords": [
     "sdk",

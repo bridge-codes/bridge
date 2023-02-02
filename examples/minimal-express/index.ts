@@ -2,7 +2,7 @@ import { handler, initBridge } from 'bridge';
 import express from 'express';
 
 const port = 8080;
-const routes = { hello: handler({ method: 'GET', resolve: () => 'hello' }) };
+const routes = { hello: handler({ resolve: () => 'hello' }) };
 
 const app = express();
 
