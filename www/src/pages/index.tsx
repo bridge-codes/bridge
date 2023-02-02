@@ -6,6 +6,7 @@ import { Code } from '../components/Code';
 import { NewsLetter } from '../components/Newsletter';
 import { NewCustomCode } from '../components/NewCode';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
+import { ContinueWithGithubButton } from './studio';
 
 export default function Home(): JSX.Element {
   return (
@@ -32,38 +33,126 @@ export default function Home(): JSX.Element {
 }
 
 const Studio = () => {
-  return (
-    <div className="bg-[#010101]">
-      <div className="py-32 layout">
-        <Breadcrumb text="Coming soon" />
-        <h2 className="mt-3 text-4xl font-semibold text-white">
-          Bridge <span className="grad">Studio</span>
-        </h2>
-        <p className="w-3/4 mt-4 text-lg text-white text-opacity-50 md:text-xl">
-          Bridge aims to provide the best developer experience ever by simplifying the process of
-          developing and integrating APIs.
-        </p>
-        <h3 className="mt-3 mt-8 text-2xl font-semibold text-white">
-          {/* Your <span className="grad">API documentation</span> in one click */}
-          Your <span className="grad">Client Code</span> in one click
-        </h3>
-        <p className="w-3/4 mt-2 text-lg text-white text-opacity-50 md:text-lg">
-          Bridge can generate a fully typed client code in any language in matter of seconds. Log
-          with Github/Gitlab or use our CLI to sync your project with the platform.
-        </p>
-        <Code />
-        <h3 className="mt-3 mt-8 text-2xl font-semibold text-white">
-          Your <span className="grad">API documentation</span> in one click
-        </h3>
-        <p className="w-3/4 mt-2 text-lg text-white text-opacity-50 md:text-lg">
-          Bridge can generate a clear and concise API reference in a matter of seconds. Log with
-          Github/Gitlab or use our CLI to sync your project with the platform.
-        </p>
-        <img src="/img/dashboard.png" className="mt-12 rounded-md" />
+  const [copied, setCopied] = useState(false)
+
+  const copyCommand = () => {
+    navigator.clipboard.writeText('npx bridge-studio').then(() => {
+      setCopied(true);
+    });
+  };
+
+  useEffect(() => {
+    if (copied) {
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    }
+  }, [copied]);
+
+  return (<div className='md:pb-24 pb-12'>
+    <div className="relative bg-[#010101] bg-contain bg-no-repeat" style={{ backgroundImage: `url("/studio/main.svg")` }} >
+      <div className="px-4 max-w-6xl mx-auto relative md:pt-48 pt-24 pb-8 z-10">
+        <div className="md:w-3/4 mx-auto">
+          <h1 className="text-center text-indigo-400">Bridge Studio</h1>
+          <p className="font-bold md:text-5xl text-4xl text-white text-center md:px-12 px-8">A new way to enhance your team’s productivity</p>
+          <p className="text-center mt-6 text-[#808080] text-lg md:px-24 px-8">Bridge Studio can generate a fully typed client code in a matter of seconds. Log with Github or use the CLI to sync your project with Studio.</p>
+        </div>
+        <div className='mt-9'>
+          <BridgeStudioBeta customText='Read more about Bridge Studio' />
+        </div>
+        <img src="/studio/studio-header.svg" className="mt-24 no-select mx-auto" />
+        {/* <div className="mt-16 grid grid-cols-2 gap-32 mb-16"> */}
+        {/*   <CustomCard icon={<CodeBracketIcon className="w-5 h-5 text-white" />} title="SDK generation" description="Improve your developer productivity by generating an SDK" /> */}
+        {/*   <CustomCard icon={<BookOpenIcon className="w-5 h-5 text-white" />} title="Documentation generation" description="Improve your developer productivity by generating an SDK" /> */}
+        {/* </div> */}
+        <div className='max-w-xl mx-auto w-full p-12 bg-white bg-opacity-5 border border-white border-opacity-10 md:mt-48 mt-24 rounded-md'>
+          <div className='mx-auto'>
+            <h3 className='text-white text-3xl text-center'>Try Bridge Studio now</h3>
+            <p className='text-base w-3/4 mx-auto font-medium text-center text-opacity-50 opacity-75 mb-2'>Go into your Bridge app folder and use the CLI "npx bridge-studio"</p>
+            <div>
+
+              <div
+                onClick={() => copyCommand()}
+                className="max-w-md p-0.5 relative mx-auto mt-10 bg-left-bottom hover:bg-right-bottom overflow-hidden rounded-md cursor-pointer group bg-grad-blue-green transition-all hover:position"
+                style={{ backgroundSize: '300% 300%', transitionDuration: '2000ms' }}
+              >
+                <div
+                  className="py-3 text-center text-white rounded-sm bg-[#0D0B0E] overflow-hidden"
+                  style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
+                >
+                  npx bridge-studio
+                </div>
+                <div className="absolute p-1.5 text-white bg-white bg-opacity-0 -translate-y-1/2 border border-white hover:bg-opacity-20 border-opacity-0 rounded-md opacity-50 group-hover:border-opacity-20 hover:opacity-75 right-3 top-1/2">
+                  {copied ? (
+                    <div className="text-xs uppercase">copied</div>
+                  ) : (
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 3C8 2.44772 8.44772 2 9 2H11C11.5523 2 12 2.44772 12 3C12 3.55228 11.5523 4 11 4H9C8.44772 4 8 3.55228 8 3Z"
+                        fill="white"
+                      />
+                      <path
+                        d="M6 3C4.89543 3 4 3.89543 4 5V16C4 17.1046 4.89543 18 6 18H14C15.1046 18 16 17.1046 16 16V5C16 3.89543 15.1046 3 14 3C14 4.65685 12.6569 6 11 6H9C7.34315 6 6 4.65685 6 3Z"
+                        fill="white"
+                      />
+                    </svg>
+                  )}
+                </div>
+              </div>
+            </div>
+            {/* <p className='text-sm uppercase font-semibold text-center mb-2 mt-8' style={{ letterSpacing: 1.2 }}>Using GitHub</p> */}
+            {/* <div className='flex place-content-center'> */}
+            {/*   <ContinueWithGithubButton /> */}
+            {/* </div> */}
+          </div>
+        </div>
+        <div className='max-w-xl mx-auto px-4'>
+          <a className='text-center mx-auto block mt-4 rounded-md mx-4 text-white transition-all bg-opacity-0 bg-white hover:no-underline' href="/studio">Read more about Bridge Studio</a>
+        </div>
       </div>
     </div>
-  );
-};
+  </div>)
+}
+
+// const Studio = () => {
+//   return (
+//     <div className="bg-[#010101]">
+//       <div className="py-32 layout">
+//         <Breadcrumb text="Coming soon" />
+//         <h2 className="mt-3 text-4xl font-semibold text-white">
+//           Bridge <span className="grad">Studio</span>
+//         </h2>
+//         <p className="w-3/4 mt-4 text-lg text-white text-opacity-50 md:text-xl">
+//           Bridge aims to provide the best developer experience ever by simplifying the process of
+//           developing and integrating APIs.
+//         </p>
+//         <h3 className="mt-3 mt-8 text-2xl font-semibold text-white">
+//           {/* Your <span className="grad">API documentation</span> in one click */}
+//           Your <span className="grad">Client Code</span> in one click
+//         </h3>
+//         <p className="w-3/4 mt-2 text-lg text-white text-opacity-50 md:text-lg">
+//           Bridge can generate a fully typed client code in any language in matter of seconds. Log
+//           with Github/Gitlab or use our CLI to sync your project with the platform.
+//         </p>
+//         <Code />
+//         <h3 className="mt-3 mt-8 text-2xl font-semibold text-white">
+//           Your <span className="grad">API documentation</span> in one click
+//         </h3>
+//         <p className="w-3/4 mt-2 text-lg text-white text-opacity-50 md:text-lg">
+//           Bridge can generate a clear and concise API reference in a matter of seconds. Log with
+//           Github/Gitlab or use our CLI to sync your project with the platform.
+//         </p>
+//         <img src="/img/dashboard.png" className="mt-12 rounded-md" />
+//       </div>
+//     </div>
+//   );
+// };
 
 const HeroSection = () => {
   const [copied, setCopied] = useState(false);
@@ -105,8 +194,12 @@ const HeroSection = () => {
             style={{ backgroundSize: '300% 300%', transitionDuration: '2000ms' }}
           >
             <div
-              className="py-3 text-center text-white rounded-sm bg-[#0D0B0E]"
-            // style={{ fontFamily: 'Fira Code' }}
+              className="py-3 text-center text-white rounded-sm bg-[#0D0B0E] font-medium"
+              // style={{ fontFamily: 'Fira Code' }}
+              style={{
+                fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`,
+                fontSize: 15
+              }}
             >
               ~ npx create-bridge-app
             </div>
@@ -142,12 +235,12 @@ const HeroSection = () => {
   );
 };
 
-const BridgeStudioBeta = () => {
+const BridgeStudioBeta = ({ customText }: { customText?: string }) => {
   return (
     <a href="/studio" className='max-w-max mx-auto group block hover:no-underline'>
-      <div className='max-w-max mx-auto rounded-full' style={{ padding: 1, background: `linear-gradient(263.08deg, #75E0A2 0%, rgba(117, 224, 162, 0.25) 21.88%, rgba(117, 224, 162, 0.9) 42.71%, rgba(244, 248, 92, 0.3) 65.1%, rgba(244, 248, 92, 0.9) 84.38%, rgba(244, 248, 92, 0.25) 100%)` }}>
+      <div className='max-w-max mx-auto rounded-full' style={{ padding: 1, background: `linear-gradient(263.08deg, #75E0A2 0%, rgba(117, 224, 162, 0.25) 21.88%, rgba(117, 224, 162, 0.9) 42.71%, rgba(244, 248, 92, 0.3) 65.1%, rgba(244, 248, 92, 0.9) 84.38%, rgba(244, 248, 92, 0.25) 100%)`, boxShadow: `0px 4px 34px 6px rgba(162, 255, 45, 0.25)` }}>
         <div className='bg-[#010101] group-hover:bg-opacity-90 duration-500 text-opacity-80 items-center hover:text-opacity-100 transition-all flex gap-1 rounded-full pl-6 pr-4 py-2 text-xs uppercase font-medium text-white' style={{ letterSpacing: 1.2 }}>
-          Bridge Studio is on Beta
+          {customText ? customText : "Bridge Studio is on Beta"}
           <ChevronRightIcon className='w-4 h-4 text-white group-hover:translate-x-0.5 transition-all' />
         </div>
       </div>

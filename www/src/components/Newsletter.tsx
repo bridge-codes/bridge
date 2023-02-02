@@ -2,7 +2,7 @@ import React from 'react';
 
 export const NewsLetter = (): JSX.Element => {
   return (
-    <div className="bg-[#010101] pb-24">
+    <div className="bg-[#010101] pb-24 md:my-32 my-16">
       <div className="layout grid md:grid-cols-3 sm:gap-32 items-center">
         <div className="sm:col-span-2 layout">
           <h2 className="text-3xl font-semibold text-white">
