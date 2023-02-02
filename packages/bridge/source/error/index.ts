@@ -6,7 +6,7 @@ interface Error {
   data?: any;
 }
 
-export const isError = (object: any): object is Error =>
+export const isBridgeError = (object: any): object is Error =>
   typeof object === 'object' &&
   typeof object.error === 'object' &&
   typeof object.error.name === 'string' &&

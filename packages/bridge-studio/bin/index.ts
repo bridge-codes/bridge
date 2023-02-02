@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
-import { mkdirAsync } from './fsAsync';
 import path from 'path';
 import AdmZip from 'adm-zip';
 import { exec } from 'child_process';
@@ -49,11 +48,11 @@ const getProjectZipBuffer = async (): Promise<{
   const zip = new AdmZip();
   zip.addLocalFolder('.', undefined, (path) => !path.startsWith('node_modules'));
 
-  const projectDir = `${os.tmpdir()}/${new Date().getTime()}`;
-  await mkdirAsync(projectDir);
+  const projectDir = path.join(os.tmpdir(), new Date().getTime().toString());
+  fs.mkdirSync(projectDir);
 
-  const projectTempPath = `${projectDir}/${new Date().getTime()}`;
-  await mkdirAsync(projectTempPath);
+  const projectTempPath = path.join(projectDir, new Date().getTime().toString());
+  fs.mkdirSync(projectTempPath);
   zip.extractAllTo(projectTempPath);
 
   const newZip = new AdmZip();
@@ -72,11 +71,14 @@ type BridgeConfig = {
 const createBridgeConfigWithPrompt = async (
   packageJsonProjectName?: string,
 ): Promise<BridgeConfig> => {
-  console.log(`You're going to be redirected to the Bridge Login`);
-
-  new Promise((resolve) => setTimeout(resolve, 2000)).then(() =>
-    exec(`open 'https://github.com/login/oauth/authorize?client_id=${githubClientId}'`),
+  console.log(
+    `You're going to be redirected to the Bridge Login: https://github.com/login/oauth/authorize?client_id=${githubClientId}`,
   );
+
+  new Promise((resolve) => setTimeout(resolve, 1500)).then(() => {
+    exec(`open 'https://github.com/login/oauth/authorize?client_id=${githubClientId}'`);
+    exec(`start "" "https://github.com/login/oauth/authorize?client_id=${githubClientId}"`);
+  });
 
   const { secretToken } = await prompts({
     type: 'text',
@@ -124,7 +126,7 @@ const createBridgeConfigWithPrompt = async (
   };
 
   fs.writeFile(
-    './bridge.config.json',
+    'bridge.config.json',
     prettier.format(JSON.stringify(bridgeConfig), { parser: 'json' }),
     () => {},
   );
@@ -152,8 +154,6 @@ const launch = async () => {
 
   const { projectTempPath, projectZipBuffer } = await getProjectZipBuffer();
 
-  const spinner = ora('0s: Compiling your project').start();
-
   let res = await API.project.compileWithCommandLine({
     file: { projectZipBuffer },
     headers: { token: bridgeConfig.secretToken },
@@ -171,6 +171,7 @@ const launch = async () => {
 
   let { user, project } = res.data;
 
+  const spinner = ora('0s: Compiling your project').start();
   let compDurationSec = 0;
 
   do {

@@ -2,40 +2,55 @@
 import axios from 'axios';
 import AdmZip from 'adm-zip';
 import { execSync } from 'child_process';
-var argv = require('minimist')(process.argv.slice(2));
+import prompts from 'prompts';
+import { API } from '../sdk';
 import fs from 'fs';
 
-const runCommand = (command: string) => {
-  try {
-    execSync(`${command}`, { stdio: 'inherit' });
-  } catch (e) {
-    console.error(`Failed to execute ${command}`, e);
-    return false;
+var argv = require('minimist')(process.argv.slice(2));
+
+const launch = async () => {
+  const projectFullName = argv._[0];
+
+  if (!projectFullName.includes('/')) {
+    console.error(
+      'You have ton give a parameter, example: npx fetch-bridge-sdk@latest digitalu/bridge-api',
+    );
+    process.exit(1);
   }
-  return true;
-};
 
-const projectFullName = argv._[0];
+  const [username, projectName] = projectFullName.split('/');
 
-const [username, projectName] = projectFullName.split('/');
+  const slugRegex = /^[a-zA-Z0-9-]+$/;
 
-if (!username || !projectName)
-  throw new Error('You have ton give your full projectName: {username}/{projectName}');
+  const { directory } = await prompts({
+    type: 'text',
+    name: 'directory',
+    message: `What's the name of the directory?`,
+    initial: 'sdk',
+    validate: (text) =>
+      slugRegex.test(text) ? true : 'You can only use alphanumeric characters and -',
+  });
 
-const config = {
-  method: 'get',
-  url: `https://api-prod.bridge.codes/deploy/typescript-sdk?owner=${username}&project=${projectName}`,
-} as const;
+  if (fs.existsSync(directory)) {
+    const { override } = await prompts({
+      type: 'confirm',
+      name: 'override',
+      message: `A folder in ./${directory} already exists. Do you want to override it?`,
+    });
 
-const directory = './sdk';
+    if (!override) process.exit(1);
+    fs.rmSync(directory, { recursive: true });
+  }
 
-if (fs.existsSync(directory)) fs.rmSync(directory, { recursive: true });
+  API.deploy.typescriptsdk.get({ query: { owner: username, project: projectName } }).then((res) => {
+    if (res.error) {
+      console.error(res.error);
+      process.exit(1);
+    }
 
-axios(config)
-  .then(function (response) {
     axios({
       method: 'get',
-      url: response.data,
+      url: res.data,
       responseType: 'arraybuffer',
     })
       .then((response) => {
@@ -45,26 +60,26 @@ axios(config)
       .catch(function (error) {
         console.log(error);
       });
-  })
-  .catch(function (error) {
-    console.log(error);
   });
 
-const packageJSON = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+  const packageJSON = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
 
-let pnpmLock: boolean;
-try {
-  fs.readFileSync('./pnpm-lock.yaml', 'utf-8');
-  pnpmLock = true;
-} catch (e) {
-  pnpmLock = false;
-}
+  let pnpmLock: boolean;
+  try {
+    fs.readFileSync('./pnpm-lock.yaml', 'utf-8');
+    pnpmLock = true;
+  } catch (e) {
+    pnpmLock = false;
+  }
 
-const installCommand = pnpmLock ? 'pnpm i' : 'npm i';
+  const installCommand = pnpmLock ? 'pnpm i' : 'npm i';
 
-if (!packageJSON) throw new Error('package.json not found.');
+  if (!packageJSON) throw new Error('package.json not found.');
 
-if (!packageJSON.dependencies.axios)
-  runCommand(`echo Installing axios`) && runCommand(`${installCommand} axios`);
-if (!packageJSON.dependencies['form-data'])
-  runCommand(`echo Installing form-data`) && runCommand(`${installCommand} form-data`);
+  if (!packageJSON.dependencies.axios)
+    execSync(`echo Installing axios`) && execSync(`${installCommand} axios`);
+  if (!packageJSON.dependencies['form-data'])
+    execSync(`echo Installing form-data`) && execSync(`${installCommand} form-data`);
+};
+
+launch();
