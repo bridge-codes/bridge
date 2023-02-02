@@ -1,6 +1,6 @@
 {
   "name": "bridge-studio",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Compile the sdk of your Bridge project with one command",
   "author": "Bridge Team <support@bridge.codes>",
   "bin": {
