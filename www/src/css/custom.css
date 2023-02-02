@@ -10,6 +10,11 @@
 .docsWrapper_node_modules-\@docusaurus-theme-classic-lib-theme-DocPage-Layout-styles-module {
   padding-top: 40px;
 }
+.no-select{
+-moz-user-select: none;
+-webkit-user-select: none;
+user-select: none;
+}
 .grad {
   background: linear-gradient(0deg, #d7c5ff 0%, #885ce7 34.91%);
   -webkit-background-clip: text;
