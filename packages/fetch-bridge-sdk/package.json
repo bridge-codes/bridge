@@ -1,0 +1,35 @@
+{
+  "name": "fetch-bridge-sdk",
+  "version": "1.0.6",
+  "description": "Fetch Bridge SDK with one command",
+  "author": "Bridge Team <support@bridge.codes>",
+  "bin": {
+    "fetch-bridge-sdk": "./dist/index.js"
+  },
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "remove-dist": "if [ -d dist ]; then rm -rf dist; fi",
+    "publish-minor": "pnpm run remove-dist && tsc && pnpm version patch && pnpm publish --no-git-checks"
+  },
+  "license": "MIT",
+  "bugs": "https://github.com/bridge-codes/bridge/issues",
+  "homepage": "https://bridge.codes",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bridge-codes/bridge.git",
+    "directory": "packages/fetch-bridge-sdk"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.10",
+    "axios": "^1.2.3",
+    "minimist": "^1.2.7"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}

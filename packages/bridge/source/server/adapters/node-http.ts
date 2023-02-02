@@ -4,7 +4,7 @@ import {
   getJSONDataFromRequestStream,
   getJSONQueryFromURL,
   formidableAsyncParseFiles,
-} from '../httpTransormers';
+} from '../http-transormers';
 import { convertBridgeRoutesToServerRoutes, BridgeRoutes, Method } from '../../routes';
 import { FormidableFile } from '../../utilities';
 

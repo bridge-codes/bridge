@@ -1,4 +1,5 @@
 import { BridgeHandler } from '../core';
+import { BridgeMethod } from './method';
 
 export type Method = 'POST' | 'PATCH' | 'GET' | 'DELETE' | 'PUT';
 
@@ -47,6 +48,24 @@ type BridgeHandlerReturnType<H extends BridgeHandler> = H extends BridgeHandler<
 export type RoutesToBridgeType<T extends BridgeRoutes> = {
   [key in keyof T]: T[key] extends BridgeHandler
     ? BridgeHandlerReturnType<T[key]>
+    : T[key] extends BridgeMethod<any, any, any, any, any>
+    ? {
+        GET_BRIDGE_METHOD: T[key]['type']['getBridgeMehthodSDK'] extends null
+          ? null
+          : BridgeHandlerReturnType<T[key]['type']['getBridgeMehthodSDK']>;
+        POST_BRIDGE_METHOD: T[key]['type']['postBridgeMehthodSDK'] extends null
+          ? null
+          : BridgeHandlerReturnType<T[key]['type']['postBridgeMehthodSDK']>;
+        PATCH_BRIDGE_METHOD: T[key]['type']['patchBridgeMehthodSDK'] extends null
+          ? null
+          : BridgeHandlerReturnType<T[key]['type']['patchBridgeMehthodSDK']>;
+        PUT_BRIDGE_METHOD: T[key]['type']['putBridgeMehthodSDK'] extends null
+          ? null
+          : BridgeHandlerReturnType<T[key]['type']['putBridgeMehthodSDK']>;
+        DELETE_BRIDGE_METHOD: T[key]['type']['deleteBridgeMehthodSDK'] extends null
+          ? null
+          : BridgeHandlerReturnType<T[key]['type']['deleteBridgeMehthodSDK']>;
+      }
     : T[key] extends BridgeRoutes
     ? RoutesToBridgeType<T[key]>
     : never;

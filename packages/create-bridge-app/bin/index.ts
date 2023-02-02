@@ -1,60 +1,69 @@
 #!/usr/bin/env node
 
-import { writeFileAsync } from './utils';
-import prettier from 'prettier';
-import { indexFile, nodemonFile, gitIgnoreFile } from './code';
-import { promisify } from 'util';
+import os from 'os';
+import path from 'path';
+import prompts from 'prompts';
+import fs from 'fs';
+import { execSync } from 'child_process';
 
-const exec = promisify(require('child_process').exec);
+const launch = async () => {
+  const slugRegex = /^[a-zA-Z0-9-]+$/;
 
-import readlineLib from 'readline';
+  const { projectName } = await prompts({
+    type: 'text',
+    name: 'projectName',
+    message: `What's your project's name?`,
+    validate: (text) =>
+      slugRegex.test(text) ? true : 'You can only use alphanumeric characters and -',
+  });
 
-const readline = readlineLib.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+  if (fs.existsSync(`./${projectName}`)) {
+    const { override } = await prompts({
+      type: 'confirm',
+      name: 'override',
+      message: `A folder in ./${projectName} already exists. Do you want to override it?`,
+    });
 
-readline.question(`What's your project name? `, async (name) => {
-  console.log(`Downloading dependencies...`);
+    if (!override) process.exit(1);
+    fs.rmSync(`./${projectName}`, { recursive: true });
+  }
 
-  await exec(`mkdir ${name}`);
+  const { template } = await prompts({
+    type: 'select',
+    choices: [
+      { title: 'minimal-express', value: 'minimal-express' },
+      { title: 'minimal-http', value: 'minimal-http' },
+    ],
+    name: 'template',
+    message: `Which template do you want to use?`,
+    validate: (text) =>
+      slugRegex.test(text) ? true : 'You can only use alphanumeric characters and -',
+  });
 
-  await writeFileAsync(
-    `${name}/package.json`,
-    prettier.format(
-      `{
-        "name": "${name
-          .toLowerCase()
-          .normalize('NFD')
-          .replace(/[^a-zA-Z0-9]/g, '')}",
-        "version": "1.0.0",
-        "scripts": {
-          "start": "node ./dist/index.js",
-          "dev": "nodemon --config nodemon.json ./index.ts",
-          "build": "tsc"
-        }
-      }`,
-      { parser: 'json' },
-    ),
-  );
+  const tempRepoPath = path.join(`${os.tmpdir()},bridgeRepoTemp`);
 
-  await exec(
-    `cd ${name} && npm i bridge express zod dotenv && npm i --save-dev @types/express @types/node typescript ts-node nodemon && npx tsc --init --outDir dist`,
-  );
+  execSync(`git clone https://github.com/bridge-codes/bridge.git ${tempRepoPath} -q`);
 
-  Promise.all([
-    writeFileAsync(`${name}/index.ts`, prettier.format(indexFile, { parser: 'typescript' })),
-    writeFileAsync(`${name}/nodemon.json`, prettier.format(nodemonFile, { parser: 'json' })),
-    writeFileAsync(`${name}/.gitignore`, gitIgnoreFile),
-    writeFileAsync(
-      `${name}/.env`,
-      `PROJECT_NAME=${name}\nPORT=8080\nSERVER_URL=http://localhost:8080`,
-    ),
-    writeFileAsync(
-      `${name}/README.md`,
-      `#${name}\n\nWelcome on ${name}, this is a Bridge project, visit https://bridge.codes to learn how to automatically generate a complete online documentation and a fully typed client code in any language.`,
-    ),
-  ]);
+  fs.mkdirSync(projectName);
 
-  readline.close();
-});
+  fs.renameSync(path.join(tempRepoPath, `examples/${template}`), projectName);
+
+  const packageJSONPath = `./${projectName}/package.json`;
+  fs.readFile(packageJSONPath, 'utf-8', (err, data) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+
+    const regexStr = `"name": "${template}",`;
+    const result = data.replace(new RegExp(regexStr, 'g'), `"name": "${projectName}",`);
+
+    fs.writeFile(packageJSONPath, result, 'utf8', function (err) {
+      if (err) return console.log(err);
+    });
+  });
+
+  fs.rmSync(tempRepoPath, { recursive: true });
+};
+
+launch();

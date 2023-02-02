@@ -1,14 +1,11 @@
 import { BridgeHandler } from '../core';
 
-/**
- * The only purpose of this class is to not perturbate people if they want to check what's the type of the routes object
- * */
 export class BridgeMethod<
-  BHGet extends BridgeHandler = any,
-  BHPost extends BridgeHandler = any,
-  BHPatch extends BridgeHandler = any,
-  BHPut extends BridgeHandler = any,
-  BHDelete extends BridgeHandler = any,
+  BHGet extends BridgeHandler | null,
+  BHPost extends BridgeHandler | null,
+  BHPatch extends BridgeHandler | null,
+  BHPut extends BridgeHandler | null,
+  BHDelete extends BridgeHandler | null,
 > {
   public isBridgeMethodObject = true;
   public type!: {
@@ -32,15 +29,15 @@ export class BridgeMethod<
   }
 }
 
-export const isBridgeMethod = (obj: any): obj is BridgeMethod =>
+export const isBridgeMethod = (obj: any): obj is BridgeMethod<any, any, any, any, any> =>
   typeof obj === 'object' && obj.isBridgeMethodObject === true;
 
 export const method = <
-  BHGet extends BridgeHandler = any,
-  BHPost extends BridgeHandler = any,
-  BHPatch extends BridgeHandler = any,
-  BHPut extends BridgeHandler = any,
-  BHDelete extends BridgeHandler = any,
+  BHGet extends BridgeHandler | null = null,
+  BHPost extends BridgeHandler | null = null,
+  BHPatch extends BridgeHandler | null = null,
+  BHPut extends BridgeHandler | null = null,
+  BHDelete extends BridgeHandler | null = null,
 >(p: {
   GET?: BHGet;
   POST?: BHPost;
@@ -48,9 +45,3 @@ export const method = <
   PUT?: BHPut;
   DELETE?: BHDelete;
 }) => new BridgeMethod(p);
-
-const handler = new BridgeHandler({ resolve: () => 'Salut' as const });
-
-const test = method({ GET: handler });
-
-type AHJ = typeof test.type;

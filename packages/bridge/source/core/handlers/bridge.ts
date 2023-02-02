@@ -1,8 +1,8 @@
 import { AbstractHandler, Handler, FirstHandler } from '../handler';
 import { MiddelwaresHandler } from './middleware';
 import { Resolver } from './resolver';
-import { DataParser, DataValidator } from './dataValidator';
-import { FileConfig, FileValidator } from './fileValidator';
+import { DataParser, DataValidator } from './data-validator';
+import { FileConfig, FileValidator } from './file-validator';
 
 export interface BridgeHandlerDocumentation {
   title?: string;
