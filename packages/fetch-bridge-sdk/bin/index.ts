@@ -25,7 +25,7 @@ const launch = async () => {
   const { directory } = await prompts({
     type: 'text',
     name: 'directory',
-    message: `Which template do you want to use?`,
+    message: `What's the name of the directory?`,
     initial: 'sdk',
     validate: (text) =>
       slugRegex.test(text) ? true : 'You can only use alphanumeric characters and -',
@@ -35,7 +35,7 @@ const launch = async () => {
     const { override } = await prompts({
       type: 'confirm',
       name: 'override',
-      message: `A folder in ./${projectName} already exists. Do you want to override it?`,
+      message: `A folder in ./${directory} already exists. Do you want to override it?`,
     });
 
     if (!override) process.exit(1);

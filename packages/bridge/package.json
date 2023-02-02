@@ -1,6 +1,6 @@
 {
   "name": "bridge",
-  "version": "2.0.39",
+  "version": "2.0.40",
   "description": "Bridge is a Typescript Node.js framework that provides an easy and scalable way to create REST APIs while generating the client code.",
   "author": "Bridge Team <support@bridge.codes>",
   "license": "MIT",
@@ -13,8 +13,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "remove-dist": "if [ -d dist ]; then rm -rf dist; fi",
-    "publish-minor": "npm run remove-dist && tsc && npm version patch && npm publish"
+    "publish-minor": "tsc && npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
