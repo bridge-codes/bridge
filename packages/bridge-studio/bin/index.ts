@@ -85,7 +85,7 @@ const createBridgeConfigWithPrompt = async (
     validate: (text) => (text.length < 15 ? 'This is not your secretToken' : true),
   });
 
-  const slugRegex = /^[a-z0-9-]+$/;
+  const slugRegex = /^[a-zA-Z0-9-]+$/;
 
   const { projectName } = await prompts({
     type: 'text',

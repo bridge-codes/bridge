@@ -1,80 +1,13 @@
 #!/usr/bin/env node
 
-import { writeFileAsync, mkdirAsync } from './utils';
-import prettier from 'prettier';
-import { indexFile, nodemonFile, gitIgnoreFile } from './code';
+import os from 'os';
+import path from 'path';
 import prompts from 'prompts';
-import { exec } from 'child_process';
 import fs from 'fs';
-
-// const exec = promisify(require('child_process').exec);
-
-// import readlineLib from 'readline';
-
-// const readline = readlineLib.createInterface({
-//   input: process.stdin,
-//   output: process.stdout,
-// });
-
-// readline.question(`What's your project name? `, async (name) => {
-//   console.log(`Downloading dependencies...`);
-
-//   await exec(`mkdir ${name}`);
-
-//   await writeFileAsync(
-//     `${name}/package.json`,
-//     prettier.format(
-//       `{
-//         "name": "${name
-//           .toLowerCase()
-//           .normalize('NFD')
-//           .replace(/[^a-zA-Z0-9]/g, '')}",
-//         "version": "1.0.0",
-//         "scripts": {
-//           "start": "node ./dist/index.js",
-//           "dev": "nodemon --config nodemon.json ./index.ts",
-//           "build": "tsc"
-//         }
-//       }`,
-//       { parser: 'json' },
-//     ),
-//   );
-
-//   await exec(
-//     `cd ${name} && npm i bridge express zod dotenv && npm i --save-dev @types/express @types/node typescript ts-node nodemon && npx tsc --init --outDir dist`,
-//   );
-
-//   Promise.all([
-//     writeFileAsync(`${name}/index.ts`, prettier.format(indexFile, { parser: 'typescript' })),
-//     writeFileAsync(`${name}/nodemon.json`, prettier.format(nodemonFile, { parser: 'json' })),
-//     writeFileAsync(`${name}/.gitignore`, gitIgnoreFile),
-//     writeFileAsync(
-//       `${name}/.env`,
-//       `PROJECT_NAME=${name}\nPORT=8080\nSERVER_URL=http://localhost:8080`,
-//     ),
-//     writeFileAsync(
-//       `${name}/README.md`,
-//       `#${name}\n\nWelcome on ${name}, this is a Bridge project, visit https://bridge.codes to learn how to automatically generate a complete online documentation and a fully typed client code in any language.`,
-//     ),
-//   ]);
-
-//   readline.close();
-// });
-
-// const { template } = await prompts({
-//   type: 'select',
-//   choices: [
-//     { title: 'Starter', value: 'Starter' },
-//     { title: 'Example', value: 'Example' },
-//   ],
-//   name: 'template',
-//   message: `Which template do you want to use?`,
-//   validate: (text) =>
-//     slugRegex.test(text) ? true : 'You can only use alphanumeric characters and -',
-// });
+import { execSync } from 'child_process';
 
 const launch = async () => {
-  const slugRegex = /^[a-z0-9-]+$/;
+  const slugRegex = /^[a-zA-Z0-9-]+$/;
 
   const { projectName } = await prompts({
     type: 'text',
@@ -92,11 +25,45 @@ const launch = async () => {
     });
 
     if (!override) process.exit(1);
+    fs.rmSync(`./${projectName}`, { recursive: true });
   }
 
-  await mkdirAsync(`./${projectName}`);
+  const { template } = await prompts({
+    type: 'select',
+    choices: [
+      { title: 'minimal-express', value: 'minimal-express' },
+      { title: 'minimal-http', value: 'minimal-http' },
+    ],
+    name: 'template',
+    message: `Which template do you want to use?`,
+    validate: (text) =>
+      slugRegex.test(text) ? true : 'You can only use alphanumeric characters and -',
+  });
 
-  Promise.all([]);
+  const tempRepoPath = path.join(`${os.tmpdir()},bridgeRepoTemp`);
+
+  execSync(`git clone https://github.com/bridge-codes/bridge.git ${tempRepoPath} -q`);
+
+  fs.mkdirSync(projectName);
+
+  fs.renameSync(path.join(tempRepoPath, `examples/${template}`), projectName);
+
+  const packageJSONPath = `./${projectName}/package.json`;
+  fs.readFile(packageJSONPath, 'utf-8', (err, data) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+
+    const regexStr = `"name": "${template}",`;
+    const result = data.replace(new RegExp(regexStr, 'g'), `"name": "${projectName}",`);
+
+    fs.writeFile(packageJSONPath, result, 'utf8', function (err) {
+      if (err) return console.log(err);
+    });
+  });
+
+  fs.rmSync(tempRepoPath, { recursive: true });
 };
 
 launch();
