@@ -109,13 +109,13 @@ const config = {
           to: 'docs/introduction',
           label: 'Docs',
         },
-        // {
-        //   to: '/studio',
-        //   label: 'Bridge Studio',
-        // },
         {
           to: 'docs/quickstart',
           label: 'Quickstart',
+        },
+        {
+          to: '/studio',
+          label: 'Bridge Studio',
         },
         {
           href: 'https://github.com/bridge-codes/bridge',
