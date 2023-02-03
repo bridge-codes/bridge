@@ -13,7 +13,7 @@ export default function Page() {
           <div className="md:w-3/4 mx-auto">
             <h1 className="text-center text-indigo-400">Bridge Studio</h1>
             <p className="font-bold md:text-5xl text-4xl text-white text-center md:px-12 px-8">A new way to enhance your team’s productivity</p>
-            <p className="text-center mt-6 text-[#808080] text-lg md:px-24 px-8">Bridge can generate a fully typed client code in a matter of seconds. Log with Github or use the CLI to sync your project with Studio.</p>
+            <p className="text-center mt-6 text-[#808080] text-lg md:px-24 px-8">Bridge Studio can generate a fully typed client code in a matter of seconds. Log with Github or use the CLI to sync your project with Studio.</p>
           </div>
           <img src="/studio/studio-header.svg" className="mt-24 no-select mx-auto" />
           {/* <div className="mt-16 grid grid-cols-2 gap-32 mb-16"> */}
@@ -22,11 +22,10 @@ export default function Page() {
           {/* </div> */}
         </div>
       </div>
-      <Documentation />
       <SDK1 />
       <SDKPresentation />
       <TryItNow />
-
+      <Documentation />
     </div>
   </Layout>
 }
