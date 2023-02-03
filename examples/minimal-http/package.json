@@ -6,7 +6,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "bridge": "^2.0.20"
+    "bridge": "^2.0.41"
   },
   "devDependencies": {
     "@types/node": "^18.11.16",
