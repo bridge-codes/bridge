@@ -34,10 +34,6 @@ const config = {
     [
       '@docusaurus/preset-classic',
       {
-        // googleAnalytics: {
-        //   trackingID: 'G-LXWJ61PFZF',
-        //   anonymizeIP: true,
-        // },
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
         },
@@ -184,7 +180,21 @@ const config = {
       copyright: `Copyright © ${new Date().getFullYear()} Bridge`,
     },
 
+    metadata: [
+      { content: "https://bridge.codes/twitter.png", name: "twitter:image" },
+      { content: "https://bridge.codes/twitter.png", property: "og:image" },
+      { content: "The Typescript API framework that enhances developer productivity", name: "description" },
+      { content: "The Typescript API framework that enhances developer productivity", property: "og:description" },
+      { content: "max-snippet:-1, max-image-preview:large, max-video-preview:-1", name: "robots" },
+      { content: "width=device-width, initial-scale=1.0", name: "viewport" },
+      { content: "@vercel", name: "twitter:site" },
+      { content: "Bridge", name: "apple-mobile-web-app-title" },
+      { content: "var(--geist-background)", name: "theme-color" },
+      { content: "#000000", name: "msapplication-TileColor" },
+    ],
+
   },
+
 
 };
 
