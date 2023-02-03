@@ -39,7 +39,7 @@ const getPackageJSON = (): false | { name?: string; dependencies?: Record<string
   }
 };
 
-const githubClientId = 'Iv1.eede713bfbbc202c';
+const githubClientId = 'Iv1.61c158472b4a85b9';
 
 const getProjectZipBuffer = async (): Promise<{
   projectTempPath: string;
