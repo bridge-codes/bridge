@@ -9,11 +9,11 @@ export default function Page() {
         <img src="/studio/lights.svg" className="no-select z-10 absolute top-0 w-screen animate-pulse" style={{ animationDuration: "4s" }} />
         <img src="/studio/lights.svg" className="no-select translate-x-64 z-10 absolute top-0 w-screen " style={{ animationDuration: "4s" }} />
 
-        <div className="px-4 max-w-6xl mx-auto relative md:pt-48 pt-24 pb-8 z-10">
+        <div className="px-4 max-w-6xl mx-auto relative md:pt-60 pt-24 pb-8 z-10">
           <div className="md:w-3/4 mx-auto">
             <h1 className="text-center text-indigo-400">Bridge Studio</h1>
-            <p className="font-bold md:text-5xl text-4xl text-white text-center md:px-12 px-8">A new way to enhance your team’s productivity</p>
-            <p className="text-center mt-6 text-[#808080] text-lg md:px-24 px-8">Bridge Studio can generate a fully typed client code in a matter of seconds. Log with Github or use the CLI to sync your project with Studio.</p>
+            <p className="font-bold md:text-5xl text-4xl text-white text-center md:px-10 px-8">Your frontend developer will love it</p>
+            <p className="text-center mt-6 text-[#A7A7A7] text-lg md:px-24 px-8">Bridge Studio can generate a fully typed client code and documentation in a matter of seconds, without writing any extra code or metadata. Log with Github or use the CLI to sync your project.</p>
           </div>
           <img src="/studio/studio-header.svg" className="mt-24 no-select mx-auto" />
           {/* <div className="mt-16 grid grid-cols-2 gap-32 mb-16"> */}
@@ -22,8 +22,8 @@ export default function Page() {
           {/* </div> */}
         </div>
       </div>
-      <SDK1 />
       <SDKPresentation />
+      <SDK1 />
       <TryItNow />
       <Documentation />
     </div>
@@ -32,7 +32,7 @@ export default function Page() {
 
 const Documentation = () => {
   return (
-    <div className="md:py-24 py-12">
+    <div className="md:py-12 py-12">
       <div className="flex flex-col justify-center items-center max-w-6xl px-4 mx-auto">
         <img src="/studio/documentation-logo.svg" className="mb-4 w-20" />
         <h2 className="font-semibold text-3xl md:text-4xl text-white text-center md:px-12 px-8">Have an auto-generated documentation without writing any metadata.</h2>
@@ -55,18 +55,18 @@ const SDK1 = () => {
   const features = [
     {
       icon: "/studio/send.svg",
-      title: "Type-safe requests",
-      desc: "Using Bridge is like using an SDK for your API's server code, giving you confidence in your endpoints."
+      title: "Type-safe request parameters",
+      desc: "Never make mistakes while calling your endpoints."
     },
     {
       icon: "/studio/receive.svg",
-      title: "Type-safe responses",
-      desc: "The SDK provides powerful autocompletion that improves the productivity of your frontend team."
+      title: "Type-safe request response",
+      desc: "Never make mistakes while using your endpoints response."
     },
     {
       icon: "/studio/bug-icon.svg",
       title: "Easily handle incoming errors",
-      desc: "Easily handle all incoming errors"
+      desc: "It has never been that easy to handle errors."
     },
   ]
 
@@ -74,7 +74,7 @@ const SDK1 = () => {
     <div className="pb-24">
       <div className="flex flex-col justify-center items-center max-w-6xl px-4 mx-auto">
         <img src="/studio/sdk-icon.svg" className="mb-4 w-64" />
-        <h2 className="font-semibold text-3xl md:text-4xl text-white text-center mx-auto md:w-3/4">Enhance your team’s productivity with the generated SDK</h2>
+        <h2 className="font-semibold text-3xl md:text-4xl text-white text-center mx-auto md:w-3/4">Have an auto-generated client SDK using one command line</h2>
         <div className="grid md:grid-cols-2 md:gap-16 gap-6 md:mt-24 mt-12">
           <div className="bg-[#161616] bg-opacity-25 rounded-xl border border-white border-opacity-5">{features.map((el, index) => {
             return <div onClick={() => setSelected(index)} key={index} className={`p-6 border-b border-white border-opacity-5 last:border-none ${selected === index ? "bg-white bg-opacity-5" : ""}`}>
@@ -159,8 +159,8 @@ const LanguageCard = () => {
       <div className="px-8 py-8">
         <h3 className="text-white font-medium text-2xl">Made for many different languages</h3>
         <p className="text-base text-neutral-500">
-          Generate SDK’s in many different languages for your apps or microservices.
-          Currently only Typescript is supported.
+          Generate SDKs in many different languages for your apps or microservices.
+          Contact us on <a className="text-white font-medium" href="https://discord.gg/yxjrwm7Bfr">Discord</a> to add a specific language.
         </p>
       </div>
       <img src="/studio/all-languages.svg" className="w-full h-full" />
@@ -190,8 +190,8 @@ const MaintainCard = () => {
     <div className="border border-white border-opacity-10 bg-[#1B1A1C] bg-opacity-25 rounded-xl col-span-12 md:col-span-7 flex flex-col justify-between">
       <div className="py-8 px-8">
         <h3 className="text-white font-medium text-2xl text-center">Easily maintain and update your code</h3>
-        <p className="text-base text-neutral-500 text-center px-8">
-          After an update, the IDE alerts developers of changes that happened in the API, and identifies where changes need to be made in the code.
+        <p className="text-base text-neutral-500 text-center px-4">
+          After an update, the IDE alerts developers of changes that happened in the API, and identifies where changes need to be made in the client code.
         </p>
       </div>
       <div className="px-8 flex gap-4 items-center mt-auto">
@@ -235,7 +235,7 @@ const PostmanCard = () => {
       <div className="py-8 px-8">
         <h3 className="text-white font-medium text-2xl text-center">Goodbye Postman collections</h3>
         <p className="text-base text-neutral-500 text-center px-8">
-          The SDK contains all the informations necessary to integrate and use correctly your API.
+          The client SDK contains all the information necessary to integrate and use correctly your API.
         </p>
       </div>
       <img src="/studio/postman-img.svg" className="w-full border-top border-white border-opacity-10" />
@@ -290,7 +290,7 @@ const TryItNow = () => {
   const [copied, setCopied] = useState(false)
 
   const copyCommand = () => {
-    navigator.clipboard.writeText('npx bridge-studio').then(() => {
+    navigator.clipboard.writeText('npx bridge-studio@latest').then(() => {
       setCopied(true);
     });
   };
@@ -303,7 +303,7 @@ const TryItNow = () => {
     }
   }, [copied]);
 
-  return (<div className='md:pb-48 pb-12'>
+  return (<div className='md:pb-24 pb-12'>
     <div className="relative bg-[#010101] bg-contain bg-no-repeat">
       <div className="px-4 max-w-6xl mx-auto relative z-10">
         <div className='max-w-xl mx-auto w-full p-12 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-md'>
@@ -321,7 +321,7 @@ const TryItNow = () => {
                   className="py-3 text-center text-white rounded-sm bg-[#0D0B0E] overflow-hidden"
                   style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
                 >
-                  npx bridge-studio
+                  npx bridge-studio@latest
                 </div>
                 <div className="absolute p-1.5 text-white bg-white bg-opacity-0 -translate-y-1/2 border border-white hover:bg-opacity-20 border-opacity-0 rounded-md opacity-50 group-hover:border-opacity-20 hover:opacity-75 right-3 top-1/2">
                   {copied ? (

@@ -51,11 +51,10 @@ const Studio = () => {
 
   return (<div className='md:pb-24 pb-12'>
     <div className="relative bg-[#010101] bg-contain bg-no-repeat" style={{ backgroundImage: `url("/studio/main.svg")` }} >
-      <div className="px-4 max-w-6xl mx-auto relative md:pt-48 pt-24 pb-8 z-10">
+      <div className="px-4 max-w-6xl mx-auto relative md:pt-60 pt-24 pb-8 z-10">
         <div className="md:w-3/4 mx-auto">
-          <h1 className="text-center text-indigo-400">Bridge Studio</h1>
-          <p className="font-bold md:text-5xl text-4xl text-white text-center md:px-12 px-8">A new way to enhance your team’s productivity</p>
-          <p className="text-center mt-6 text-[#808080] text-lg md:px-24 px-8">Bridge Studio can generate a fully typed client code in a matter of seconds. Log with Github or use the CLI to sync your project with Studio.</p>
+          <p className="font-bold md:text-5xl text-4xl text-white text-center md:px-10 px-8 mt-8">Discover Bridge Studio</p>
+          <p className="text-center mt-6 text-[#808080] text-lg md:px-24 px-8">Bridge Studio can generate a fully typed client code and documentation in a matter of seconds. Log with Github or use the CLI to sync your project.</p>
         </div>
         <div className='mt-9'>
           <BridgeStudioBeta customText='Read more about Bridge Studio' />
@@ -180,8 +179,10 @@ const HeroSection = () => {
 
           <BridgeStudioBeta />
           <h1 className="mt-8 text-4xl font-semibold text-center text-white md:text-6xl">
-            The <span className="grad">Typescript</span> API framework that enhances developer{' '}
+            The <span className="grad">Typescript</span> API framework that boosts developer{' '}
             <span className="grad">productivity</span>
+
+            {/* The <span className='grad'>smart </span> way to develop APIs to boost developer <span className='grad'>productivity</span> */}
           </h1>
           <p className="w-3/4 mx-auto mt-8 text-lg text-center text-white text-opacity-50 md:text-xl">
             {/* Because you deserve the best developer experience */}
