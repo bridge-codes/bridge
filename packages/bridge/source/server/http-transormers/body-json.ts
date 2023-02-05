@@ -2,6 +2,7 @@ import { IncomingMessage } from 'http';
 
 export const getJSONDataFromRequestStream = <T>(request: IncomingMessage): Promise<T> =>
   new Promise((resolve) => {
+    if (typeof (request as any).body === 'object') resolve((request as any).body);
     const chunks: any[] = [];
     request.on('data', (chunk) => {
       chunks.push(chunk);

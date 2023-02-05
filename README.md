@@ -84,6 +84,8 @@ app.listen(port, () => {
 
 For more complex examples and a full understanding of the capabilities of Bridge, be sure to check out our [documentation](https://bridge.codes)!
 
+## Bridge Studio
+
 <!--
 ### Table of Contents
 
