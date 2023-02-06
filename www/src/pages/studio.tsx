@@ -1,10 +1,8 @@
 import Layout from "@theme/Layout"
 import React, { useState, useEffect } from "react"
-import Highlight, { defaultProps } from 'prism-react-renderer';
-import theme from 'prism-react-renderer/themes/nightOwl';
 
 export default function Page() {
-  return <div className="overflow-x-hidden"><Layout>
+  return <Layout>
     <div className="bg-[#010101] overflow-hidden">
       <div className="relative bg-[#010101] bg-contain bg-no-repeat" style={{ backgroundImage: `url("/studio/main.svg")` }} >
 
@@ -30,14 +28,13 @@ export default function Page() {
       <Documentation />
     </div>
   </Layout>
-  </div>
 }
 
 const Documentation = () => {
   return (
     <div className="md:py-12 py-12">
       <div className="flex flex-col justify-center items-center max-w-6xl px-4 mx-auto">
-        <img src="/studio/documentation-logo.svg" className="mb-4 w-20 mx-auto" />
+        <img src="/studio/documentation-logo.svg" className="mb-4 w-20" />
         <h2 className="font-semibold text-3xl md:text-4xl text-white text-center md:px-12 px-8">Have an auto-generated documentation without writing any metadata.</h2>
         <img src="/studio/doc.svg" className="rounded-xl border border-white border-opacity-10 mt-16" />
         <div className="grid grid-cols-12 md:gap-9 gap-4 md:mt-9 mt-6">
@@ -51,6 +48,88 @@ const Documentation = () => {
     </div>
   )
 }
+
+const SDK1 = () => {
+  const [selected, setSelected] = useState(0)
+
+  const features = [
+    {
+      icon: "/studio/send.svg",
+      title: "Type-safe request parameters",
+      desc: "Never make mistakes while calling your endpoints."
+    },
+    {
+      icon: "/studio/receive.svg",
+      title: "Type-safe request response",
+      desc: "Never make mistakes while using your endpoints response."
+    },
+    {
+      icon: "/studio/bug-icon.svg",
+      title: "Easily handle incoming errors",
+      desc: "It has never been that easy to handle errors."
+    },
+  ]
+
+  return (
+    <div className="pb-24">
+      <div className="flex flex-col justify-center items-center max-w-6xl px-4 mx-auto">
+        <img src="/studio/sdk-icon.svg" className="mb-4 w-64" />
+        <h2 className="font-semibold text-3xl md:text-4xl text-white text-center mx-auto md:w-3/4">Have an auto-generated client SDK using one command line</h2>
+        <div className="grid md:grid-cols-2 md:gap-16 gap-6 md:mt-24 mt-12">
+          <div className="bg-[#161616] bg-opacity-25 rounded-xl border border-white border-opacity-5">{features.map((el, index) => {
+            return <div onClick={() => setSelected(index)} key={index} className={`p-6 border-b border-white border-opacity-5 last:border-none ${selected === index ? "bg-white bg-opacity-5" : ""}`}>
+              <div className="flex gap-4">
+                <img src={el.icon} className="w-10 self-start" />
+                <div>
+                  <h3 className="font-medium text-white text-lg">{el.title}</h3>
+                  <p className="text-neutral-400 mt-2">{el.desc}</p>
+                </div>
+              </div>
+            </div>
+          })}</div>
+          <div className="self-center">
+            {selected === 0 && <div className="relative">
+              <img src="/studio/input-autocompletion.svg" />
+              <div className="absolute border border-white border-opacity-10 " style={{ bottom: '10%', left: '22%' }}>
+              </div>
+            </div>}
+            {selected === 1 && <div className="relative">
+              <img src="/studio/auto-completion.svg" />
+              <div className="absolute border border-white border-opacity-10 " style={{ bottom: '10%', left: '22%' }}>
+              </div>
+            </div>}
+            {selected === 2 && <div className="relative">
+              <img src="/studio/error-handling.svg" />
+              <div className="absolute border border-white border-opacity-10 " style={{ bottom: '10%', left: '22%' }}>
+              </div>
+            </div>}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+type CustomCardType = {
+  icon: JSX.Element;
+  title: string;
+  description: string;
+}
+
+const CustomCard = (props: CustomCardType) => {
+  return (<div className="relative rounded-md border border-white border-opacity-5 overflow-hidden">
+    <div className="p-8">
+      <div className="flex gap-2 items-center">
+        {props.icon}
+        <h3 className="text-white font-medium text-lg">{props.title}</h3>
+      </div>
+      <p className="text-neutral-400">{props.description}</p>
+    </div>
+    <img src="/studio/customcard.svg" style={{ objectFit: 'fill' }} className="absolute inset-0 -z-10 w-full" />
+  </div>)
+}
+
 
 const SDKPresentation = () => {
   return (
@@ -135,7 +214,7 @@ const MaintainCard = () => {
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`absolute inset-0 w-6 h-6 transition-all duration-700
 ${loading ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}
 `}>
-            <path fillRule="evenodd" clipRule="evenodd" d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24ZM17.5607 10.0607C18.1464 9.47487 18.1464 8.52513 17.5607 7.93934C16.9749 7.35355 16.0251 7.35355 15.4393 7.93934L10.5 12.8787L8.56066 10.9393C7.97487 10.3536 7.02513 10.3536 6.43934 10.9393C5.85355 11.5251 5.85355 12.4749 6.43934 13.0607L9.43934 16.0607C10.0251 16.6464 10.9749 16.6464 11.5607 16.0607L17.5607 10.0607Z" fill="white" />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24ZM17.5607 10.0607C18.1464 9.47487 18.1464 8.52513 17.5607 7.93934C16.9749 7.35355 16.0251 7.35355 15.4393 7.93934L10.5 12.8787L8.56066 10.9393C7.97487 10.3536 7.02513 10.3536 6.43934 10.9393C5.85355 11.5251 5.85355 12.4749 6.43934 13.0607L9.43934 16.0607C10.0251 16.6464 10.9749 16.6464 11.5607 16.0607L17.5607 10.0607Z" fill="white" />
           </svg>
 
         </div>
@@ -277,294 +356,4 @@ const TryItNow = () => {
       </div>
     </div>
   </div>)
-}
-
-
-
-const SDK1 = () => {
-  const [selected, setSelected] = useState(0)
-
-  const firstPart = `import { API } from "./sdk"
-
-const { data, error } = await API.user.get({
-    body: {`
-
-  const bodyName = `      name: "New name here",`
-  const bodyId = `      id: 412`
-
-  const endRequest = `    } 
-})`
-
-  const error = `
-if (error) {`
-  const errorSwitch = `  switch (error.name) {`
-  const errorCase = `    case "`
-  const errorCaseLast = `":`
-  const errorSwitchClose = `      //...
-      break;
-   }`
-
-  const errorLastPart = '}'
-
-  const [data, setData] = useState(`
-data.`)
-
-  const initialDataSuggestions = [
-    { name: "id", type: "number" },
-    { name: "name", type: "string" },
-    { name: "age", type: "number" },
-  ]
-
-  const initialErrorSuggestion = [
-    { name: "Document not found" },
-    { name: "Body schema validation error" },
-    { name: "Internal server error" },
-    { name: "Wrong permission" },
-  ]
-
-  const features = [
-    {
-      icon: "/studio/send.svg",
-      title: "Type-safe request parameters",
-      desc: "Never make mistakes while calling your endpoints."
-    },
-    {
-      icon: "/studio/bug-icon.svg",
-      title: "Easily handle incoming errors",
-      desc: "It has never been that easy to handle errors."
-    },
-    {
-      icon: "/studio/receive.svg",
-      title: "Type-safe request response",
-      desc: "Never make mistakes while using your endpoints response."
-    },
-  ]
-
-  const initialBodySuggestions = [{ name: "name", type: "string" }, { name: "id", type: "number" }]
-  const [bodySuggestions, setBodySuggestions] = useState(initialBodySuggestions)
-  const [showBodyName, setShowBodyName] = useState(false)
-  const [showBodyId, setShowBodyId] = useState(false)
-  const [dataSuggestions, setDataSuggestions] = useState(initialDataSuggestions)
-  const [dataSelected, setDataSelected] = useState("")
-  const [errorSuggestions, setErrorSuggestions] = useState(initialErrorSuggestion)
-  const [errorSelected, setErrorSelected] = useState("")
-
-  useEffect(() => {
-    if (showBodyId && showBodyName && selected == 0) setTimeout(() => setSelected(1), 1000)
-  }, [showBodyName, showBodyId])
-
-  useEffect(() => {
-    if (selected === 0) {
-      setShowBodyId(false); setShowBodyName(false); setBodySuggestions(initialBodySuggestions); setErrorSelected("")
-    }
-    if ([1].includes(selected)) {
-      setShowBodyId(true); setShowBodyName(true); setDataSelected(""); setErrorSelected("")
-    }
-    if (selected === 2) {
-      setShowBodyId(true); setShowBodyName(true); setErrorSelected(errorSelected ? errorSelected : "Document no found")
-    }
-  }, [selected])
-
-  return (
-    <div className="py-24">
-      <div className="flex flex-col justify-center items-cente max-w-6xl px-4 mx-auto">
-        <img src="/studio/sdk-icon.svg" className="mb-4 w-64 mx-auto" />
-        <h2 className="font-semibold text-4xl text-white text-center mx-auto w-3/4">Have an auto-generated client SDK using one command line</h2>
-        <div className="grid md:grid-cols-2 gap-16 mt-24">
-          <div className="bg-[#161616] bg-opacity-25 rounded-xl border border-white border-opacity-5 h-max">{features.map((el, index) => {
-            return <div onClick={() => setSelected(index)} key={index} className={`p-6 cursor-pointer transition-all hover:bg-opacity-5 border-b border-white border-opacity-5 last:border-none bg-white bg-opacity-0 ${selected === index ? "bg-opacity-5" : ""}`}>
-              <div className="flex gap-4">
-                <img src={el.icon} className="w-10 self-start" />
-                <div>
-                  <h3 className="font-medium text-white text-lg">{el.title}</h3>
-                  <p className="text-neutral-400 mt-2">{el.desc}</p>
-                </div>
-              </div>
-            </div>
-          })}
-          </div>
-          <div className="relative">
-
-            <div className={`no-scrollbar border overflow-x-auto w-full bg-opacity-10 backdrop-blur-md pb-4 text-sm border-white border-opacity-10 p-3 z-10 rounded-md`} style={{
-            }}
-            >
-
-              <Code code={firstPart} show={true} maxHeight={21 * 4} />
-              <Code code={bodyName} animated={true} show={showBodyName} />
-              <Code code={bodyId} animated show={showBodyId} />
-              <Code code={''} show={selected === 0 && !(showBodyName && showBodyId)} maxHeight={21} />
-              <Code code={endRequest} show={true} maxHeight={21 * 3} />
-
-              <Code code={error} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
-              <Code code={errorSwitch} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
-              <Code code={errorCase} animated={true} codeLast={errorCaseLast} show={[1, 2].includes(selected)} maxHeight={24 * 3} newTextToWrite={errorSelected} />
-              <Code code={errorSwitchClose} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
-              <Code code={errorLastPart} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
-
-              <Code code={data} newTextToWrite={dataSelected} show={selected === 2} animated={true} maxHeight={60} animationDelay={0} />
-
-              {/* BODY SUGGESTIONS */}
-            </div>
-
-            <div className={`transition-all duration-300 border right-0 max-w-max absolute border-white rounded-md border-opacity-10 bg-neutral-900 bg-opacity-50 backdrop-blur-md
-${selected === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
-              style={{ top: showBodyName || showBodyId ? 20.3 * 6 + 12 : 20.3 * 5 + 12, left: 86 }}
-            >
-              {
-                bodySuggestions.map((el, index) => {
-                  return (
-                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
-                      const newSuggestions = [...bodySuggestions].filter((el2) => el2.name != el.name)
-                      setBodySuggestions(newSuggestions)
-                      //
-                      if (el.name === "name") setShowBodyName(true)
-                      if (el.name === "id") setShowBodyId(true)
-                    }}
-                      style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
-                    >
-                      <div className='text-sm'>{el?.name}</div>
-                      <div className='text-sm text-neutral-400'>{el?.type}</div>
-                    </div>
-                  )
-                })
-              }
-              <div className='text-white animate-pulse font-bold text-xl absolute left-0 top-0 -translate-x-2 -translate-y-full'>|</div>
-            </div>
-
-            {/* ERROR SUGGESTIONS  */}
-            <div className={`transition-all border right-0 max-w-max absolute border-white rounded-md duration-500 border-opacity-10 bg-neutral-900 bg-opacity-50 backdrop-blur-sm
- ${selected === 1 && !errorSelected ? "opacity-100 delay-1000 translate-y-0" : "opacity-0 translate-y-2"}`}
-              style={{ top: 20.3 * 12 + 13, left: 116 }}
-            >
-              {
-                errorSuggestions.map((el, index) => {
-                  return (
-                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
-                      setErrorSelected(el.name)
-                      setTimeout(() => {
-                        setSelected(2)
-                      }, 500)
-                    }}
-                      style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
-                    >
-                      <div className='text-sm'>{el?.name}</div>
-                    </div>
-                  )
-                })
-              }
-              <div className='text-white animate-pulse font-bold text-xl absolute left-0 top-0 -translate-x-2 -translate-y-full'>|</div>
-            </div>
-
-
-            <div className={`transition-all border right-0 max-w-max absolute border-white rounded-md duration-500 border-opacity-10 bg-neutral-900 bg-opacity-50 backdrop-blur-sm
- ${selected === 2 && !dataSelected ? "opacity-100 delay-1000 translate-y-0" : "opacity-0 translate-y-2"}`}
-              style={{ top: 20.3 * 18 + 12, left: 80 }}
-            >
-              {
-                dataSuggestions.map((el, index) => {
-                  return (
-                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
-                      setDataSelected(el.name)
-                    }}
-                      style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
-                    >
-                      <div className='text-sm'>{el?.name}</div>
-                    </div>
-                  )
-                })
-              }
-              <div className='text-white animate-pulse font-bold text-xl absolute left-0 top-0 -translate-x-2 -translate-y-full'>|</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-type SuggestionsType = Array<{
-  name: string;
-  type: string;
-  content?: SuggestionsType
-}>
-
-const Code = (
-  { codeLast, newTextToWrite, code, animationDelay, suggestions, show, animated, maxHeight }:
-    {
-      newTextToWrite?: string;
-      codeLast?: string;
-      animationDelay?: number;
-      animated?: boolean;
-      code: string;
-      show: boolean;
-      maxHeight?: number;
-      suggestions?: SuggestionsType
-    }) => {
-
-  const initialText = codeLast ? code + codeLast : code
-  const [text, setText] = useState(animated ? "" : initialText)
-
-  useEffect(() => {
-    if (show && animated) {
-      let i = 0;
-      setTimeout(() => {
-        const intervalId = setInterval(() => {
-          setText(initialText.slice(0, i));
-          i++;
-          if (i > initialText.length) {
-            clearInterval(intervalId);
-          }
-        }, 30);
-        return () => clearInterval(intervalId);
-
-      }, animationDelay ? animationDelay : 150)
-    }
-  }, [initialText, show]);
-
-  useEffect(() => {
-    if (newTextToWrite) {
-      let i = 0;
-      setTimeout(() => {
-        const intervalId = setInterval(() => {
-          if (codeLast) {
-            setText(code + newTextToWrite.slice(0, i) + codeLast);
-          } else {
-            setText(code + newTextToWrite.slice(0, i));
-          }
-          i++;
-          if (i > newTextToWrite.length) {
-            clearInterval(intervalId);
-          }
-        }, 50);
-        return () => clearInterval(intervalId);
-      }, 0)
-    }
-  }, [newTextToWrite])
-
-  return (
-    <Highlight {...defaultProps} code={text} language="tsx" theme={theme}>
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className + " transition-all duration-700 no-scrollbar"} style={{
-          ...style,
-          background: 'transparent',
-          paddingTop: 0,
-          paddingBottom: 0,
-          maxHeight: show ? maxHeight ? maxHeight : 24 : 0,
-          opacity: show ? 1 : 0,
-          height: suggestions ? 300 : 'auto',
-          width: suggestions ? "100%" : "fit-content"
-        }}>
-          {tokens.map((line, i) => (
-            <div {...getLineProps({ line, key: i })} style={{
-              position: 'relative',
-            }}>
-              {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
-              ))}
-            </div>
-          ))}
-        </pre>
-      )}
-    </Highlight>
-  )
 }
