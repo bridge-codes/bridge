@@ -469,7 +469,7 @@ details p {
 }
 
 
-.overflow-x-hidden .navbar {
+.navbar {
     background-color: rgb(0,0,0,0);
     border-bottom: none;
     position: fixed;
