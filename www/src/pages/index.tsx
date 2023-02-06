@@ -7,6 +7,7 @@ import { NewsLetter } from '../components/Newsletter';
 import { NewCustomCode } from '../components/NewCode';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
 import { ContinueWithGithubButton } from './studio';
+import { track } from "../analytics/mixpanel"
 
 export default function Home(): JSX.Element {
   return (
@@ -37,6 +38,9 @@ const Studio = () => {
 
   const copyCommand = () => {
     navigator.clipboard.writeText('npx bridge-studio').then(() => {
+      track('npx bridge-studio copied', {
+        location: "index bridge-studio"
+      })
       setCopied(true);
     });
   };
@@ -71,7 +75,9 @@ const Studio = () => {
             <div>
 
               <div
-                onClick={() => copyCommand()}
+                onClick={() => {
+                  copyCommand()
+                }}
                 className="max-w-md p-0.5 relative mx-auto mt-10 bg-left-bottom hover:bg-right-bottom overflow-hidden rounded-md cursor-pointer group bg-grad-blue-green transition-all hover:position"
                 style={{ backgroundSize: '300% 300%', transitionDuration: '2000ms' }}
               >
@@ -157,6 +163,9 @@ const HeroSection = () => {
   const [copied, setCopied] = useState(false);
   const copyCommand = () => {
     navigator.clipboard.writeText('npx create-bridge-app').then(() => {
+      track('npx create-bridge-app copied', {
+        location: "index header"
+      })
       setCopied(true);
     });
   };
@@ -190,7 +199,9 @@ const HeroSection = () => {
             developing and integrating APIs.
           </p>
           <div
-            onClick={() => copyCommand()}
+            onClick={() => {
+              copyCommand()
+            }}
             className="max-w-md p-0.5 relative mx-auto mt-24 bg-left-bottom hover:bg-right-bottom overflow-hidden rounded-md cursor-pointer group bg-grad2 transition-all hover:positio"
             style={{ backgroundSize: '300% 300%', transitionDuration: '2000ms' }}
           >
@@ -238,7 +249,12 @@ const HeroSection = () => {
 
 const BridgeStudioBeta = ({ customText }: { customText?: string }) => {
   return (
-    <a href="/studio" className='max-w-max mx-auto group block hover:no-underline'>
+    <a href="/studio" className='max-w-max mx-auto group block hover:no-underline' onClick={() => {
+      track('Read more Bridge Studio click', {
+        text: customText || "Bridge Studio is on Beta"
+      })
+
+    }}>
       <div className='max-w-max mx-auto rounded-full' style={{ padding: 1, background: `linear-gradient(263.08deg, #75E0A2 0%, rgba(117, 224, 162, 0.25) 21.88%, rgba(117, 224, 162, 0.9) 42.71%, rgba(244, 248, 92, 0.3) 65.1%, rgba(244, 248, 92, 0.9) 84.38%, rgba(244, 248, 92, 0.25) 100%)`, boxShadow: `0px 4px 34px 6px rgba(162, 255, 45, 0.25)` }}>
         <div className='bg-[#010101] group-hover:bg-opacity-90 duration-500 text-opacity-80 items-center hover:text-opacity-100 transition-all flex gap-1 rounded-full pl-6 pr-4 py-2 text-xs uppercase font-medium text-white' style={{ letterSpacing: 1.2 }}>
           {customText ? customText : "Bridge Studio is on Beta"}
@@ -555,6 +571,9 @@ const FeatureElement = ({
     <div className="flex items-center" ref={thisElement}>
       <div
         onClick={() => {
+          track("Bridge features element clicked", {
+            title
+          })
           setSelected(index);
           const size = thisElement.current.getClientRects();
           console.log(size);
