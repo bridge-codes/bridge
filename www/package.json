@@ -22,7 +22,7 @@
     "@mdx-js/react": "^1.6.22",
     "@tailwindcss/line-clamp": "^0.4.2",
     "autoprefixer": "^10.4.13",
-    "bridge": "^2.0.32",
+    "bridge": "^2.0.42",
     "clsx": "^1.2.1",
     "docusaurus-preset-shiki-twoslash": "^1.1.38",
     "formidable": "^2.1.1",

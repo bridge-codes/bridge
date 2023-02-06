@@ -28,7 +28,7 @@ const updateUser = handler({
   body: z.object({ age: z.number() }),
   resolve: (data) => {
     //       ^?
-    const user = data.mid;
+    const user = data.middlewares;
     user.age = data.body.age;
     return user;
   },

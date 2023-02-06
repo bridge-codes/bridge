@@ -5,7 +5,7 @@ import theme from 'prism-react-renderer/themes/nightOwl';
 import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export default function Page() {
-  return <Layout>
+  return  <div className="overflow-x-hidden"><Layout>
     <div className="bg-[#010101] overflow-hidden">
       <div className="relative bg-[#010101] bg-contain bg-no-repeat" style={{ backgroundImage: `url("/studio/main.svg")` }} >
 
@@ -32,6 +32,7 @@ export default function Page() {
       <Documentation />
     </div>
   </Layout>
+  </div>
 }
 
 const Documentation = () => {

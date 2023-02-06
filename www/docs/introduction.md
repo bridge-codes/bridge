@@ -1,5 +1,6 @@
 ---
 sidebar_label: 'Introduction'
+className: docs-page
 ---
 
 # Introduction
@@ -21,3 +22,5 @@ We are dedicated to creating a fantastic project that offers the best developer 
 ## Coming soon
 
 We are excited to announce that the beta of our platform, which allows you to automatically generate complete documentation for your Bridge project and full typed input/output client code in any language, is launching soon. If you want to be one of the first to try it out, join our **[Discord Community](https://discord.gg/yxjrwm7Bfr)** and sign up for the beta!"
+
+

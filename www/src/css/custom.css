@@ -512,7 +512,7 @@ details p {
 } */
 
 
-.navbar {
+.overflow-x-hidden .navbar {
     background-color: rgb(0,0,0,0);
     border-bottom: none;
     position: fixed;
