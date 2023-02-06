@@ -141,7 +141,7 @@ const config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/handler',
+              to: '/docs/bridge/handler',
             },
           ],
         },
