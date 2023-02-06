@@ -137,9 +137,9 @@ data.`)
   }, [selected])
 
   return (
-    <div className="py-24">
+    <div className="pt-24 pb-48">
       <div className="flex flex-col justify-center items-cente max-w-6xl px-4 mx-auto">
-        <img src="/studio/sdk-icon.svg" className="mb-4 w-64 mx-auto" />
+        <img src="/studio/sdk-icon.svg" className="mb-4 w-16 mx-auto" />
         <h2 className="font-semibold text-4xl text-white text-center mx-auto w-3/4">Have an auto-generated client SDK using one command line</h2>
         <div className="grid md:grid-cols-2 gap-16 mt-24">
           <div className="bg-[#161616] bg-opacity-25 rounded-xl border border-white border-opacity-5 h-max">{features.map((el, index) => {
