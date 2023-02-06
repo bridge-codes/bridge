@@ -2,6 +2,7 @@ import Layout from "@theme/Layout"
 import React, { useState, useEffect } from "react"
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/nightOwl';
+import { track } from "../analytics/mixpanel"
 
 export default function Page() {
   return <div className="static">
@@ -59,7 +60,7 @@ const SDK1 = () => {
 const { data, error } = await API.user.get({
     body: {`
 
-  const bodyName = `      name: "New name here",`
+  const bodyName = `      name: "John Smith",`
   const bodyId = `      id: 412`
 
   const endRequest = `    } 
@@ -142,7 +143,10 @@ data.`)
         <h2 className="font-semibold text-4xl text-white text-center mx-auto w-3/4">Have an auto-generated client SDK using one command line</h2>
         <div className="grid md:grid-cols-2 gap-16 mt-24">
           <div className="bg-[#161616] bg-opacity-25 rounded-xl border border-white border-opacity-5 h-max">{features.map((el, index) => {
-            return <div onClick={() => setSelected(index)} key={index} className={`p-6 cursor-pointer transition-all hover:bg-opacity-5 border-b border-white border-opacity-5 last:border-none bg-white bg-opacity-0 ${selected === index ? "bg-opacity-5" : ""}`}>
+            return <div onClick={() => {
+              setSelected(index)
+              track("SDK Features", el.title)
+            }} key={index} className={`p-6 cursor-pointer transition-all hover:bg-opacity-5 border-b border-white border-opacity-5 last:border-none bg-white bg-opacity-0 ${selected === index ? "bg-opacity-5" : ""}`}>
               <div className="flex gap-4">
                 <img src={el.icon} className="w-10 self-start" />
                 <div>
@@ -183,12 +187,13 @@ ${selected === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
               {
                 bodySuggestions.map((el, index) => {
                   return (
-                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
+                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-t first:border-none border-white border-opacity-10' key={el.name} onClick={() => {
                       const newSuggestions = [...bodySuggestions].filter((el2) => el2.name != el.name)
                       setBodySuggestions(newSuggestions)
                       //
                       if (el.name === "name") setShowBodyName(true)
                       if (el.name === "id") setShowBodyId(true)
+                      track("auto-completion", el.name)
                     }}
                       style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
                     >
@@ -209,12 +214,14 @@ ${selected === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
               {
                 errorSuggestions.map((el, index) => {
                   return (
-                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
-                      setErrorSelected(el.name)
-                      setTimeout(() => {
-                        setSelected(2)
-                      }, 500)
-                    }}
+                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3
+                    border-t first:border-none border-white border-opacity-10' key={el.name} onClick={() => {
+                        setErrorSelected(el.name)
+                        setTimeout(() => {
+                          track("auto-completion", el.name)
+                          setSelected(2)
+                        }, 500)
+                      }}
                       style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
                     >
                       <div className='text-sm'>{el?.name}</div>
@@ -233,12 +240,14 @@ ${selected === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
               {
                 dataSuggestions.map((el, index) => {
                   return (
-                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
+                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-t first:border-none border-white border-opacity-10' key={el.name} onClick={() => {
                       setDataSelected(el.name)
+                      track("auto-completion", el.name)
                     }}
                       style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
                     >
                       <div className='text-sm'>{el?.name}</div>
+                      <div className='text-sm text-neutral-400'>{el?.type}</div>
                     </div>
                   )
                 })
@@ -503,7 +512,9 @@ const GitHubIntegration = () => {
 
 export const ContinueWithGithubButton = ({ customText }: { customText?: string }) => {
   return (
-    <a href="https://api-prod.bridge.codes/auth/github" className="group">
+    <a href="https://api-prod.bridge.codes/auth/github" className="group" onClick={() => {
+      track("Continue with Github clicked", {})
+    }}>
       <button className="p-0.5 rounded-md" style={{ background: `linear-gradient(263.08deg, #75E0A2 0%, rgba(117, 224, 162, 0.25) 21.88%, rgba(117, 224, 162, 0.9) 42.71%, rgba(244, 248, 92, 0.3) 65.1%, rgba(244, 248, 92, 0.9) 84.38%, rgba(244, 248, 92, 0.25) 100%)`, boxShadow: `0px 25px 78px 18px rgba(204, 237, 0, 0.08)` }}>
         <div className="gap-3 bg-[#010101] hover:bg-opacity-95 transition-all bg-opacity-100 flex items-center justify-center px-12 py-3" style={{ borderRadius: 6 }}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white text-opacity-80 hover:text-opacity-100 transition-all">
@@ -521,6 +532,9 @@ const TryItNow = () => {
 
   const copyCommand = () => {
     navigator.clipboard.writeText('npx bridge-studio@latest').then(() => {
+      track("npx bridge-studio@latest", {
+        location: "Bridge studio"
+      })
       setCopied(true);
     });
   };
