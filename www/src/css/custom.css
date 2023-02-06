@@ -21,6 +21,10 @@
   border: solid 1px #2d2d2d !important;
   overflow: hidden !important;
 }
+.sidebar_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
+  top: 60px;
+}
+
 @media(min-width: 550px) {
 .col.docItemCol_node_modules-\@docusaurus-theme-classic-lib-theme-DocItem-Layout-styles-module {
     padding-left: 48px;
