@@ -41,6 +41,15 @@ type BridgeHandlerReturnType<H extends BridgeHandler> = H extends BridgeHandler<
             : never)
         | (Parameters<ResolveFct>[0]['query'] extends Record<any, any>
             ? { error: { name: 'Query schema validation error'; status: 400; data: any } }
+            : never)
+        | (Parameters<ResolveFct>[0]['files'] extends string[]
+            ? {
+                error: {
+                  name: 'Files schema validation error';
+                  status: 400;
+                  data: { missingFiles: string[] };
+                };
+              }
             : never);
     }
   : {};

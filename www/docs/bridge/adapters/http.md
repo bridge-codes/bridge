@@ -6,7 +6,7 @@ sidebar_label: 'HTTP'
 
 **Example**
 
-```ts twoslash title='index.ts'
+```ts twoslash title='server.ts'
 import { initBridge, handler } from 'bridge';
 
 const hello = handler({

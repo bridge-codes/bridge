@@ -1,6 +1,5 @@
 ---
 sidebar_label: 'Introduction'
-className: docs-page
 ---
 
 # Introduction

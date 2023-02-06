@@ -4,7 +4,7 @@ sidebar_label: 'Server Side Calls'
 
 # Server Side Calls
 
-You can directly call your handler(s) from the server by calling the `resolve` function of the handler.
+You can directly access the resolve function of any handler. Its type will be inferred automatically.
 
 ## Example
 

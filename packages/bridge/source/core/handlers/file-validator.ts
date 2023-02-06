@@ -16,7 +16,7 @@ export class FileValidator extends AbstractHandler {
       for (const name of this.config) if (!data.files[name]) missingFiles.push(name);
 
     if (missingFiles.length > 0)
-      return httpError(StatusCode.BAD_REQUEST, "You didn't send all required files", {
+      return httpError(StatusCode.BAD_REQUEST, 'Files schema validation error', {
         missingFiles,
       });
 

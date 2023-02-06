@@ -1,14 +1,14 @@
 ---
-sidebar_label: 'Express'
+sidebar_label: 'With Node HTTP'
 ---
 
-# Express
+# With Node HTTP
 
-**Example**
+## Example
+
 
 ```ts twoslash title='server.ts'
 import { initBridge, handler } from 'bridge';
-import express from 'express';
 
 const hello = handler({
   resolve: () => 'hello',
@@ -18,11 +18,7 @@ const bridge = initBridge({ routes: { hello } });
 
 const port = 8080;
 
-const app = express();
-
-app.use('', bridge.expressMiddleware());
-
-app.listen(port, () => {
+bridge.HTTPServer().listen(port, () => {
   `Listening on port ${port}`;
 });
 ```

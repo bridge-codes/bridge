@@ -12,7 +12,7 @@ In addition to defining individual routes, you can create nested routes by addin
 
 **Example**
 
-```ts twoslash title='index.ts'
+```ts twoslash title='server.ts'
 import { handler, initBridge } from 'bridge';
 
 const helloHandler = handler({
