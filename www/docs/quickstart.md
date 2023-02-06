@@ -174,7 +174,7 @@ You can test your endpoint by making an http call to `http://localhost:8080/hell
 Congratulations, you just launched your first Bridge server! 🥳
 
 :::tip
-To get the most out of Bridge in your project, we recommend taking some time to read the documentation on [handlers](handler) and check out our [example](example) for inspiration and guidance.
+To get the most out of Bridge in your project, we recommend taking some time to read the documentation on [handlers](bridge/handler) and check out our [example](example) for inspiration and guidance.
 :::
 
 ## Client code generation and documentation
