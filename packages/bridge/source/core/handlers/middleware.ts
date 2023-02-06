@@ -1,9 +1,6 @@
 import { Handler, AbstractHandler } from '../handler';
 import { isBridgeError } from '../../error';
 
-/**
- * TO COMPLETE
- */
 export class MiddelwaresHandler extends AbstractHandler {
   constructor(private handlers: ReadonlyArray<Handler>) {
     super();
@@ -16,6 +13,6 @@ export class MiddelwaresHandler extends AbstractHandler {
     // If one middleware returns an error, we directly return the error to the client
     for (const result of results) if (isBridgeError(result)) return result;
 
-    return super.handle({ ...data, mid: Object.assign({}, ...results) });
+    return super.handle({ ...data, middlewares: Object.assign({}, ...results) });
   };
 }

@@ -7,8 +7,8 @@ export interface HandlerParams {
   body: AnyObject;
   query: AnyObject;
   headers: AnyObject;
-  file: AnyObject;
-  mid: AnyObject;
+  files: AnyObject;
+  middlewares: AnyObject;
 }
 
 export interface Handler {

@@ -2,7 +2,7 @@ import { AbstractHandler, Handler, FirstHandler } from '../handler';
 import { MiddelwaresHandler } from './middleware';
 import { Resolver } from './resolver';
 import { DataParser, DataValidator } from './data-validator';
-import { FileConfig, FileValidator } from './file-validator';
+import { FilesConfig, FileValidator } from './file-validator';
 
 export interface BridgeHandlerDocumentation {
   title?: string;
@@ -22,33 +22,16 @@ export class BridgeHandler<
       bodySchema?: DataParser;
       querySchema?: DataParser;
       headersSchema?: DataParser;
-      fileConfig?: FileConfig;
+      filesConfig?: FilesConfig;
       middlewares?: Middlewares;
-      documentation?: BridgeHandlerDocumentation; // NEED TO INFER FROM DATA TO DOCUMENTATE PARAMS
+      // documentation?: BridgeHandlerDocumentation; // NEED TO INFER FROM DATA TO DOCUMENTATE PARAMS
     },
   ) {
     super();
 
     this.resolve = config.resolve;
 
-    if (config.bodySchema && !config.resolve.length)
-      throw Error(
-        `You can't have no argument in your resolve function with a bodySchema specification`,
-      );
-    if (config.querySchema && !config.resolve.length)
-      throw Error(
-        `You can't have no argument in your resolve function with a querySchema specification`,
-      );
-    if (config.headersSchema && !config.resolve.length)
-      throw Error(
-        `You can't have no argument in your resolve function with a headersSchema specification`,
-      );
-    if (config.fileConfig && !config.resolve.length)
-      throw Error(
-        `You can't have no argument in your resolve function with a fileConfig specification`,
-      );
-
-    if (config.bodySchema && config.fileConfig)
+    if (config.bodySchema && config.filesConfig)
       throw Error("You can't get a JSON body and files in the same endpoint.");
 
     const firstHandler: Handler = new FirstHandler();
@@ -60,7 +43,7 @@ export class BridgeHandler<
       handler = handler.setNext(new DataValidator(config.querySchema, 'query'));
     if (config.headersSchema)
       handler = handler.setNext(new DataValidator(config.headersSchema, 'headers'));
-    if (config.fileConfig) handler = handler.setNext(new FileValidator(config.fileConfig));
+    if (config.filesConfig) handler = handler.setNext(new FileValidator(config.filesConfig));
 
     if (config.middlewares) handler = handler.setNext(new MiddelwaresHandler(config.middlewares));
 
@@ -80,7 +63,7 @@ export class BridgeHandler<
 
     if (res && res.error) return res;
 
-    data.mid = { ...res, ...data.mid };
+    data.middlewares = { ...res, ...data.middlewares };
 
     if (this.nextHandler) return this.nextHandler.handle(data);
 

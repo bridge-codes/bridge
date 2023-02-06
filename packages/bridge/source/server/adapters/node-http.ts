@@ -15,11 +15,15 @@ export const createHttpHandler = (
   let path: string;
   let queryString: string;
 
-  const serverRoutes = convertBridgeRoutesToServerRoutes(routes);
+  const serverRoutes = convertBridgeRoutesToServerRoutes(
+    routes,
+    '',
+    config?.formidable !== undefined,
+  );
 
   return async (req: IncomingMessage, res: ServerResponse) => {
     let body: Record<any, any> = {};
-    let file: { [file: string]: FormidableFile | FormidableFile[] } = {};
+    let files: { [file: string]: FormidableFile | FormidableFile[] } = {};
 
     const query = getJSONQueryFromURL(req.url || '');
 
@@ -34,23 +38,16 @@ export const createHttpHandler = (
           .writeHead(404, { 'Content-Type': 'application/json' })
           .end(JSON.stringify({ status: 404, name: 'Route not found' }));
 
-      if (endpoint.config.fileConfig && !config?.formidable)
-        throw new Error(
-          `You need to install formidable and to give it to Bridge in order to use files.`,
-        );
-
-      if (endpoint.config.fileConfig)
-        file = await formidableAsyncParseFiles(req, config?.formidable!);
+      if (endpoint.config.filesConfig)
+        files = await formidableAsyncParseFiles(req, config?.formidable!);
       else body = await getJSONDataFromRequestStream(req);
-
-      const mid = {};
 
       const result = await endpoint.handle({
         body,
-        file,
+        files,
         query,
         headers: req.headers,
-        mid,
+        middlewares: {},
       });
 
       if (!result)

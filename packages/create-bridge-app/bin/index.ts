@@ -40,11 +40,13 @@ const launch = async () => {
       slugRegex.test(text) ? true : 'You can only use alphanumeric characters and -',
   });
 
-  const tempRepoPath = path.join(`${os.tmpdir()},bridgeRepoTemp`);
+  const tempRepoPath = path.join('./', 'bridgeRepoTemp');
 
   execSync(`git clone https://github.com/bridge-codes/bridge.git ${tempRepoPath} -q`);
 
   fs.mkdirSync(projectName);
+
+  // fs.copyFileSync('');
 
   fs.renameSync(path.join(tempRepoPath, `examples/${template}`), projectName);
 
