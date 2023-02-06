@@ -49,7 +49,7 @@ const Studio = () => {
     }
   }, [copied]);
 
-  return (<div className='md:pb-24 pb-12'>
+  return (<div className='md:pb-24 pb-12 bg-[#010101]'>
     <div className="relative bg-[#010101] bg-contain bg-no-repeat" style={{ backgroundImage: `url("/studio/main.svg")` }} >
       <div className="px-4 max-w-6xl mx-auto relative md:pt-60 pt-24 pb-8 z-10">
         <div className="md:w-3/4 mx-auto">

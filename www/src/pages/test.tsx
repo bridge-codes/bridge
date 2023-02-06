@@ -113,7 +113,7 @@ data.`)
           })}</div>
           <div className="relative">
 
-            <div className={`border overflow-x-auto w-full bg-opacity-10 backdrop-blur-md bg-neutral-500 pb-32 text-sm border-white border-opacity-10 p-3 z-10 rounded-md`} style={{
+            <div className={`no-scrollbar border overflow-x-auto w-full bg-opacity-10 backdrop-blur-md bg-neutral-500 pb-32 text-sm border-white border-opacity-10 p-3 z-10 rounded-md`} style={{
             }}
             >
 
@@ -140,7 +140,7 @@ ${selected === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
                 {
                   bodySuggestions.map((el, index) => {
                     return (
-                      <div className='flex bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
+                      <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
                         const newSuggestions = [...bodySuggestions].filter((el2) => el2.name != el.name)
                         setBodySuggestions(newSuggestions)
                         //
@@ -167,7 +167,7 @@ ${selected === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
                 {
                   errorSuggestions.map((el, index) => {
                     return (
-                      <div className='flex bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
+                      <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
                         setErrorSelected(el.name)
                         setTimeout(() => {
                           setSelected(2)
@@ -191,7 +191,7 @@ ${selected === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
                 {
                   dataSuggestions.map((el, index) => {
                     return (
-                      <div className='flex bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
+                      <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
                         setDataSelected(el.name)
                       }}
                         style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
@@ -299,29 +299,6 @@ const Code = (
               {line.map((token, key) => (
                 <span {...getTokenProps({ token, key })} />
               ))}
-
-              {tempSuggestions &&
-                <div className={`transition-all border left-0 max-w-max absolute border-white rounded-md border-opacity-10 bg-neutral-700 bg-opacity-5 backdrop-blur-sm
-${show ? "opacity-100 delay-1000" : "opacity-0"}`}
-                >
-                  {tempSuggestions.map((el, index) => {
-                    return (
-                      <div className='flex bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-b border-white border-opacity-10' key={el.name} onClick={() => {
-                        if (el.content && el?.content.length > 0) {
-                          setTempSuggestions(el.content)
-                        } else {
-                          setTempSuggestions(null)
-                        }
-                        setText(text + el.name)
-                      }}>
-                        <div className='text-sm'>{el.name}</div>
-                        <div className='text-sm text-neutral-400'>{el.type}</div>
-                      </div>
-                    )
-                  })}
-                </div>
-              }
-
             </div>
           ))}
         </pre>
