@@ -10,7 +10,7 @@ import { ContinueWithGithubButton } from './studio';
 
 export default function Home(): JSX.Element {
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden static">
       <Layout>
         <HeroSection />
         <div className="bg-[#010101] pb-32">

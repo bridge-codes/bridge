@@ -2,32 +2,34 @@ import Layout from "@theme/Layout"
 import React, { useState, useEffect } from "react"
 
 export default function Page() {
-  return <Layout>
-    <div className="bg-[#010101] overflow-hidden">
-      <div className="relative bg-[#010101] bg-contain bg-no-repeat" style={{ backgroundImage: `url("/studio/main.svg")` }} >
+  return <div className="static">
+    <Layout>
+      <div className="bg-[#010101] overflow-hidden static">
+        <div className="relative bg-[#010101] bg-contain bg-no-repeat" style={{ backgroundImage: `url("/studio/main.svg")` }} >
 
-        <img src="/studio/lights.svg" className="no-select z-10 absolute top-0 w-screen animate-pulse" style={{ animationDuration: "4s" }} />
-        <img src="/studio/lights.svg" className="no-select translate-x-64 z-10 absolute top-0 w-screen " style={{ animationDuration: "4s" }} />
+          <img src="/studio/lights.svg" className="no-select z-10 absolute top-0 w-screen animate-pulse" style={{ animationDuration: "4s" }} />
+          <img src="/studio/lights.svg" className="no-select translate-x-64 z-10 absolute top-0 w-screen " style={{ animationDuration: "4s" }} />
 
-        <div className="px-4 max-w-6xl mx-auto relative md:pt-60 pt-24 pb-8 z-10">
-          <div className="md:w-3/4 mx-auto">
-            <h1 className="text-center text-indigo-400">Bridge Studio</h1>
-            <p className="font-bold md:text-5xl text-4xl text-white text-center md:px-10 px-8">Your frontend developer will love it</p>
-            <p className="text-center mt-6 text-[#A7A7A7] text-lg md:px-24 px-8">Bridge Studio can generate a fully typed client code and documentation in a matter of seconds, without writing any extra code or metadata. Log with Github or use the CLI to sync your project.</p>
+          <div className="px-4 max-w-6xl mx-auto relative md:pt-60 pt-24 pb-8 z-10">
+            <div className="md:w-3/4 mx-auto">
+              <h1 className="text-center text-indigo-400">Bridge Studio</h1>
+              <p className="font-bold md:text-5xl text-4xl text-white text-center md:px-10 px-8">Your frontend developer will love it</p>
+              <p className="text-center mt-6 text-[#A7A7A7] text-lg md:px-24 px-8">Bridge Studio can generate a fully typed client code and documentation in a matter of seconds, without writing any extra code or metadata. Log with Github or use the CLI to sync your project.</p>
+            </div>
+            <img src="/studio/studio-header.svg" className="mt-24 no-select mx-auto" />
+            {/* <div className="mt-16 grid grid-cols-2 gap-32 mb-16"> */}
+            {/*   <CustomCard icon={<CodeBracketIcon className="w-5 h-5 text-white" />} title="SDK generation" description="Improve your developer productivity by generating an SDK" /> */}
+            {/*   <CustomCard icon={<BookOpenIcon className="w-5 h-5 text-white" />} title="Documentation generation" description="Improve your developer productivity by generating an SDK" /> */}
+            {/* </div> */}
           </div>
-          <img src="/studio/studio-header.svg" className="mt-24 no-select mx-auto" />
-          {/* <div className="mt-16 grid grid-cols-2 gap-32 mb-16"> */}
-          {/*   <CustomCard icon={<CodeBracketIcon className="w-5 h-5 text-white" />} title="SDK generation" description="Improve your developer productivity by generating an SDK" /> */}
-          {/*   <CustomCard icon={<BookOpenIcon className="w-5 h-5 text-white" />} title="Documentation generation" description="Improve your developer productivity by generating an SDK" /> */}
-          {/* </div> */}
         </div>
+        <SDKPresentation />
+        <SDK1 />
+        <TryItNow />
+        <Documentation />
       </div>
-      <SDKPresentation />
-      <SDK1 />
-      <TryItNow />
-      <Documentation />
-    </div>
-  </Layout>
+    </Layout>
+  </div>
 }
 
 const Documentation = () => {

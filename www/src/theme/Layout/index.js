@@ -14,15 +14,15 @@ export default function LayoutWrapper(props) {
   }
 
   const location = useLocation()
-  useEffect(() => {
-    if (location.pathname.includes('docs')) {
-      const element = document.getElementsByClassName("navbar")
-      for (let navItem of element) {
-        navItem.style.background = "#111111"
-        navItem.style.borderBottom = "solid 1px #272727"
-      }
-    }
-  }, [location])
+  // useEffect(() => {
+  //   if (location.pathname.includes('docs')) {
+  //     const element = document.getElementsByClassName("navbar")
+  //     for (let navItem of element) {
+  //       navItem.style.background = "#111111"
+  //       navItem.style.borderBottom = "solid 1px #272727"
+  //     }
+  //   }
+  // }, [location])
 
   return (
     <>
