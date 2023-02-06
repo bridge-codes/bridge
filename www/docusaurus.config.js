@@ -68,7 +68,6 @@ const config = {
       },
     ],
 
-
     async function myPlugin() {
       return {
         name: 'docusaurus-tailwindcss',
@@ -88,7 +87,7 @@ const config = {
   ],
   themeConfig: {
     prism: {
-      theme: require('prism-react-renderer/themes/vsDark'),
+      theme: require('prism-react-renderer/themes/nightOwl'),
     },
     disableSwitch: false,
     respectPrefersColorScheme: true,
