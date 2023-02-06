@@ -4,7 +4,7 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/nightOwl';
 
 export default function Page() {
-  return  <div className="overflow-x-hidden"><Layout>
+  return <div className="overflow-x-hidden"><Layout>
     <div className="bg-[#010101] overflow-hidden">
       <div className="relative bg-[#010101] bg-contain bg-no-repeat" style={{ backgroundImage: `url("/studio/main.svg")` }} >
 
@@ -370,7 +370,7 @@ data.`)
       <div className="flex flex-col justify-center items-cente max-w-6xl px-4 mx-auto">
         <img src="/studio/sdk-icon.svg" className="mb-4 w-64 mx-auto" />
         <h2 className="font-semibold text-4xl text-white text-center mx-auto w-3/4">Have an auto-generated client SDK using one command line</h2>
-        <div className="grid grid-cols-2 gap-16 mt-24">
+        <div className="grid md:grid-cols-2 gap-16 mt-24">
           <div className="bg-[#161616] bg-opacity-25 rounded-xl border border-white border-opacity-5 h-max">{features.map((el, index) => {
             return <div onClick={() => setSelected(index)} key={index} className={`p-6 cursor-pointer transition-all hover:bg-opacity-5 border-b border-white border-opacity-5 last:border-none bg-white bg-opacity-0 ${selected === index ? "bg-opacity-5" : ""}`}>
               <div className="flex gap-4">
