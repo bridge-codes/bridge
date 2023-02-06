@@ -4,7 +4,7 @@ sidebar_label: 'Quickstart'
 
 # Quickstart
 
-## Autimatic Setup
+## Automatic Setup
 
 We recommend creating a new Bridge app using `create-bridge-app`, which sets up everything automatically for you. (You don't need to create an empty directory, `create-bridge-app` will make one for you.) To create a project, run:
 
