@@ -19,7 +19,7 @@ const useBridgeQuery = <TData, TError, TQueryKey extends QueryKey = QueryKey>(
     UseQueryOptions<
       | { data: Exclude<TData, undefined>; error: undefined }
       | { data: undefined; error: Exclude<TError, undefined> },
-      TError,
+      Exclude<TError, undefined>,
       Exclude<TData, undefined>,
       TQueryKey
     >,
@@ -44,7 +44,7 @@ const useBridgeMutation = <TData, TError, TVariables = void, TContext = any>(
     TVariables
   >,
   options?: Omit<
-    UseMutationOptions<Exclude<TData, undefined>, TError, TVariables, TContext>,
+    UseMutationOptions<Exclude<TData, undefined>, Exclude<TError, undefined>, TVariables, TContext>,
     'mutationFn'
   >,
 ) =>
@@ -56,3 +56,15 @@ const useBridgeMutation = <TData, TError, TVariables = void, TContext = any>(
 
 export * from '@tanstack/react-query';
 export { useBridgeQuery, useBridgeMutation };
+
+type rs = { error: undefined; data: { yo: true } } | { error: { name: 'sdf' }; data: undefined };
+
+const req = async (): Promise<rs> => ({} as any);
+
+useBridgeQuery(['d'], () => req(), {
+  onError: (error) => {},
+});
+
+useBridgeMutation(req, {
+  onError: (error) => {},
+});

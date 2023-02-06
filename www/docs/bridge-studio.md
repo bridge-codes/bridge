@@ -7,7 +7,7 @@ sidebar_label: 'Bridge Studio'
 ![Bridge Studio Schema](../static/studio/studio-header.svg)
 
 
-## Deploying your Bridge API to Bridge Studio
+## Connecting your Bridge API to Bridge Studio
 
 
 ### Using the CLI

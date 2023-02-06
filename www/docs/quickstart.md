@@ -102,4 +102,32 @@ To get the most out of Bridge in your project, we recommend taking some time to 
 
 ## Client code generation and documentation
 
+![Bridge Studio Schema](../static/studio/studio-header.svg)
+
 You'll soon be able to generate automatically a complete documentation and a fully type sdk of your api in any language with the Bridge App. Simply join our **[Discord community](https://discord.gg/yxjrwm7Bfr)** to learn more and join the **[Beta](https://discord.gg/yxjrwm7Bfr)**!
+
+### Connect your Bridge API to Bridge Studio
+
+**With the CLI**
+
+```bash title='terminal'
+npx bridge-studio@latest
+# or
+pnpx bridge-studio@latest
+```
+
+**With the plateform:** https://studio.bridge.codes
+
+
+### Fetch your client SDK
+
+```bash title='terminal'
+npx fetch-bridge-sdk@latest {username}/{projectName}
+```
+
+
+### Access your generated documentation
+
+You'll be able to access your complete generated documentation on https://studio.bridge.codes soon.
+
+Please visit https://bridge.codes/studio for more information.

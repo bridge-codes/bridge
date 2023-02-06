@@ -5,6 +5,7 @@ import path from 'path';
 import prompts from 'prompts';
 import fs from 'fs';
 import { execSync } from 'child_process';
+import { renameFolder } from './renameSync';
 
 const launch = async () => {
   const slugRegex = /^[a-zA-Z0-9-]+$/;
@@ -44,13 +45,18 @@ const launch = async () => {
 
   execSync(`git clone https://github.com/bridge-codes/bridge.git ${tempRepoPath} -q`);
 
-  fs.mkdirSync(projectName);
+  // fs.mkdirSync(projectName);
 
-  // fs.copyFileSync('');
+  // const oldPath = path.join(tempRepoPath, `examples/${template}`);
+  // const newPath = projectName;
 
-  fs.renameSync(path.join(tempRepoPath, `examples/${template}`), projectName);
+  // fs.copyFileSync(path.join(tempRepoPath, `examples/${template}`), projectName);
 
-  const packageJSONPath = `./${projectName}/package.json`;
+  // fs.unlinkSync(`examples/${template}`);
+
+  await renameFolder(path.join(tempRepoPath, `examples/${template}`), projectName);
+
+  const packageJSONPath = path.join(projectName, 'package.json');
   fs.readFile(packageJSONPath, 'utf-8', (err, data) => {
     if (err) {
       console.error(err);

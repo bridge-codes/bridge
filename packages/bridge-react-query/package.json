@@ -1,6 +1,6 @@
 {
   "name": "bridge-react-query",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "Bridge between react-query and bridge-sdk",
   "author": "Bridge Team <support@bridge.codes>",
   "license": "MIT",

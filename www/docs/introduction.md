@@ -18,8 +18,8 @@ Our mission at Bridge is to revolutionize the way developers build and integrate
 
 We are dedicated to creating a fantastic project that offers the best developer experience possible, and we would love for you to be a part of it! Please join our **[Discord Community](https://discord.gg/yxjrwm7Bfr)** and chat with us about your thoughts on Bridge and ask us any questions. We are always happy to have a discussion with you!
 
-## Coming soon
+<!-- ## Coming soon
 
 We are excited to announce that the beta of our platform, which allows you to automatically generate complete documentation for your Bridge project and full typed input/output client code in any language, is launching soon. If you want to be one of the first to try it out, join our **[Discord Community](https://discord.gg/yxjrwm7Bfr)** and sign up for the beta!"
 
-
+ -->

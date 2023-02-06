@@ -41,11 +41,6 @@ const sidebars = {
           ],
         },
       ],
-      link: {
-        type: 'generated-index',
-        title: 'Bridge',
-        slug: '/bridge',
-      },
     },
     'bridge-studio',
     {
@@ -61,26 +56,10 @@ const sidebars = {
             'bridge-client/typescript/react-query',
           ],
         },
-        {
-          type: 'category',
-          label: 'Python',
-          items: ['bridge-client/python/coming-soon'],
-        },
-        {
-          type: 'category',
-          label: 'Swift',
-          items: ['bridge-client/swift/coming-soon'],
-        },
-        {
-          type: 'category',
-          label: 'Kotlin',
-          items: ['bridge-client/kotlin/coming-soon'],
-        },
-        {
-          type: 'category',
-          label: 'Dart',
-          items: ['bridge-client/dart/coming-soon'],
-        },
+        'bridge-client/python',
+        'bridge-client/swift',
+        'bridge-client/kotlin',
+        'bridge-client/dart',
       ],
     },
     {
