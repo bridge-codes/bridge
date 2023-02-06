@@ -159,101 +159,104 @@ data.`)
           </div>
           <div className="relative">
 
-            <div className={`no-scrollbar border overflow-x-auto w-full bg-opacity-10 backdrop-blur-md pb-4 text-sm border-white border-opacity-10 p-3 z-10 rounded-md`} style={{
-            }}
-            >
+            <div className="relative" style={{ maxWidth: `calc(100vw - 46px)` }}>
+              <div className={`no-scrollbar border overflow-x-auto w-full bg-opacity-10 backdrop-blur-md pb-4 text-sm border-white border-opacity-10 p-3 z-10 rounded-md`} style={{
+              }}
+              >
 
-              <Code code={firstPart} show={true} maxHeight={21 * 4} />
-              <Code code={bodyName} animated={true} show={showBodyName} />
-              <Code code={bodyId} animated show={showBodyId} />
-              <Code code={''} show={selected === 0 && !(showBodyName && showBodyId)} maxHeight={21} />
-              <Code code={endRequest} show={true} maxHeight={21 * 3} />
+                <Code code={firstPart} show={true} maxHeight={21 * 4} />
+                <Code code={bodyName} animated={true} show={showBodyName} />
+                <Code code={bodyId} animated show={showBodyId} />
+                <Code code={''} show={selected === 0 && !(showBodyName && showBodyId)} maxHeight={21} />
+                <Code code={endRequest} show={true} maxHeight={21 * 3} />
 
-              <Code code={error} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
-              <Code code={errorSwitch} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
-              <Code code={errorCase} animated={true} codeLast={errorCaseLast} show={[1, 2].includes(selected)} maxHeight={24 * 3} newTextToWrite={errorSelected} />
-              <Code code={errorSwitchClose} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
-              <Code code={errorLastPart} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
+                <Code code={error} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
+                <Code code={errorSwitch} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
+                <Code code={errorCase} animated={true} codeLast={errorCaseLast} show={[1, 2].includes(selected)} maxHeight={24 * 3} newTextToWrite={errorSelected} />
+                <Code code={errorSwitchClose} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
+                <Code code={errorLastPart} show={[1, 2].includes(selected)} maxHeight={24 * 3} />
 
-              <Code code={data} newTextToWrite={dataSelected} show={selected === 2} animated={true} maxHeight={60} animationDelay={0} />
+                <Code code={data} newTextToWrite={dataSelected} show={selected === 2} animated={true} maxHeight={60} animationDelay={0} />
 
-              {/* BODY SUGGESTIONS */}
-            </div>
+                {/* BODY SUGGESTIONS */}
+              </div>
 
-            <div className={`transition-all duration-300 border right-0 max-w-max absolute border-white rounded-md border-opacity-10 bg-neutral-900 bg-opacity-50 backdrop-blur-md
+              <div className={`transition-all duration-300 border right-0 max-w-max absolute border-white rounded-md border-opacity-10 bg-neutral-900 bg-opacity-50 backdrop-blur-md
 ${selected === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
-              style={{ top: showBodyName || showBodyId ? 20.3 * 5 + 14 : 20.3 * 4 + 14, left: 86 }}
-            >
-              {
-                bodySuggestions.map((el, index) => {
-                  return (
-                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-t first:border-none border-white border-opacity-10' key={el.name} onClick={() => {
-                      const newSuggestions = [...bodySuggestions].filter((el2) => el2.name != el.name)
-                      setBodySuggestions(newSuggestions)
-                      //
-                      if (el.name === "name") setShowBodyName(true)
-                      if (el.name === "id") setShowBodyId(true)
-                      track("auto-completion", el.name)
-                    }}
-                      style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
-                    >
-                      <div className='text-sm'>{el?.name}</div>
-                      <div className='text-sm text-neutral-400'>{el?.type}</div>
-                    </div>
-                  )
-                })
-              }
-              <div className='text-white animate-pulse font-bold text-xl absolute left-0 top-0 -translate-x-2 -translate-y-full'>|</div>
-            </div>
-
-            {/* ERROR SUGGESTIONS  */}
-            <div className={`transition-all border right-0 max-w-max absolute border-white rounded-md duration-500 border-opacity-10 bg-neutral-900 bg-opacity-50 backdrop-blur-sm
- ${selected === 1 && !errorSelected ? "opacity-100 delay-1000 translate-y-0" : "opacity-0 translate-y-2"}`}
-              style={{ top: 20.3 * 11 + 16, left: 118 }}
-            >
-              {
-                errorSuggestions.map((el, index) => {
-                  return (
-                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3
-                    border-t first:border-none border-white border-opacity-10' key={el.name} onClick={() => {
-                        setErrorSelected(el.name)
-                        setTimeout(() => {
-                          track("auto-completion", el.name)
-                          setSelected(2)
-                        }, 500)
+                style={{ top: showBodyName || showBodyId ? 20.3 * 5 + 14 : 20.3 * 4 + 14, left: 86 }}
+              >
+                {
+                  bodySuggestions.map((el, index) => {
+                    return (
+                      <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-t first:border-none border-white border-opacity-10' key={el.name} onClick={() => {
+                        const newSuggestions = [...bodySuggestions].filter((el2) => el2.name != el.name)
+                        setBodySuggestions(newSuggestions)
+                        //
+                        if (el.name === "name") setShowBodyName(true)
+                        if (el.name === "id") setShowBodyId(true)
+                        track("auto-completion", el.name)
                       }}
-                      style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
-                    >
-                      <div className='text-sm'>{el?.name}</div>
-                    </div>
-                  )
-                })
-              }
-              <div className='text-white animate-pulse font-bold text-xl absolute left-0 top-0 -translate-x-2 -translate-y-full'>|</div>
-            </div>
+                        style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
+                      >
+                        <div className='text-sm'>{el?.name}</div>
+                        <div className='text-sm text-neutral-400'>{el?.type}</div>
+                      </div>
+                    )
+                  })
+                }
+                <div className='text-white animate-pulse font-bold text-xl absolute left-0 top-0 -translate-x-2 -translate-y-full'>|</div>
+              </div>
+
+              {/* ERROR SUGGESTIONS  */}
+              <div className={`transition-all border right-0 max-w-max absolute border-white rounded-md duration-500 border-opacity-10 bg-neutral-900 bg-opacity-50 backdrop-blur-sm
+ ${selected === 1 && !errorSelected ? "opacity-100 delay-1000 translate-y-0" : "opacity-0 translate-y-2"}`}
+                style={{ top: 20.3 * 11 + 16, left: 118 }}
+              >
+                {
+                  errorSuggestions.map((el, index) => {
+                    return (
+                      <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3
+                    border-t first:border-none border-white border-opacity-10' key={el.name} onClick={() => {
+                          setErrorSelected(el.name)
+                          setTimeout(() => {
+                            track("auto-completion", el.name)
+                            setSelected(2)
+                          }, 500)
+                        }}
+                        style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
+                      >
+                        <div className='text-sm'>{el?.name}</div>
+                      </div>
+                    )
+                  })
+                }
+                <div className='text-white animate-pulse font-bold text-xl absolute left-0 top-0 -translate-x-2 -translate-y-full'>|</div>
+              </div>
 
 
-            <div className={`transition-all border right-0 max-w-max absolute border-white rounded-md duration-500 border-opacity-10 bg-neutral-900 bg-opacity-50 backdrop-blur-sm
+              <div className={`transition-all border right-0 max-w-max absolute border-white rounded-md duration-500 border-opacity-10 bg-neutral-900 bg-opacity-50 backdrop-blur-sm
  ${selected === 2 && !dataSelected ? "opacity-100 delay-1000 translate-y-0" : "opacity-0 translate-y-2"}`}
-              style={{ top: 20.3 * 17 + 14, left: 80 }}
-            >
-              {
-                dataSuggestions.map((el, index) => {
-                  return (
-                    <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-t first:border-none border-white border-opacity-10' key={el.name} onClick={() => {
-                      setDataSelected(el.name)
-                      track("auto-completion", el.name)
-                    }}
-                      style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
-                    >
-                      <div className='text-sm'>{el?.name}</div>
-                      <div className='text-sm text-neutral-400'>{el?.type}</div>
-                    </div>
-                  )
-                })
-              }
-              <div className='text-white animate-pulse font-bold text-xl absolute left-0 top-0 -translate-x-2 -translate-y-full'>|</div>
+                style={{ top: 20.3 * 17 + 14, left: 80 }}
+              >
+                {
+                  dataSuggestions.map((el, index) => {
+                    return (
+                      <div className='flex cursor-pointer bg-white bg-opacity-0 hover:bg-opacity-5 transition-all gap-8 justify-between py-1.5 px-3 border-t first:border-none border-white border-opacity-10' key={el.name} onClick={() => {
+                        setDataSelected(el.name)
+                        track("auto-completion", el.name)
+                      }}
+                        style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
+                      >
+                        <div className='text-sm'>{el?.name}</div>
+                        <div className='text-sm text-neutral-400'>{el?.type}</div>
+                      </div>
+                    )
+                  })
+                }
+                <div className='text-white animate-pulse font-bold text-xl absolute left-0 top-0 -translate-x-2 -translate-y-full'>|</div>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
