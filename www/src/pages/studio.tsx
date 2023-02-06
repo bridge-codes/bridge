@@ -2,7 +2,6 @@ import Layout from "@theme/Layout"
 import React, { useState, useEffect } from "react"
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/nightOwl';
-import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export default function Page() {
   return <Layout>
@@ -27,7 +26,6 @@ export default function Page() {
       </div>
       <SDKPresentation />
       <SDK1 />
-      <SDK2 />
       <TryItNow />
       <Documentation />
     </div>
@@ -52,89 +50,6 @@ const Documentation = () => {
     </div>
   )
 }
-
-const SDK2 = () => {
-  const [selected, setSelected] = useState(0)
-
-  const features = [
-    {
-      icon: "/studio/send.svg",
-      title: "Type-safe request parameters",
-      desc: "Never make mistakes while calling your endpoints."
-    },
-    {
-      icon: "/studio/receive.svg",
-      title: "Type-safe request response",
-      desc: "Never make mistakes while using your endpoints response."
-    },
-    {
-      icon: "/studio/bug-icon.svg",
-      title: "Easily handle incoming errors",
-      desc: "It has never been that easy to handle errors."
-    },
-  ]
-
-  return (
-    <div className="pb-24">
-      <div className="flex flex-col justify-center items-center max-w-6xl px-4 mx-auto">
-        <img src="/studio/sdk-icon.svg" className="mb-4 w-64 mx-auto" />
-        <h2 className="font-semibold text-3xl md:text-4xl text-white text-center mx-auto md:w-3/4">Have an auto-generated client SDK using one command line</h2>
-        <div className="grid md:grid-cols-2 md:gap-16 gap-6 md:mt-24 mt-12">
-          <div className="bg-[#161616] bg-opacity-25 rounded-xl border border-white border-opacity-5">{features.map((el, index) => {
-            return <div onClick={() => setSelected(index)} key={index} className={`p-6 border-b border-white border-opacity-5 last:border-none ${selected === index ? "bg-white bg-opacity-5" : ""}`}>
-              <div className="flex gap-4">
-                <img src={el.icon} className="w-10 self-start" />
-                <div>
-                  <h3 className="font-medium text-white text-lg">{el.title}</h3>
-                  <p className="text-neutral-400 mt-2">{el.desc}</p>
-                </div>
-              </div>
-            </div>
-          })}
-          </div>
-          <div className="self-center">
-            {selected === 0 && <div className="relative">
-              <img src="/studio/input-autocompletion.svg" />
-              <div className="absolute border border-white border-opacity-10 " style={{ bottom: '10%', left: '22%' }}>
-              </div>
-            </div>}
-            {selected === 1 && <div className="relative">
-              <img src="/studio/auto-completion.svg" />
-              <div className="absolute border border-white border-opacity-10 " style={{ bottom: '10%', left: '22%' }}>
-              </div>
-            </div>}
-            {selected === 2 && <div className="relative">
-              <img src="/studio/error-handling.svg" />
-              <div className="absolute border border-white border-opacity-10 " style={{ bottom: '10%', left: '22%' }}>
-              </div>
-            </div>}
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-
-type CustomCardType = {
-  icon: JSX.Element;
-  title: string;
-  description: string;
-}
-
-const CustomCard = (props: CustomCardType) => {
-  return (<div className="relative rounded-md border border-white border-opacity-5 overflow-hidden">
-    <div className="p-8">
-      <div className="flex gap-2 items-center">
-        {props.icon}
-        <h3 className="text-white font-medium text-lg">{props.title}</h3>
-      </div>
-      <p className="text-neutral-400">{props.description}</p>
-    </div>
-    <img src="/studio/customcard.svg" style={{ objectFit: 'fill' }} className="absolute inset-0 -z-10 w-full" />
-  </div>)
-}
-
 
 const SDKPresentation = () => {
   return (
@@ -219,7 +134,7 @@ const MaintainCard = () => {
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={`absolute inset-0 w-6 h-6 transition-all duration-700
 ${loading ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}
 `}>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24ZM17.5607 10.0607C18.1464 9.47487 18.1464 8.52513 17.5607 7.93934C16.9749 7.35355 16.0251 7.35355 15.4393 7.93934L10.5 12.8787L8.56066 10.9393C7.97487 10.3536 7.02513 10.3536 6.43934 10.9393C5.85355 11.5251 5.85355 12.4749 6.43934 13.0607L9.43934 16.0607C10.0251 16.6464 10.9749 16.6464 11.5607 16.0607L17.5607 10.0607Z" fill="white" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24ZM17.5607 10.0607C18.1464 9.47487 18.1464 8.52513 17.5607 7.93934C16.9749 7.35355 16.0251 7.35355 15.4393 7.93934L10.5 12.8787L8.56066 10.9393C7.97487 10.3536 7.02513 10.3536 6.43934 10.9393C5.85355 11.5251 5.85355 12.4749 6.43934 13.0607L9.43934 16.0607C10.0251 16.6464 10.9749 16.6464 11.5607 16.0607L17.5607 10.0607Z" fill="white" />
           </svg>
 
         </div>
@@ -468,9 +383,6 @@ data.`)
           })}
           </div>
           <div className="relative">
-            <div className="relative">
-
-            </div>
 
             <div className={`no-scrollbar border overflow-x-auto w-full bg-opacity-10 backdrop-blur-md pb-4 text-sm border-white border-opacity-10 p-3 z-10 rounded-md`} style={{
             }}
@@ -590,8 +502,6 @@ const Code = (
 
   const initialText = codeLast ? code + codeLast : code
   const [text, setText] = useState(animated ? "" : initialText)
-  const [isFinished, setIsFinished] = useState(false)
-  const [tempSuggestions, setTempSuggestions] = useState<SuggestionsType | null>(suggestions)
 
   useEffect(() => {
     if (show && animated) {
@@ -601,7 +511,6 @@ const Code = (
           setText(initialText.slice(0, i));
           i++;
           if (i > initialText.length) {
-            setIsFinished(true)
             clearInterval(intervalId);
           }
         }, 30);
@@ -619,12 +528,10 @@ const Code = (
           if (codeLast) {
             setText(code + newTextToWrite.slice(0, i) + codeLast);
           } else {
-            console.log(initialText.slice(0, i))
             setText(code + newTextToWrite.slice(0, i));
           }
           i++;
           if (i > newTextToWrite.length) {
-            setIsFinished(true)
             clearInterval(intervalId);
           }
         }, 50);
@@ -632,10 +539,6 @@ const Code = (
       }, 0)
     }
   }, [newTextToWrite])
-
-  const writeSomething = (textToAdd: string) => {
-    console.log("adding", textToAdd)
-  }
 
   return (
     <Highlight {...defaultProps} code={text} language="tsx" theme={theme}>
