@@ -4,7 +4,7 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/nightOwl';
 
 export default function Page() {
-  return <Layout>
+  return  <div className="overflow-x-hidden"><Layout>
     <div className="bg-[#010101] overflow-hidden">
       <div className="relative bg-[#010101] bg-contain bg-no-repeat" style={{ backgroundImage: `url("/studio/main.svg")` }} >
 
@@ -30,6 +30,7 @@ export default function Page() {
       <Documentation />
     </div>
   </Layout>
+  </div>
 }
 
 const Documentation = () => {

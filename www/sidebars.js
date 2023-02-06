@@ -19,28 +19,38 @@ const sidebars = {
   sidebar: [
     'introduction',
     'quickstart',
-    'handler',
-    'errors',
-    'data_validation',
-    'file',
-    'middlewares',
-    'server_calls',
-    'routes',
-    'launch_server',
-    'socket',
-    'client_code',
-    'automatic_documentation',
-    'example'
-    // {
-    //   type: 'category',
-    //   label: 'Examples',
-    //   items: ['examples/basic'],
-    //   link: {
-    //     type: 'generated-index',
-    //     title: 'Examples',
-    //     slug: '/examples',
-    //   },
-    // },
+    {
+      type: 'category',
+      label: 'Bridge Server',
+      items: [ 
+      'bridge/handler',
+      'bridge/errors',
+      'bridge/data_validation',
+      'bridge/files',
+      'bridge/middlewares',
+      'bridge/server_calls',
+      'bridge/routes',
+      'bridge/launch_server',
+      'bridge/socket',
+      'bridge/client_code',
+      'bridge/automatic_documentation',
+      'bridge/example',],
+      link: {
+        type: 'generated-index',
+        title: 'Bridge',
+        slug: '/bridge',
+      },
+    },
+    {
+      type: 'category',
+      label: 'Bridge Studio',
+      items: [ 'bridge/client_code',]
+    },
+    {
+      type: 'category',
+      label: 'Bridge Client',
+      items: [ 'bridge/client_code',]
+    }
   ],
    
 };

@@ -27,9 +27,9 @@ const authMiddleware = handler({
 const updateUser = handler({
   middlewares: apply(authMiddleware),
   body: z.object({ age: z.number() }),
-  resolve: ({ mid, body }) => {
+  resolve: ({ middlewares, body }) => {
     //         ^?
-    const user = mid;
+    const user = middlewares;
     user.age = body.age;
     return user;
   },
@@ -55,9 +55,9 @@ const middleware2 = handler({
 
 const getMe = handler({
   middlewares: apply(middleware1, middleware2),
-  resolve: ({ mid }) => {
+  resolve: ({ middlewares }) => {
     //        ^?
-    return mid;
+    return middlewares;
   },
 });
 ```
@@ -77,12 +77,12 @@ const mid1 = handler({
 
 const mid2 = handler({
   middlewares: apply(mid1),
-  resolve: ({ mid }) => ({ fullName: `${mid.firstName} Doe` }),
+  resolve: ({ middlewares }) => ({ fullName: `${middlewares.firstName} Doe` }),
 });
 
 const mainHandler = handler({
   middlewares: apply(mid2),
-  resolve: ({ mid }) => mid,
+  resolve: ({ middlewares }) => middlewares,
   //          ^?
 });
 ```

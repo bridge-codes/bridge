@@ -13,19 +13,19 @@ import { initBridge, handler, apply } from 'bridge';
 import formidable from 'formidable';
 
 const sendAnyFiles = handler({
-  file: 'any',
-  resolve: ({ file }) => {
+  files: 'any',
+  resolve: ({ files }) => {
     //          ^?
-    console.log(file);
+    console.log(files);
     return { success: true };
   },
 });
 
 const sendSpecificFiles = handler({
-  file: apply('profilePicture', 'coverPicture'),
-  resolve: ({ file }) => {
+  files: apply('profilePicture', 'coverPicture'),
+  resolve: ({ files }) => {
     //          ^?
-    console.log(file);
+    console.log(files);
     return { success: true };
   },
 });

@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Bridge',
-  tagline: 'The new API framework',
+  tagline: 'The new API frameworcleark',
   url: 'https://bridge.codes',
   baseUrl: '/',
   onBrokenLinks: 'throw',
