@@ -8,7 +8,7 @@ const rmdir = util.promisify(fs.rmdir);
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
-async function copy(src: string, dest: string): Promise<void> {
+export async function copy(src: string, dest: string): Promise<void> {
   const filenames = await readdir(src);
 
   await mkdir(dest);
@@ -28,13 +28,13 @@ async function copy(src: string, dest: string): Promise<void> {
   }
 }
 
-export async function renameFolder(oldPath: string, newPath: string): Promise<void> {
-  try {
-    throw new Error('sd');
-    await fs.promises.rename(oldPath, newPath);
-    // console.log(`Successfully renamed '${oldPath}' to '${newPath}'`);
-  } catch (err: any) {
-    await copy(oldPath, newPath);
-    // await rmdir(oldPath);
-  }
-}
+// export async function renameFolder(oldPath: string, newPath: string): Promise<void> {
+//   try {
+//     throw new Error('sd');
+//     await fs.promises.rename(oldPath, newPath);
+//     // console.log(`Successfully renamed '${oldPath}' to '${newPath}'`);
+//   } catch (err: any) {
+//     await copy(oldPath, newPath);
+//     // await rmdir(oldPath);
+//   }
+// }
