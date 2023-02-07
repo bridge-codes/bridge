@@ -50,7 +50,7 @@ export class DataValidator<Output = any> extends AbstractHandler {
         case 'body':
           return httpError(StatusCode.BAD_REQUEST, `Body schema validation error`, error);
         case 'query':
-          return httpError(StatusCode.BAD_REQUEST, `Parameters schema validation error`, error);
+          return httpError(StatusCode.BAD_REQUEST, `Query schema validation error`, error);
         case 'headers':
           return httpError(StatusCode.BAD_REQUEST, `Headers schema validation error`, error);
       }

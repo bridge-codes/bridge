@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Launch your server'
+sidebar_label: 'With Express'
 ---
 
 # Launch your server
@@ -8,7 +8,7 @@ sidebar_label: 'Launch your server'
 
 **Example**
 
-```ts twoslash title='index.ts'
+```ts twoslash title='server.ts'
 import { initBridge, handler } from 'bridge';
 
 const hello = handler({
@@ -28,7 +28,7 @@ bridge.HTTPServer().listen(port, () => {
 
 **Example**
 
-```ts twoslash title='index.ts'
+```ts twoslash title='server.ts'
 import { initBridge, handler } from 'bridge';
 import express from 'express';
 

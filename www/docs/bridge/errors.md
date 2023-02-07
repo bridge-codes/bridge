@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Error'
+sidebar_label: 'Errors'
 ---
 
 # Errors
@@ -10,7 +10,7 @@ Bridge provides a method to return errors to the client called `httpError`.
 
 For example, this endpoint:
 
-```ts twoslash title='index.ts'
+```ts twoslash title='server.ts'
 import { handler, httpError } from 'bridge';
 
 const hello = handler({
@@ -33,7 +33,7 @@ The `StatusCode` enum in the Bridge library can be used to easily specify an err
 
 For example, this endpoint:
 
-```ts twoslash title='index.ts'
+```ts twoslash title='server.ts'
 import { handler, httpError, StatusCode } from 'bridge';
 
 const hello = handler({
@@ -61,7 +61,7 @@ If you throw an error within a handler, it will send a JSON response to the clie
 
 For example, this endpoint:
 
-```ts twoslash title='index.ts'
+```ts twoslash title='server.ts'
 import { handler } from 'bridge';
 
 const hello = handler({

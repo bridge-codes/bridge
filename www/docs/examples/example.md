@@ -4,7 +4,7 @@ sidebar_label: 'Example'
 
 # Example
 
-```ts twoslash title='index.ts' showLineNumbers
+```ts twoslash title='server.ts' showLineNumbers
 import { initBridge, handler, onError, StatusCode, httpError, apply } from 'bridge';
 import express from 'express';
 // You can also use Yup or Superstruct for data validation

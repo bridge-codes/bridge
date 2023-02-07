@@ -1,10 +1,17 @@
 ---
-sidebar_label: 'Express'
+sidebar_label: 'With Express'
 ---
 
-# Express
+# With Express
 
-**Example**
+## Install [express](https://www.npmjs.com/package/express)
+
+```bash title=terminal
+npm i express
+npm i --save-dev @types/express
+```
+
+## Example
 
 ```ts twoslash title='server.ts'
 import { initBridge, handler } from 'bridge';
@@ -26,3 +33,4 @@ app.listen(port, () => {
   `Listening on port ${port}`;
 });
 ```
+
