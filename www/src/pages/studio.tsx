@@ -57,6 +57,7 @@ const SDK1 = () => {
   const [selected, setSelected] = useState(0)
 
   const firstPart = `import { API } from "./sdk"
+
 const { data, error } = await API.user.get({
     body: {`
 
@@ -183,7 +184,7 @@ data.`)
 
               <div className={`group-hover:brightness-150 transition-all duration-300 border right-0 max-w-max absolute border-white rounded-lg bg-neutral-800 bg-opacity-50 backdrop-blur-md
 ${selected === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"} ${!showBodyName && !showBodyId ? "border-opacity-0" : "border-opacity-10"}`}
-                style={{ top: showBodyName || showBodyId ? 20.3 * 5 + 14 : 20.3 * 4 + 14, left: 86 }}
+                style={{ top: showBodyName || showBodyId ? 20.3 * 6 + 14 : 20.3 * 5 + 14, left: 86 }}
               >
 
                 <div className="relative overflow-hidden rounded-lg bg-black will-change-transform" style={{ padding: 1 }}>
@@ -221,7 +222,7 @@ ${!showBodyId && !showBodyName ? "opacity-100" : "opacity-0"}`} />
               {/* ERROR SUGGESTIONS  */}
               <div className={`transition-all border right-0 max-w-max absolute border-white rounded-md duration-500 border-opacity-10 bg-neutral-900 bg-opacity-50 backdrop-blur-sm
  ${selected === 1 && !errorSelected ? "opacity-100 delay-1000 translate-y-0" : "opacity-0 translate-y-2"}`}
-                style={{ top: 20.3 * 11 + 16, left: 118 }}
+                style={{ top: 20.3 * 12 + 16, left: 118 }}
               >
                 {
                   errorSuggestions.map((el, index) => {
@@ -248,7 +249,7 @@ ${!showBodyId && !showBodyName ? "opacity-100" : "opacity-0"}`} />
 
               <div className={`transition-all border right-0 max-w-max absolute border-white rounded-md duration-500 border-opacity-10 bg-neutral-900 bg-opacity-50 backdrop-blur-sm
  ${selected === 2 && !dataSelected ? "opacity-100 delay-1000 translate-y-0" : "opacity-0 translate-y-2"}`}
-                style={{ top: 20.3 * 17 + 14, left: 80 }}
+                style={{ top: 20.3 * 18 + 14, left: 75 }}
               >
                 {
                   dataSuggestions.map((el, index) => {
