@@ -65,6 +65,6 @@ const getMyIdWithToken = handler({
 
 const getProfileWithToken = handler({
   middlewares: apply(getMyIdWithToken),
-  resolve: ({ mid }) => users[mid.id],
+  resolve: ({ middlewares }) => users[middlewares.id],
 });
 ```
