@@ -104,8 +104,6 @@ To get the most out of Bridge in your project, we recommend taking some time to 
 
 ![Bridge Studio Schema](../static/studio/studio-header.svg)
 
-You'll soon be able to generate automatically a complete documentation and a fully type sdk of your api in any language with the Bridge App. Simply join our **[Discord community](https://discord.gg/yxjrwm7Bfr)** to learn more and join the **[Beta](https://discord.gg/yxjrwm7Bfr)**!
-
 ### Connect your Bridge API to Bridge Studio
 
 **With the CLI**

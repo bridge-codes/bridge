@@ -2,11 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   '@types/node': ^18.11.16
-  bridge: ^2.0.42
+  bridge: ^2.0.45
   typescript: ^4.9.4
 
 dependencies:
-  bridge: 2.0.42
+  bridge: 2.0.45
 
 devDependencies:
   '@types/node': 18.11.18
@@ -18,8 +18,8 @@ packages:
     resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
     dev: true
 
-  /bridge/2.0.42:
-    resolution: {integrity: sha512-2p4JxRrE6tgUztAZ/+5e5O0ba2NcGWeKGKOw6kqnxzr3I65q3ulqhaSbKmlHuPaTmqfPqSxyYMMk+2jgfQJRbw==}
+  /bridge/2.0.45:
+    resolution: {integrity: sha512-ewvWT3/2YzygW4vSXDTlNLykAt4mqD1IXK/nj6CtUUWS+QttrfNUs3obMt0a543viHW/x7wRaLBaQ0OzKSz2RA==}
     dev: false
 
   /typescript/4.9.5:
