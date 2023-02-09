@@ -5,66 +5,70 @@ authors: [raul]
 tags: [devops]
 ---
 
-We often are asked how Bridge is different from trpc.
-- Bridge API can be used just like traditional REST API's
 
-## Client
-The Bridge client is generated: which means there is a compilation time 
-The trpc/client can be instantanlly used: there is no build time. It's updates are instant
+We often are asked how Bridge is different from trpc. They can be splitted into 2 differents branches: differences at client level and server level.
 
-This leads to indirect differences: 
-- trpc requires the backend and frontend repo on the same machine 
+## The way you would consume the client
+Bridge Studio is a more traditional REST codegen app. It's way of functioning is closer to something like (GraphqlCodegen)[GraphlCodegen] or OpenAPI generator (insert link). 
+Moreover, it's only working with Bridge APIs.
 
-## DX
-Bridge can be used using objects or classes.
+tRPC on the other hand lets you see real-time updated of your servers's routes and types. It has no build or compile steps, meaning no code generation, runtime bloat or build step. It makes it a great choice when building app as a full stack developer as everything is close.
 
-trpc is more functional (it means chaining methods)...
+This difference brings leads to other significant differences:
+- tRPC is a lot simpler and couples your server & website/app more tightly together: you're less likely to have missmatched versions between your server/client
+- tRPC requires the backend and frontend code on the same machine
+- because it's less coupled than tRPC, Bridge lets you build any public-faced API (meant to be used by other external developers). It can be published as an NPM package.
+- Bridge can build SDK in more languages (though we can use something like (trpc-openapi) to generate an openapi schema then an sdk, but that requires adding additonnal metadata to your routes) 
 
-Here is the same request with Bridge and trpc
+
+## The way you would write your server
+We can highlight some other differences in the synthax used to write your sever code.
+
+Bridge relies more on objects while tRPC is more functional (it uses method chaining). 
+Here is the same request with Bridge (a handler) and tRPC (a procedure).
 
 Bridge:
-
 ```ts
 import { z } from "zod"
-import { handler, initBridge } from 'bridge';
+import { handler } from 'bridge';
 
 const helloHandler = handler({
   body: z.object({ name: z.string() }),
   resolve: ({ body }) => `Hello ${body.name}`
 })
-
-const routes = { hello: helloHandler };
-
-const httpServer = initBridge({ routes }).HTTPServer();
-
-httpServer.listen(8080, () => {
-  console.log(`Listening on port ${port}`);
-});
 ```
 
 Trpc:
-
 ```ts
-import { initTRPC } from '@trpc/server';
-import { createHTTPServer } from '@trpc/server/adapters/standalone';
-
-export type AppRouter = typeof appRouter;
-
-const t = initTRPC.create();
-
-const publicProcedure = t.procedure;
-const router = t.router;
+import { initTRPC, router } from '@trpc/server';
+import { z } from "zod";
 
 const appRouter = router({
   greet: publicProcedure
     .input(z.object({ name: z.string() }))
     .query(({ input }) => ({ greeting: `hello, ${input}!` })),
 });
+```
 
-createHTTPServer({
-  router: appRouter,
-  createContext() {
-    return {};
-  },
-}).listen(2022);
+Moreover, Bridge can be used with classes (for those who like object-oriented programmation) and its capabilities (like inheritance or polymorphisms).
+
+```ts
+public Session {
+   login: handler({
+      // ...
+   })
+}
+
+// the user class now inherits the "login" handler from the session
+public User extends Session {
+  getUser = handler({
+     //...
+  })
+}
+
+const routes = {
+  // ...
+  user: new User(),
+  // ...
+}
 ```

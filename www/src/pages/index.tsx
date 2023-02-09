@@ -375,122 +375,124 @@ bridge.HTTPServer().listen(8080, () => {
   `;
 
   return (
-    <div className="relative grid mt-16 md:grid-cols-12">
-      <div className="flex gap-4 mb-6 overflow-x-auto md:flex-col md:col-span-5 md:mb-0">
-        {features.map((el, index) => {
-          return (
-            <FeatureElement
-              selected={selected === index}
-              setSelected={setSelected}
-              index={index}
-              key={index}
-              title={el.title}
-              text={el.text}
-              icon={el.icon}
-            />
-          );
-        })}
-      </div>
-      <div className="bg-[#0D0D11] overflow-x-auto bg-opacity-75 border md:col-span-7 border-[#14181D] rounded-md">
-        <div className="w-full border-b border-[#14181D]">
-          <div className="px-6 items-center flex gap-2 py-1.5 text-sm text-opacity-75 border-b-2 bg-white bg-opacity-5 max-w-max border-[#8690EA] text-[#CCCDF0]">
-            <svg
-              className="w-3.5 h-3.5 opacity-75"
-              fill="none"
-              height="26"
-              viewBox="0 0 27 26"
-              width="27"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="m.98608 0h24.32332c.5446 0 .9861.436522.9861.975v24.05c0 .5385-.4415.975-.9861.975h-24.32332c-.544597 0-.98608-.4365-.98608-.975v-24.05c0-.538478.441483-.975.98608-.975zm13.63142 13.8324v-2.1324h-9.35841v2.1324h3.34111v9.4946h2.6598v-9.4946zm1.0604 9.2439c.4289.2162.9362.3784 1.5218.4865.5857.1081 1.2029.1622 1.8518.1622.6324 0 1.2331-.0595 1.8023-.1784.5691-.1189 1.0681-.3149 1.497-.5879s.7685-.6297 1.0187-1.0703.3753-.9852.3753-1.6339c0-.4703-.0715-.8824-.2145-1.2365-.1429-.3541-.3491-.669-.6186-.9447-.2694-.2757-.5925-.523-.9692-.7419s-.8014-.4257-1.2743-.6203c-.3465-.1406-.6572-.2771-.9321-.4095-.275-.1324-.5087-.2676-.7011-.4054-.1925-.1379-.3409-.2838-.4454-.4379-.1045-.154-.1567-.3284-.1567-.523 0-.1784.0467-.3392.1402-.4824.0935-.1433.2254-.2663.3959-.369s.3794-.1824.6269-.2392c.2474-.0567.5224-.0851.8248-.0851.22 0 .4523.0162.697.0486.2447.0325.4908.0825.7382.15.2475.0676.4881.1527.7218.2555.2337.1027.4495.2216.6475.3567v-2.4244c-.4015-.1514-.84-.2636-1.3157-.3365-.4756-.073-1.0214-.1095-1.6373-.1095-.6268 0-1.2207.0662-1.7816.1987-.5609.1324-1.0544.3392-1.4806.6203s-.763.6392-1.0104 1.0743c-.2475.4352-.3712.9555-.3712 1.5609 0 .7731.2268 1.4326.6805 1.9785.4537.546 1.1424 1.0082 2.0662 1.3866.363.146.7011.2892 1.0146.4298.3134.1405.5842.2865.8124.4378.2282.1514.4083.3162.5403.4946s.198.3811.198.6082c0 .1676-.0413.323-.1238.4662-.0825.1433-.2076.2676-.3753.373s-.3766.1879-.6268.2473c-.2502.0595-.5431.0892-.8785.0892-.5719 0-1.1383-.0986-1.6992-.2959-.5608-.1973-1.0805-.4933-1.5589-.8879z"
-                fill="#3178C6"
-                fillRule="evenodd"
-              ></path>
-            </svg>
-            index.ts
-          </div>
+    <div>
+
+      <div className="relative grid mt-16 md:grid-cols-12">
+        <div className="flex gap-4 mb-6 overflow-x-auto md:flex-col md:col-span-5 md:mb-0">
+          {features.map((el, index) => {
+            return (
+              <FeatureElement
+                selected={selected === index}
+                setSelected={setSelected}
+                index={index}
+                key={index}
+                title={el.title}
+                text={el.text}
+                icon={el.icon}
+              />
+            );
+          })}
         </div>
-        {/* CODE */}
-        <div
-          className="pt-5 pb-24 overflow-x-auto overflow-y-hidden text-sm custom-scrollbar"
-          style={{ height: `calc(100% - 35px)` }}
-        >
-          {/* <CustomCode codeString={codeImportsString} display={selected < 2} /> */}
-          <CustomCode codeString={codeImportsWithApplyAndErrorString} display={true} />
-          <div className={`relative group`}>
+        <div className="bg-[#0D0D11] overflow-x-auto bg-opacity-75 border md:col-span-7 border-[#14181D] rounded-md">
+          <div className="w-full border-b border-[#14181D]">
+            <div className="px-6 items-center flex gap-2 py-1.5 text-sm text-opacity-75 border-b-2 bg-white bg-opacity-5 max-w-max border-[#8690EA] text-[#CCCDF0]">
+              <svg
+                className="w-3.5 h-3.5 opacity-75"
+                fill="none"
+                height="26"
+                viewBox="0 0 27 26"
+                width="27"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clipRule="evenodd"
+                  d="m.98608 0h24.32332c.5446 0 .9861.436522.9861.975v24.05c0 .5385-.4415.975-.9861.975h-24.32332c-.544597 0-.98608-.4365-.98608-.975v-24.05c0-.538478.441483-.975.98608-.975zm13.63142 13.8324v-2.1324h-9.35841v2.1324h3.34111v9.4946h2.6598v-9.4946zm1.0604 9.2439c.4289.2162.9362.3784 1.5218.4865.5857.1081 1.2029.1622 1.8518.1622.6324 0 1.2331-.0595 1.8023-.1784.5691-.1189 1.0681-.3149 1.497-.5879s.7685-.6297 1.0187-1.0703.3753-.9852.3753-1.6339c0-.4703-.0715-.8824-.2145-1.2365-.1429-.3541-.3491-.669-.6186-.9447-.2694-.2757-.5925-.523-.9692-.7419s-.8014-.4257-1.2743-.6203c-.3465-.1406-.6572-.2771-.9321-.4095-.275-.1324-.5087-.2676-.7011-.4054-.1925-.1379-.3409-.2838-.4454-.4379-.1045-.154-.1567-.3284-.1567-.523 0-.1784.0467-.3392.1402-.4824.0935-.1433.2254-.2663.3959-.369s.3794-.1824.6269-.2392c.2474-.0567.5224-.0851.8248-.0851.22 0 .4523.0162.697.0486.2447.0325.4908.0825.7382.15.2475.0676.4881.1527.7218.2555.2337.1027.4495.2216.6475.3567v-2.4244c-.4015-.1514-.84-.2636-1.3157-.3365-.4756-.073-1.0214-.1095-1.6373-.1095-.6268 0-1.2207.0662-1.7816.1987-.5609.1324-1.0544.3392-1.4806.6203s-.763.6392-1.0104 1.0743c-.2475.4352-.3712.9555-.3712 1.5609 0 .7731.2268 1.4326.6805 1.9785.4537.546 1.1424 1.0082 2.0662 1.3866.363.146.7011.2892 1.0146.4298.3134.1405.5842.2865.8124.4378.2282.1514.4083.3162.5403.4946s.198.3811.198.6082c0 .1676-.0413.323-.1238.4662-.0825.1433-.2076.2676-.3753.373s-.3766.1879-.6268.2473c-.2502.0595-.5431.0892-.8785.0892-.5719 0-1.1383-.0986-1.6992-.2959-.5608-.1973-1.0805-.4933-1.5589-.8879z"
+                  fill="#3178C6"
+                  fillRule="evenodd"
+                ></path>
+              </svg>
+              index.ts
+            </div>
+          </div>
+          {/* CODE */}
+          <div
+            className="pt-5 pb-24 overflow-x-auto overflow-y-hidden text-sm custom-scrollbar"
+            style={{ height: `calc(100% - 35px)` }}
+          >
+            {/* <CustomCode codeString={codeImportsString} display={selected < 2} /> */}
+            <CustomCode codeString={codeImportsWithApplyAndErrorString} display={true} />
+            <div className={`relative group`}>
+              <CustomCode
+                codeString={authMiddlewareBeginString}
+                display={selected >= 2}
+                delay={500}
+                marginTop={16}
+                maxHeight={300}
+                highlight={selected === 2}
+              />
+              <CustomInner
+                codeString={innerMiddleware}
+                display={selected === 3}
+                showOnHover={true}
+                top={22 * 3 + 2}
+              />
+            </div>
             <CustomCode
-              codeString={authMiddlewareBeginString}
+              codeString={authMiddlewareEndString}
               display={selected >= 2}
               delay={500}
-              marginTop={16}
+              // marginTop={16}
               maxHeight={300}
               highlight={selected === 2}
             />
-            <CustomInner
-              codeString={innerMiddleware}
-              display={selected === 3}
-              showOnHover={true}
-              top={22 * 3 + 2}
-            />
-          </div>
-          <CustomCode
-            codeString={authMiddlewareEndString}
-            display={selected >= 2}
-            delay={500}
-            // marginTop={16}
-            maxHeight={300}
-            highlight={selected === 2}
-          />
 
-          <CustomCode
-            codeString={helloHandlerStart}
-            display={selected >= 0}
-            marginTop={16}
-            highlight={selected === 0}
-          />
-          <CustomCode
-            codeString={bodyHandlerLine}
-            display={[1, 2, 3].includes(selected)}
-            highlight={selected === 1}
-            delay={500}
-          />
-          <CustomCode
-            codeString={addMiddlewareLine}
-            display={selected >= 2}
-            delay={1500}
-            highlight={selected === 2}
-          />
-          <CustomCode
-            codeString={handlerResolveWithoutData}
-            display={selected === 0}
-            highlight={selected === 0}
-            maxHeight={22}
-          />
-          <div className="relative group">
-            <CustomInner codeString={inner} display={selected === 3} />
             <CustomCode
-              codeString={returnWithDataString}
-              display={selected >= 1}
-              maxHeight={22}
-              highlight={selected === 1}
-              delay={1000}
+              codeString={helloHandlerStart}
+              display={selected >= 0}
+              marginTop={16}
+              highlight={selected === 0}
             />
-          </div>
-          <CustomCode
-            codeString={helloHandlerEnd}
-            display={selected >= 0}
-            maxHeight={25}
-            highlight={selected === 0}
-          />
-          <CustomCode
-            codeString={initBridgeAndServerString}
-            display={true}
-            marginTop={16}
-            maxHeight={500}
-          />
-          {/*
+            <CustomCode
+              codeString={bodyHandlerLine}
+              display={[1, 2, 3].includes(selected)}
+              highlight={selected === 1}
+              delay={500}
+            />
+            <CustomCode
+              codeString={addMiddlewareLine}
+              display={selected >= 2}
+              delay={1500}
+              highlight={selected === 2}
+            />
+            <CustomCode
+              codeString={handlerResolveWithoutData}
+              display={selected === 0}
+              highlight={selected === 0}
+              maxHeight={22}
+            />
+            <div className="relative group">
+              <CustomInner codeString={inner} display={selected === 3} />
+              <CustomCode
+                codeString={returnWithDataString}
+                display={selected >= 1}
+                maxHeight={22}
+                highlight={selected === 1}
+                delay={1000}
+              />
+            </div>
+            <CustomCode
+              codeString={helloHandlerEnd}
+              display={selected >= 0}
+              maxHeight={25}
+              highlight={selected === 0}
+            />
+            <CustomCode
+              codeString={initBridgeAndServerString}
+              display={true}
+              marginTop={16}
+              maxHeight={500}
+            />
+            {/*
           <NewCustomCode code={fullCode} 
              hiddenLines={
               selected === 0 ? [3,4,5,6,7,8,9,10,11,14,15,16] : 
@@ -504,6 +506,14 @@ bridge.HTTPServer().listen(8080, () => {
                : []
               } />
               */}
+          </div>
+        </div>
+      </div>
+      <div className='mt-24 rounded-md overflow-hidden'>
+        <h2 className='text-center text-white text-3xl mb-2'>Try it yourself!</h2>
+        <p className='text-neutral-300 text-center text-lg mt-2 mb-6'>Try out Bridge without leaving your browser!</p>
+        <div className='rounded-md overflow-hidden'>
+          <iframe src="https://stackblitz.com/edit/express-simple-nnaqkv?ctl=1&embed=1&file=index.ts&theme=dark&view=editor" className='w-full aspect-video' />
         </div>
       </div>
     </div>
