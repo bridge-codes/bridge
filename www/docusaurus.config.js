@@ -48,6 +48,12 @@ const config = {
           customCss: require.resolve('./src/css/custom.css'),
         },
 
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+          ignorePatterns: ['/tags/**'],
+          filename: 'sitemap.xml',
+        },
       },
     ],
     [
@@ -60,14 +66,6 @@ const config = {
     ],
   ],
   plugins: [
-    [
-      '@docusaurus/plugin-google-analytics',
-      {
-        trackingID: 'UA-141789564-1',
-        anonymizeIP: true,
-      },
-    ],
-
     async function myPlugin() {
       return {
         name: 'docusaurus-tailwindcss',
