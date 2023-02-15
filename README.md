@@ -9,7 +9,7 @@
  <a href="https://twitter.com/bridge_codes">
     <img alt="Twitter" src="https://img.shields.io/twitter/url.svg?label=%40bridge_codes&style=social&url=https%3A%2F%2Ftwitter.com%2Falexdotjs" />
   </a>
-  <a href="https://discord.gg/ZCw645JV"> 
+  <a href="https://discord.gg/yxjrwm7Bfr"> 
     <img alt="Discord" src="https://img.shields.io/discord/1050622016673288282?color=7389D8&label&logo=discord&logoColor=ffffff" />
   </a>
   <a href="https://github.com/trpc/trpc/blob/main/LICENSE">

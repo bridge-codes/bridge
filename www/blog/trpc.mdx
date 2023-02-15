@@ -18,7 +18,7 @@ This difference brings leads to other significant differences:
 - tRPC is a lot simpler and couples your server & website/app more tightly together: you're less likely to have missmatched versions between your server/client
 - tRPC requires the backend and frontend code on the same machine
 - because it's less coupled than tRPC, Bridge lets you build any public-faced API (meant to be used by other external developers). It can be published as an NPM package.
-- Bridge can build SDK in more languages (though we can use something like (trpc-openapi) to generate an openapi schema then an sdk, but that requires adding additonnal metadata to your routes) 
+- Bridge can build SDK in more languages (though we can use something like (trpc-openapi) to generate an openapi schema then an sdk, but that requires adding additional metadata to your routes) 
 
 
 ## The way you would write your server
@@ -53,14 +53,14 @@ const appRouter = router({
 Moreover, Bridge can be used with classes (for those who like object-oriented programmation) and its capabilities (like inheritance or polymorphisms).
 
 ```ts
-public Session {
+class Session {
    login: handler({
       // ...
    })
 }
 
 // the user class now inherits the "login" handler from the session
-public User extends Session {
+class User extends Session {
   getUser = handler({
      //...
   })
