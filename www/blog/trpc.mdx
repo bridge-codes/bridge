@@ -2,29 +2,25 @@
 slug: bridge-vs-trpc 
 title: Comparison Bridge and trpc 
 authors: [raul]
-tags: [devops]
 ---
-
 
 We often are asked how Bridge is different from trpc. They can be splitted into 2 differents branches: differences at client level and server level.
 
 ## The way you would consume the client
-Bridge Studio is a more traditional REST codegen app. It's way of functioning is closer to something like (GraphqlCodegen)[GraphlCodegen] or OpenAPI generator (insert link). 
-Moreover, it's only working with Bridge APIs.
+Bridge Studio (the tool used to build the SDK of a Bridge api) is a more traditional REST codegen app. It's way of functioning is closer to something like [Graphql codegen](https://the-guild.dev/graphql/codegen) or [OpenAPI Generator](https://openapi-generator.tech/). 
 
 tRPC on the other hand lets you see real-time updated of your servers's routes and types. It has no build or compile steps, meaning no code generation, runtime bloat or build step. It makes it a great choice when building app as a full stack developer as everything is close.
 
-This difference brings leads to other significant differences:
-- tRPC is a lot simpler and couples your server & website/app more tightly together: you're less likely to have missmatched versions between your server/client
-- tRPC requires the backend and frontend code on the same machine
+This difference leads to other significant variances:
+- tRPC couples your server & website/app more tightly: you're less likely to have missmatched versions between your server/client
+- tRPC requires the backend and frontend code on the same machine (thus making it great for monorepos!)
 - because it's less coupled than tRPC, Bridge lets you build any public-faced API (meant to be used by other external developers). It can be published as an NPM package.
-- Bridge can build SDK in more languages (though we can use something like (trpc-openapi) to generate an openapi schema then an sdk, but that requires adding additonnal metadata to your routes) 
-
+- Bridge can build SDK in more languages. It's great for apps that have different (or multiple) languages between frontend and backend. 
 
 ## The way you would write your server
 We can highlight some other differences in the synthax used to write your sever code.
 
-Bridge relies more on objects while tRPC is more functional (it uses method chaining). 
+Bridge relies more on objects while tRPC is more functional (it uses function chaining). OOP can be used with Bridge.
 Here is the same request with Bridge (a handler) and tRPC (a procedure).
 
 Bridge:
@@ -53,14 +49,14 @@ const appRouter = router({
 Moreover, Bridge can be used with classes (for those who like object-oriented programmation) and its capabilities (like inheritance or polymorphisms).
 
 ```ts
-public Session {
+class Session {
    login: handler({
       // ...
    })
 }
 
 // the user class now inherits the "login" handler from the session
-public User extends Session {
+class User extends Session {
   getUser = handler({
      //...
   })
