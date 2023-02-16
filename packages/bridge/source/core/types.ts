@@ -1,11 +1,5 @@
 import { KeysWithValNotEmptyObject, MidsReturnsIntersection, MidsParams } from '../utilities';
-import {
-  DataParser,
-  BridgeHandler,
-  InferDataParser,
-  BridgeHandlerDocumentation,
-  FilesConfig,
-} from './handlers';
+import { DataParser, BridgeHandler, InferDataParser, FilesConfig } from './handlers';
 import { FormidableFile } from '../utilities';
 
 export interface BridgeParams<
@@ -22,7 +16,6 @@ export interface BridgeParams<
   query?: Query;
   headers?: Headers;
   files?: Files;
-  // documentation?: BridgeHandlerDocumentation;
 }
 
 export type CreateHandler = <

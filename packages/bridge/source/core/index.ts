@@ -9,7 +9,6 @@ export const handler: CreateHandler = (routeParams) => {
     headersSchema: routeParams.headers,
     filesConfig: routeParams.files,
     middlewares: routeParams.middlewares,
-    // documentation: routeParams.documentation,
     resolve: routeParams.resolve,
   });
 };

@@ -33,30 +33,6 @@ type BridgeHandlerReturnType<H extends BridgeHandler> = H extends BridgeHandler<
             ? RetWithoutPromise
             : ReturnType<ResolveFct>)
         | Extract<BridgeHandlerReturnType<Middlewares[number]>['return'], { error: any }>;
-      // | (Parameters<ResolveFct>[0]['body'] extends Record<any, any>
-      //     ? { error: { name: 'Body schema validation error'; status: 400; data: any } }
-      //     : never)
-      // | (Parameters<ResolveFct>[0]['headers'] extends Record<any, any>
-      //     ? { error: { name: 'Headers schema validation error'; status: 400; data: any } }
-      //     : never)
-      // | (Parameters<ResolveFct>[0]['query'] extends Record<any, any>
-      //     ? { error: { name: 'Query schema validation error'; status: 400; data: any } }
-      //     : never)
-      // | (Parameters<ResolveFct>[0]['files'] extends string[]
-      //     ? {
-      //         error: {
-      //           name: 'Files schema validation error';
-      //           status: 400;
-      //           data: { missingFiles: string[] };
-      //         };
-      //       }
-      //     : never)
-      // | {
-      //     error: {
-      //       name: 'Internal Server Error';
-      //       status: 500;
-      //     };
-      //   };
     }
   : {};
 
