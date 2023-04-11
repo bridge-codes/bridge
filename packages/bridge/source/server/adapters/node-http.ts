@@ -10,7 +10,7 @@ import { FormidableFile } from '../../utilities';
 
 export const createHttpHandler = (
   routes: BridgeRoutes,
-  config?: { errorHandler?: ErrorHandler; formidable?: any },
+  config?: { errorHandler?: ErrorHandler; formidable?: any; logs?: boolean },
 ) => {
   let path: string;
   let queryString: string;
@@ -49,6 +49,18 @@ export const createHttpHandler = (
         headers: req.headers,
         middlewares: {},
       });
+
+      if (config?.logs)
+        console.log(
+          JSON.stringify({
+            path,
+            body,
+            files,
+            query,
+            headers: req.headers,
+            result,
+          }),
+        );
 
       if (!result)
         return res.writeHead(200, { 'Content-Type': 'application/json' }).end(JSON.stringify({}));

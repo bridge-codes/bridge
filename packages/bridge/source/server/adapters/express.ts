@@ -6,5 +6,5 @@ import { createHttpHandler } from './node-http';
 
 export const createExpressMiddleware = (
   routes: BridgeRoutes,
-  config?: { errorHandler?: ErrorHandler; formidable?: any },
+  config?: { errorHandler?: ErrorHandler; formidable?: any; logs?: boolean },
 ): express.Handler => createHttpHandler(routes, config);

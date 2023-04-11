@@ -10,7 +10,7 @@ class Bridge<Routes extends BridgeRoutes> {
 
   constructor(
     public routes: Routes,
-    private config: { errorHandler?: ErrorHandler; formidable?: any },
+    private config: { errorHandler?: ErrorHandler; formidable?: any; logs?: boolean },
   ) {}
 
   public expressMiddleware = (): express.Handler => createHttpHandler(this.routes, this.config);
@@ -22,8 +22,10 @@ export const initBridge = <Routes extends BridgeRoutes>({
   routes,
   errorHandler,
   formidable,
+  logs,
 }: {
   routes: Routes;
   formidable?: any;
   errorHandler?: ErrorHandler;
-}): Bridge<Routes> => new Bridge(routes, { formidable, errorHandler });
+  logs?: boolean;
+}): Bridge<Routes> => new Bridge(routes, { formidable, errorHandler, logs });
