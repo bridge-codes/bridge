@@ -8,6 +8,8 @@ import {
 import { convertBridgeRoutesToServerRoutes, BridgeRoutes, Method } from '../../routes';
 import { FormidableFile } from '../../utilities';
 
+const logs: any[] = [];
+
 export const createHttpHandler = (
   routes: BridgeRoutes,
   config?: { errorHandler?: ErrorHandler; formidable?: any; logs?: boolean },
@@ -30,6 +32,9 @@ export const createHttpHandler = (
     try {
       [path, queryString] = (req.url || '/').split('?');
 
+      if (path === 'get-logs')
+        return res.writeHead(200, { 'Content-Type': 'application/json' }).end(JSON.stringify(logs));
+
       const route = serverRoutes[path];
       const endpoint = route?.[req.method as Method];
 
@@ -51,7 +56,7 @@ export const createHttpHandler = (
       });
 
       if (config?.logs)
-        console.log({
+        logs.push({
           path,
           body,
           files,
