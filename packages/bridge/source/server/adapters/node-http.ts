@@ -51,16 +51,14 @@ export const createHttpHandler = (
       });
 
       if (config?.logs)
-        console.log(
-          JSON.stringify({
-            path,
-            body,
-            files,
-            query,
-            headers: req.headers,
-            result,
-          }),
-        );
+        console.log({
+          path,
+          body,
+          files,
+          query,
+          headers: req.headers,
+          result,
+        });
 
       if (!result)
         return res.writeHead(200, { 'Content-Type': 'application/json' }).end(JSON.stringify({}));
