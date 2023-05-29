@@ -32,8 +32,10 @@ export const createHttpHandler = (
     try {
       [path, queryString] = (req.url || '/').split('?');
 
-      if (path === 'get-logs')
-        return res.writeHead(200, { 'Content-Type': 'application/json' }).end(JSON.stringify(logs));
+      if (path === '/get-logs')
+        return res
+          .writeHead(200, { 'Content-Type': 'application/json' })
+          .end(JSON.stringify([...logs].reverse()));
 
       const route = serverRoutes[path];
       const endpoint = route?.[req.method as Method];
@@ -55,15 +57,20 @@ export const createHttpHandler = (
         middlewares: {},
       });
 
-      if (config?.logs)
+      if (config?.logs) {
+        if (logs.length > 100) logs.pop();
         logs.push({
+          time: new Date().toLocaleString(),
           path,
           body,
           files,
           query,
-          headers: req.headers,
+          headers: {
+            token: req.headers.token,
+          },
           result,
         });
+      }
 
       if (!result)
         return res.writeHead(200, { 'Content-Type': 'application/json' }).end(JSON.stringify({}));
