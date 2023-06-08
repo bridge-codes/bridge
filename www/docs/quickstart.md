@@ -100,32 +100,71 @@ Congratulations, you just launched your first Bridge server! 🥳
 To get the most out of Bridge in your project, we recommend taking some time to read the documentation on [handlers](bridge/handler) and check out our [example](examples/example) for inspiration and guidance.
 :::
 
-## Client code generation and documentation
-
-![Bridge Studio Schema](../static/studio/studio-header.svg)
-
-### Connect your Bridge API to Bridge Studio
-
-**With the CLI**
+## Client code generation and OpenAPI Specification
 
 ```bash title='terminal'
-npx bridge-studio@latest
+npx bridge-compile@latest
 # or
-pnpx bridge-studio@latest
+pnpx bridge-compile@latest
 ```
 
-**With the plateform:** https://studio.bridge.codes
+This command line generates 3 things:
+- JSONType.json file
+- openapi.json file
+- sdk folder
 
+The JSONType file contains all the types of your project compiled by Bridge. This file was the input to create the openapi specification and to generate the typescript sdk folder. You can develop your own compiler using this file as an input to generate sdk in other languages.
 
-### Fetch your client SDK
+### Browse OpenAPI documentation
+
+Start by installing **swagger-ui-express**
 
 ```bash title='terminal'
-npx fetch-bridge-sdk@latest {username}/{projectName}
+npm i swagger-ui-express
+# or
+pnpm i swagger-ui-express
 ```
 
+Use it with Express:
 
-### Access your generated documentation
+```ts title='server.ts' showLineNumbers
+import { handler, initBridge } from 'bridge';
+import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 
-You'll be able to access your complete generated documentation on https://studio.bridge.codes soon.
+const openApiDocumentation = require('./openapi.json');
 
-Please visit https://bridge.codes/studio for more information.
+const routes = {
+  hello: handler({
+    resolve: () => 'Hello World',
+  }),
+};
+
+const port = 8080;
+const app = express();
+const bridge = initBridge({ routes });
+
+app.use('', bridge.expressMiddleware());
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openApiDocumentation));
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+```
+
+Your documentation is now available on http://localhost:8080/docs.
+
+### Fetch the typescript SDK anywhere
+
+You can simply download the typescript client code with the following command line:
+
+```bash title='terminal'
+npx fetch-bridge-sdk $serverUrl
+```
+
+You need to replace **serverUrl** with your serverUrl. For example "http://localhost:8080". 
+
+If you do not have axios and form-data installed in your project, the command line will automatically install them for you.
+
+The upcoming version of the command line will allow you to select your preferred HTTP client library, either axios or fetch, and the required packages will be automatically installed if they are not already present in your project.

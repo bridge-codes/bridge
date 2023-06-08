@@ -26,9 +26,7 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-  clientModules: [
-    require.resolve('./docusaurus.preferredTheme.js'),
-  ],
+  clientModules: [require.resolve('./docusaurus.preferredTheme.js')],
 
   presets: [
     [
@@ -41,8 +39,7 @@ const config = {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/bridge-codes/bridge/tree/main/www',
+          editUrl: 'https://github.com/bridge-codes/bridge/tree/main/www',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -106,10 +103,10 @@ const config = {
           to: 'docs/quickstart',
           label: 'Quickstart',
         },
-        {
-          to: '/studio',
-          label: 'Bridge Studio',
-        },
+        // {
+        //   to: '/studio',
+        //   label: 'Bridge Studio',
+        // },
         {
           href: 'https://github.com/bridge-codes/bridge',
           position: 'right',
@@ -128,7 +125,6 @@ const config = {
           className: 'header-social-link header-discord-link',
           'aria-label': 'Discord',
         },
-
       ],
     },
     footer: {
@@ -178,21 +174,24 @@ const config = {
     },
 
     metadata: [
-      { content: "https://bridge.codes/twitter.png", name: "twitter:image" },
-      { content: "https://bridge.codes/twitter.png", property: "og:image" },
-      { content: "The Typescript API framework that enhances developer productivity", name: "description" },
-      { content: "The Typescript API framework that enhances developer productivity", property: "og:description" },
-      { content: "max-snippet:-1, max-image-preview:large, max-video-preview:-1", name: "robots" },
-      { content: "width=device-width, initial-scale=1.0", name: "viewport" },
-      { content: "@vercel", name: "twitter:site" },
-      { content: "Bridge", name: "apple-mobile-web-app-title" },
-      { content: "var(--geist-background)", name: "theme-color" },
-      { content: "#000000", name: "msapplication-TileColor" },
+      { content: 'https://bridge.codes/twitter.png', name: 'twitter:image' },
+      { content: 'https://bridge.codes/twitter.png', property: 'og:image' },
+      {
+        content: 'The Typescript API framework that enhances developer productivity',
+        name: 'description',
+      },
+      {
+        content: 'The Typescript API framework that enhances developer productivity',
+        property: 'og:description',
+      },
+      { content: 'max-snippet:-1, max-image-preview:large, max-video-preview:-1', name: 'robots' },
+      { content: 'width=device-width, initial-scale=1.0', name: 'viewport' },
+      { content: '@vercel', name: 'twitter:site' },
+      { content: 'Bridge', name: 'apple-mobile-web-app-title' },
+      { content: 'var(--geist-background)', name: 'theme-color' },
+      { content: '#000000', name: 'msapplication-TileColor' },
     ],
-
   },
-
-
 };
 
 module.exports = config;

@@ -35,25 +35,25 @@ export default function Page() {
   </div>
 }
 
-const Documentation = () => {
+export const Documentation = () => {
   return (
     <div className="md:py-12 py-12">
       <div className="flex flex-col justify-center items-center max-w-6xl px-4 mx-auto">
         <img src="/studio/documentation-logo.svg" className="mb-4 w-20" />
         <h2 className="font-semibold text-3xl md:text-4xl text-white text-center md:px-12 px-8">Have an auto-generated documentation without writing any metadata.</h2>
         <img src="/studio/doc.svg" className="rounded-xl border border-white border-opacity-10 mt-16" />
-        <div className="grid grid-cols-12 md:gap-9 gap-4 md:mt-9 mt-6">
+        {/* <div className="grid grid-cols-12 md:gap-9 gap-4 md:mt-9 mt-6">
           <GitHubIntegration />
           <Team />
-        </div>
-        <div className="mx-auto mt-12">
+        </div> */}
+        {/* <div className="mx-auto mt-12">
           <ContinueWithGithubButton />
-        </div>
+        </div> */}
       </div>
     </div>
   )
 }
-const SDK1 = () => {
+export const SDK1 = () => {
   const [selected, setSelected] = useState(0)
 
   const firstPart = `import { API } from "./sdk"
@@ -386,7 +386,7 @@ const CustomCard = (props: CustomCardType) => {
 }
 
 
-const SDKPresentation = () => {
+export const SDKPresentation = () => {
   return (
     <div className="py-24 bg-[#010101]">
       <div className="mx-auto max-w-6xl px-4 relative">
@@ -399,9 +399,9 @@ const SDKPresentation = () => {
         <div className="mt-8 relative z-10">
           <LanguageCard />
         </div>
-        <div className="max-w-max mx-auto mt-12 relative pb-24 z-10">
+        {/* <div className="max-w-max mx-auto mt-12 relative pb-24 z-10">
           <ContinueWithGithubButton />
-        </div>
+        </div> */}
         <img src="/img/bg-lines.png" className="absolute -bottom-1/4 left-1/2 -translate-x-1/2" />
       </div>
     </div>
@@ -543,7 +543,7 @@ export const ContinueWithGithubButton = ({ customText }: { customText?: string }
   )
 }
 
-const TryItNow = () => {
+export const TryItNow = () => {
   const [copied, setCopied] = useState(false)
 
   const copyCommand = () => {
@@ -568,8 +568,8 @@ const TryItNow = () => {
       <div className="px-4 max-w-6xl mx-auto relative z-10">
         <div className='max-w-xl mx-auto w-full p-12 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-md'>
           <div className='mx-auto'>
-            <h3 className='text-white text-3xl text-center'>Try Bridge Studio CLI</h3>
-            <p className='text-base w-3/4 mx-auto font-medium text-center text-opacity-50 opacity-75 mb-2'>Go into your Bridge app folder and use the CLI "npx bridge-studio"</p>
+            <h3 className='text-white text-3xl text-center'>Try Bridge Compilation</h3>
+            <p className='text-base w-3/4 mx-auto font-medium text-center text-opacity-50 opacity-75 mb-2'>Go into your Bridge app folder and use the CLI "npx bridge-compilation"</p>
             <div>
 
               <div
@@ -581,7 +581,7 @@ const TryItNow = () => {
                   className="py-3 text-center text-white rounded-sm bg-[#0D0B0E] overflow-hidden"
                   style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`, borderRadius: 4 }}
                 >
-                  npx bridge-studio@latest
+                  npx bridge-compilation@latest
                 </div>
                 <div className="absolute p-1.5 text-white bg-white bg-opacity-0 -translate-y-1/2 border border-white hover:bg-opacity-20 border-opacity-0 rounded-md opacity-50 group-hover:border-opacity-20 hover:opacity-75 right-3 top-1/2">
                   {copied ? (

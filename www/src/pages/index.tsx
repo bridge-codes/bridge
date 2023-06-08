@@ -6,7 +6,7 @@ import { Code } from '../components/Code';
 import { NewsLetter } from '../components/Newsletter';
 import { NewCustomCode } from '../components/NewCode';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
-import { ContinueWithGithubButton } from './studio';
+import { SDKPresentation , SDK1, TryItNow, Documentation} from './studio';
 import { track } from "../analytics/mixpanel"
 
 export default function Home(): JSX.Element {
@@ -25,7 +25,18 @@ export default function Home(): JSX.Element {
             <FeaturesDemo />
           </div>
         </div>
-        <Studio />
+        <SDKPresentation/>
+        <SDK1/>
+        {/* <Studio /> */}
+        {/* <TryItNow/> */}
+        <Documentation/>
+        <div className='mt-24 rounded-md overflow-hidden'>
+        <h2 className='text-center text-white text-3xl mb-2'>Try it yourself!</h2>
+        <p className='text-neutral-300 text-center text-lg mt-2 mb-6'>Try out Bridge without leaving your browser!</p>
+        <div className='rounded-md overflow-hidden'>
+          <iframe src="https://stackblitz.com/edit/express-simple-nnaqkv?ctl=1&embed=1&file=index.ts&theme=dark&view=editor" className='w-full aspect-video' />
+        </div>
+      </div>
         <NewsLetter />
       </Layout>
     </div>
@@ -195,8 +206,8 @@ const HeroSection = () => {
           </h1>
           <p className="w-3/4 mx-auto mt-8 text-lg text-center text-white text-opacity-50 md:text-xl">
             {/* Because you deserve the best developer experience */}
-            Bridge aims to provide the best developer experience ever by simplifying the process of
-            developing and integrating APIs.
+            Bridge is a strongly typed framework that auto-generates the OpenAPI specification and fully-typed Typescript client code, without schema or .
+
           </p>
           <div
             onClick={() => {
@@ -249,15 +260,15 @@ const HeroSection = () => {
 
 const BridgeStudioBeta = ({ customText }: { customText?: string }) => {
   return (
-    <a href="/studio" className='max-w-max mx-auto group block hover:no-underline' onClick={() => {
+    <a href="/docs/quickstart" className='max-w-max mx-auto group block hover:no-underline' onClick={() => {
       track('Read more Bridge Studio click', {
-        text: customText || "Bridge Studio is on Beta"
+        text: customText || "Bridge is on Beta"
       })
 
     }}>
       <div className='max-w-max mx-auto rounded-full' style={{ padding: 1, background: `linear-gradient(263.08deg, #75E0A2 0%, rgba(117, 224, 162, 0.25) 21.88%, rgba(117, 224, 162, 0.9) 42.71%, rgba(244, 248, 92, 0.3) 65.1%, rgba(244, 248, 92, 0.9) 84.38%, rgba(244, 248, 92, 0.25) 100%)`, boxShadow: `0px 4px 34px 6px rgba(162, 255, 45, 0.25)` }}>
         <div className='bg-[#010101] group-hover:bg-opacity-90 duration-500 text-opacity-80 items-center hover:text-opacity-100 transition-all flex gap-1 rounded-full pl-6 pr-4 py-2 text-xs uppercase font-medium text-white' style={{ letterSpacing: 1.2 }}>
-          {customText ? customText : "Bridge Studio is on Beta"}
+          {customText ? customText : "Develop your first Bridge API"}
           <ChevronRightIcon className='w-4 h-4 text-white group-hover:translate-x-0.5 transition-all' />
         </div>
       </div>
@@ -509,13 +520,7 @@ bridge.HTTPServer().listen(8080, () => {
           </div>
         </div>
       </div>
-      <div className='mt-24 rounded-md overflow-hidden'>
-        <h2 className='text-center text-white text-3xl mb-2'>Try it yourself!</h2>
-        <p className='text-neutral-300 text-center text-lg mt-2 mb-6'>Try out Bridge without leaving your browser!</p>
-        <div className='rounded-md overflow-hidden'>
-          <iframe src="https://stackblitz.com/edit/express-simple-nnaqkv?ctl=1&embed=1&file=index.ts&theme=dark&view=editor" className='w-full aspect-video' />
-        </div>
-      </div>
+
     </div>
   );
 };
