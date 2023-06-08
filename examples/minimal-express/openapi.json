@@ -1,0 +1,55 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "minimal-express", "version": "Bridge: 1.0.0" },
+  "paths": {
+    "/hello": {
+      "post": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": { "enum": ["hello"], "type": "string" }
+              }
+            }
+          },
+          "400": {
+            "description": "BAD_REQUEST",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["name", "status", "data"],
+                  "properties": {
+                    "name": { "enum": ["Axios Error"], "type": "string" },
+                    "status": { "enum": [400], "type": "number" },
+                    "data": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_SERVER_ERROR",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["name", "status"],
+                  "properties": {
+                    "name": {
+                      "enum": ["Internal Server Error"],
+                      "type": "string"
+                    },
+                    "status": { "enum": [500], "type": "number" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

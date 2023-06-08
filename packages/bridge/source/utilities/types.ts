@@ -1,5 +1,11 @@
 import { BridgeHandler } from '../core/handlers';
 
+export type Pretify<T> = {
+  [K in keyof T]: T[K];
+} & {};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   k: infer I,
 ) => void
@@ -9,6 +15,8 @@ export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) ex
 export type KeysWithValNotNever<T> = keyof { [P in keyof T as T[P] extends never ? never : P]: P };
 
 export type ExcludeNeverKeys<T> = { [key in KeysWithValNotNever<T> & keyof T]: T[key] };
+
+export type ExcludeNeverKeysObj<T> = { [key in KeysWithValNotEmptyObject<T> & keyof T]: T[key] };
 
 export type KeysWithValNotEmptyObject<T> = keyof {
   [P in keyof T as keyof T[P] extends never ? never : P]: P;

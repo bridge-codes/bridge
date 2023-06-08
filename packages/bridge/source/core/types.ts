@@ -1,4 +1,4 @@
-import { KeysWithValNotEmptyObject, MidsReturnsIntersection, MidsParams } from '../utilities';
+import { MidsReturnsIntersection, MidsParams, ExcludeNeverKeysObj, Pretify } from '../utilities';
 import { DataParser, BridgeHandler, InferDataParser, FilesConfig } from './handlers';
 import { FormidableFile } from '../utilities';
 
@@ -19,26 +19,9 @@ export interface BridgeParams<
 }
 
 export type CreateHandler = <
-  Resolve extends (p: {
-    [key in KeysWithValNotEmptyObject<{
-      middlewares: MidsReturnsIntersection<Middelwares> extends never
-        ? {}
-        : MidsReturnsIntersection<Middelwares>;
-      body: (InferDataParser<Body> extends never ? {} : InferDataParser<Body>) &
-        (MidsParams<Middelwares>['body'] extends never ? {} : MidsParams<Middelwares>['body']);
-      query: (InferDataParser<Query> extends never ? {} : InferDataParser<Query>) &
-        (MidsParams<Middelwares>['query'] extends never ? {} : MidsParams<Middelwares>['query']);
-      headers: (InferDataParser<Headers> extends never ? {} : InferDataParser<Headers>) &
-        (MidsParams<Middelwares>['headers'] extends never
-          ? {}
-          : MidsParams<Middelwares>['headers']);
-      files: Files extends ['BridgeFilesDoNotExists']
-        ? {}
-        : Files extends 'any'
-        ? { [key: string]: FormidableFile }
-        : { [key in Files[number]]: FormidableFile };
-    }> &
-      keyof {
+  Resolve extends (
+    p: Pretify<
+      ExcludeNeverKeysObj<{
         middlewares: MidsReturnsIntersection<Middelwares> extends never
           ? {}
           : MidsReturnsIntersection<Middelwares>;
@@ -55,25 +38,9 @@ export type CreateHandler = <
           : Files extends 'any'
           ? { [key: string]: FormidableFile }
           : { [key in Files[number]]: FormidableFile };
-      }]: {
-      middlewares: MidsReturnsIntersection<Middelwares> extends never
-        ? {}
-        : MidsReturnsIntersection<Middelwares>;
-      body: (InferDataParser<Body> extends never ? {} : InferDataParser<Body>) &
-        (MidsParams<Middelwares>['body'] extends never ? {} : MidsParams<Middelwares>['body']);
-      query: (InferDataParser<Query> extends never ? {} : InferDataParser<Query>) &
-        (MidsParams<Middelwares>['query'] extends never ? {} : MidsParams<Middelwares>['query']);
-      headers: (InferDataParser<Headers> extends never ? {} : InferDataParser<Headers>) &
-        (MidsParams<Middelwares>['headers'] extends never
-          ? {}
-          : MidsParams<Middelwares>['headers']);
-      files: Files extends ['BridgeFilesDoNotExists']
-        ? {}
-        : Files extends 'any'
-        ? { [key: string]: FormidableFile }
-        : { [key in Files[number]]: FormidableFile };
-    }[key];
-  }) => Res,
+      }>
+    >,
+  ) => Res,
   Res,
   Body extends DataParser<Record<any, any>> = never,
   Query extends DataParser<Record<string, any>> = never,

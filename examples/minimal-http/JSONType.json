@@ -1,0 +1,12 @@
+{
+  "object": {
+    "hello": {
+      "object": {
+        "returnBridgeType": {
+          "data": { "optional": false, "primitive": "string" },
+          "error": { "union": [] }
+        }
+      }
+    }
+  }
+}

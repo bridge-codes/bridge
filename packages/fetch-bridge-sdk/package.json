@@ -1,10 +1,10 @@
 {
   "name": "fetch-bridge-sdk",
-  "version": "1.0.9",
+  "version": "1.0.12",
   "description": "Fetch Bridge SDK with one command",
   "author": "Bridge Team <support@bridge.codes>",
   "bin": {
-    "fetch-bridge-sdk": "./dist/bin/index.js"
+    "fetch-bridge-sdk": "./dist/index.js"
   },
   "files": [
     "/dist"

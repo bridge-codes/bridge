@@ -1,4 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
+import pathLib from 'path';
+import AdmZip from 'adm-zip';
+import { directoryExists } from '../../utilities';
 import { ErrorHandler } from '../../error';
 import {
   getJSONDataFromRequestStream,
@@ -36,6 +39,33 @@ export const createHttpHandler = (
         return res
           .writeHead(200, { 'Content-Type': 'application/json' })
           .end(JSON.stringify([...logs].reverse()));
+
+      if (path === '/sdk') {
+        const sdkPath = pathLib.join(process.cwd(), 'sdk');
+        const dirExists = directoryExists(sdkPath);
+
+        if (!dirExists)
+          return res.writeHead(500, { 'Content-Type': 'application/json' }).end(
+            JSON.stringify({
+              error: {
+                status: 500,
+                name: `The sdk folder doesn't exist. Use "npx bridge-compile@latest" to create it.`,
+              },
+            }),
+          );
+
+        const zip = new AdmZip();
+        zip.addLocalFolder(sdkPath);
+        const zipBuffer = zip.toBuffer();
+
+        return res
+          .writeHead(200, {
+            'Content-Type': 'application/octet-stream',
+            'Content-Disposition': 'attachment; filename=data.bin',
+            'Content-Length': zipBuffer.length,
+          })
+          .end(zipBuffer);
+      }
 
       const route = serverRoutes[path];
       const endpoint = route?.[req.method as Method];
