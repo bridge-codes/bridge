@@ -1,6 +1,6 @@
 {
   "name": "bridge-compile",
-  "version": "1.0.23",
+  "version": "1.0.29",
   "description": "Compile the sdk of your Bridge project with one command locally",
   "author": "Bridge Team <support@bridge.codes>",
   "bin": {
@@ -36,6 +36,7 @@
     "colors": "^1.4.0",
     "express": "^4.18.2",
     "form-data": "^4.0.0",
+    "minimist": "^1.2.8",
     "ora": "^3.4.0",
     "prettier": "^2.8.3",
     "prompts": "^2.4.2",

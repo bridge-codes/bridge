@@ -15,6 +15,8 @@ import { removeAddedCode } from './parser/remove-added-code';
 import { OpenAPIObject, JSONTypeI } from './types';
 import { convertJSONTypeObjectToOpenAPIPath } from './openapi';
 
+var argv = require('minimist')(process.argv.slice(2));
+
 type BridgeConfig = {
   serverUrl: string;
   typescript?: boolean;
@@ -96,6 +98,7 @@ const launch = async () => {
   }
 
   let bridgeConfig = getBridgeConfig();
+  if (argv._[0]) bridgeConfig = { serverUrl: argv._[0] };
   if (!bridgeConfig) bridgeConfig = await createBridgeConfigWithPrompt();
 
   const spinner = ora('Compiling your project').start();
@@ -104,7 +107,7 @@ const launch = async () => {
   // Start Compilation
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const { sourceFilePath, addedCode } = await findSourceFilePath('./');
+  const { sourceFilePath, addedCode } = await findSourceFilePath(path.join(process.cwd(), ''));
   if (!sourceFilePath) throw new Error('No source file detected');
 
   const JSONType = tsParser(sourceFilePath);
