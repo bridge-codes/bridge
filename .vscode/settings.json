@@ -3,7 +3,7 @@
   "editor.formatOnSave": true,
   // Auto-fix issues with ESLint when you save code changes
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "workbench.colorCustomizations": {
     "titleBar.activeBackground": "#291b25",

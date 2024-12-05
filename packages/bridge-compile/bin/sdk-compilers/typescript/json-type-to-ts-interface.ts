@@ -29,7 +29,7 @@ export const JSONTypeToTSInterface = (JSONType: JSONTypeI): string => {
     return (
       '{' +
       Object.entries(JSONType.object)
-        .map(([key, value]) => `${key}${value.optional ? '?' : ''}: ${JSONTypeToTSInterface(value)}`)
+        .map(([key, value]) => `"${key}"${value.optional ? '?' : ''}: ${JSONTypeToTSInterface(value)}`)
         .join(';') +
       '}'
     );

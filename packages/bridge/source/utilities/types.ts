@@ -30,7 +30,7 @@ type Values<T> = T[keyof T];
 
 type Unfoo<T> = T extends { foo: any } ? T['foo'] : never;
 
-type RemoveError<T> = T extends { error: any } ? never : T;
+type RemoveError<T> = T extends { error: any } | Promise<{ error: any }> ? never : T;
 
 type NFooWithoutError<T extends Readonly<BridgeHandler[]>> = {
   [K in keyof T]: T[K] extends BridgeHandler<(arg: any) => infer Output, any>
